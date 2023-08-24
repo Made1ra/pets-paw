@@ -3,12 +3,16 @@ import LeftContent from './LeftContent';
 import Logo from './Logo';
 import Welcome from './Welcome';
 
-function Breeds() {
+type BreedsProps = {
+    $isActive: number;
+};
+
+function Breeds({ $isActive }: BreedsProps) {
     return (
         <Container>
             <LeftContent>
                 <Logo />
-                <Welcome />
+                <Welcome $isActive={$isActive} />
             </LeftContent>
         </Container>
     );
