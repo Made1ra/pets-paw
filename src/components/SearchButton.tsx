@@ -17,9 +17,13 @@ const StyledSearchButton = styled.button`
     }
 `;
 
-function SearchButton() {
+type SearchButtonProps = {
+    onClick: () => void;
+};
+
+function SearchButton({ onClick }: SearchButtonProps) {
     return (
-        <StyledSearchButton />
+        <StyledSearchButton onClick={onClick} />
     );
 }
 

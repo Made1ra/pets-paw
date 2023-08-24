@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const TextContainer = styled.div`
+const TextContainer = styled.div<{ $isActive: boolean }>`
     display: flex;
     align-items: center;
     
@@ -9,7 +9,7 @@ const TextContainer = styled.div`
     flex-shrink: 0;
 
     border-radius: 0.625rem;
-    background: #FFF;
+    background: ${props => props.$isActive ? '#FF868E' : '#FFF'};
 
     &:hover {
         background: #FBE0DC;
@@ -20,10 +20,10 @@ const TextContainer = styled.div`
     }
 `;
 
-const StyledText = styled.p`
+const StyledText = styled.p<{ $isActive: boolean }>`
     width: 8.625rem;
 
-    color: #FF868E;
+    color: ${props => props.$isActive ? '#FFF' : '#FF868E'};
     text-align: center;
     font-family: Jost;
     font-size: 0.75rem;
@@ -41,12 +41,13 @@ const StyledText = styled.p`
 
 type TextProps = {
     children?: string;
+    $isActive: boolean;
 };
 
-function TextButton({ children }: TextProps) {
+function TextButton({ children, $isActive }: TextProps) {
     return (
-        <TextContainer>
-            <StyledText>{children}</StyledText>
+        <TextContainer $isActive={$isActive}>
+            <StyledText $isActive={$isActive}>{children}</StyledText>
         </TextContainer>
     );
 }

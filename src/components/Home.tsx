@@ -5,12 +5,16 @@ import Welcome from './Welcome';
 import RightContent from './RightContent';
 import GirlAndPet from './GirlAndPet'
 
-function Home() {
+type HomeProps = {
+    $isActive: number;
+};
+
+function Home({ $isActive }: HomeProps) {
     return (
         <Container>
             <LeftContent>
                 <Logo />
-                <Welcome />
+                <Welcome $isActive={$isActive} />
             </LeftContent>
             <RightContent>
                 <GirlAndPet />

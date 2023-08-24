@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import TextInput from './TextInput';
 import SearchButton from './SearchButton';
@@ -14,7 +15,8 @@ const StyledSearchBar = styled.div`
     align-items: center;
     justify-content: space-between;
     background: #FFF;
-    
+    margin: 1rem 0.5rem;
+
     &:hover {
         border: 2px solid #FBE0DC;
     }
@@ -24,11 +26,24 @@ const StyledSearchBar = styled.div`
     }
 `;
 
-function SearchBar() {
+type SearchBarProps = {
+    onSearch: (searchTerm: string) => void;
+};
+
+function SearchBar({ onSearch }: SearchBarProps) {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearch = () => {
+        onSearch(searchTerm);
+    };
+
     return (
         <StyledSearchBar>
-            <TextInput />
-            <SearchButton />
+            <TextInput
+                value={searchTerm}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+            />
+            <SearchButton onClick={() => handleSearch()} />
         </StyledSearchBar>
     );
 }
