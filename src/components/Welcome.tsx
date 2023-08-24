@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import voteTable from '../assets/vote-table.svg';
 import petBreeds from '../assets/pet-breeds.svg';
@@ -43,7 +44,11 @@ const RectanglesContainer = styled.div`
     }
 `;
 
-function Welcome() {
+type WelcomeProps = {
+    $isActive: number;
+};
+
+function Welcome({ $isActive }: WelcomeProps) {
     const rectangles = [
         {
             backgroundColor: '#B4B7FF',
@@ -69,13 +74,18 @@ function Welcome() {
             <br />
             <LetsStartParagraph>Lets start using The Cat API</LetsStartParagraph>
             <RectanglesContainer>
-                {rectangles.map((rectangle) => (
+                {rectangles.map((rectangle, i) => (
                     <div key={rectangle.text}>
                         <Rectangle
                             $backgroundColor={rectangle.backgroundColor}
                             $url={rectangle.url}
                         />
-                        <TextButton>{rectangle.text}</TextButton>
+                        <Link
+                            to={`/${rectangle.text.toLowerCase()}`}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <TextButton $isActive={$isActive === i + 1}>{rectangle.text}</TextButton>
+                        </Link>
                     </div>
                 ))}
             </RectanglesContainer>

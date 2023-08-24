@@ -16,9 +16,18 @@ const StyledTextInput = styled.input`
     }
 `;
 
-function TextInput() {
+type TextInputProps = {
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+function TextInput({ value, onChange }: TextInputProps) {
     return (
-        <StyledTextInput placeholder="Search for breeds by name" />
+        <StyledTextInput
+            placeholder="Search for breeds by name"
+            value={value}
+            onChange={onChange}
+        />
     );
 }
 

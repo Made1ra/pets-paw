@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledLink = styled.div<{ $isHovered: boolean, $backgroundColor: string }>`
@@ -32,17 +33,22 @@ function SmallLink({ $backgroundColor, $imageTitle }: SmallLinkProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <StyledLink
-            $isHovered={isHovered}
-            $backgroundColor={$backgroundColor}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+        <Link
+            to="/"
+            style={{ textDecoration: 'none' }}
         >
-            <LinkImage
+            <StyledLink
                 $isHovered={isHovered}
-                $imageTitle={$imageTitle}
-            />
-        </StyledLink>
+                $backgroundColor={$backgroundColor}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                <LinkImage
+                    $isHovered={isHovered}
+                    $imageTitle={$imageTitle}
+                />
+            </StyledLink>
+        </Link>
     );
 }
 

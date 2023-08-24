@@ -3,13 +3,15 @@ import styled from 'styled-components';
 const TextContainer = styled.div<{ $isActive: boolean }>`
     display: flex;
     align-items: center;
-    
-    width: 8.625rem;
-    height: 2.25rem;
+    justify-content: center;
+
+    width: 9.125rem;
+    height: 2.5rem;
     flex-shrink: 0;
 
     border-radius: 0.625rem;
     background: ${props => props.$isActive ? '#FF868E' : '#FFF'};
+    margin-left: 0.5rem;
 
     &:hover {
         background: #FBE0DC;
@@ -21,15 +23,15 @@ const TextContainer = styled.div<{ $isActive: boolean }>`
 `;
 
 const StyledText = styled.p<{ $isActive: boolean }>`
-    width: 8.625rem;
+    width: 5.375rem;
 
-    color: ${props => props.$isActive ? '#FFF' : '#FF868E'};
+    color: #FFF;
     text-align: center;
     font-family: Jost;
-    font-size: 0.75rem;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 500;
-    line-height: 1rem;
+    line-height: 1.875rem;
     letter-spacing: 0.125rem;
 
     text-transform: uppercase;
@@ -44,7 +46,7 @@ type TextProps = {
     $isActive: boolean;
 };
 
-function TextButton({ children, $isActive }: TextProps) {
+function LargeTextButton({ children, $isActive }: TextProps) {
     return (
         <TextContainer $isActive={$isActive}>
             <StyledText $isActive={$isActive}>{children}</StyledText>
@@ -52,4 +54,4 @@ function TextButton({ children, $isActive }: TextProps) {
     );
 }
 
-export default TextButton;
+export default LargeTextButton;

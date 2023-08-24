@@ -1,35 +1,24 @@
 import styled from 'styled-components';
 
-const StyledLink = styled.div`
+const StyledLink = styled.div<{ $imageTitle: string }>`
     width: 3.75rem;
     height: 3.75rem;
     flex-shrink: 0;
 
     border-radius: 1.25rem;
-    background: #FFF;
+    background: url(src/assets/${props => props.$imageTitle}-30.svg) center no-repeat, #FFF;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 1rem 0.75rem;
 
     &:hover {
-        background: #FBE0DC;
+        background: url(src/assets/${props => props.$imageTitle}-30.svg) center no-repeat, #FBE0DC;
     }
 
     &:active {
-        background: #FF868E;
-    }
-`;
-
-const LinkImage = styled.div<{ $imageTitle: string }>`
-    width: 1.875rem;
-    height: 1.875rem;
-    flex-shrink: 0;
-
-    background: url(src/assets/${props => props.$imageTitle}-30.svg);
-
-    &:active {
-        background: url(src/assets/${props => props.$imageTitle}-white-30.svg);
+        background: url(src/assets/${props => props.$imageTitle}-white-30.svg) center no-repeat, #FF868E;
     }
 `;
 
@@ -39,9 +28,9 @@ export type LinkProps = {
 
 function Link({ $imageTitle }: LinkProps) {
     return (
-        <StyledLink>
-            <LinkImage $imageTitle={$imageTitle} />
-        </StyledLink>
+        <StyledLink
+            $imageTitle={$imageTitle}
+        />
     );
 }
 
