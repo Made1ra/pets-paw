@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { API_KEY } from '../apiKey';
 import Container from './Container';
 import LeftContent from './LeftContent';
 import Logo from './Logo';
@@ -82,6 +81,7 @@ type VotingProps = {
 };
 
 function Voting({ $isActive }: VotingProps) {
+    const API_KEY = import.meta.env.VITE_API_KEY;
     const [breeds, setBreeds] = useState<{ name: string, image: { url: string } }[]>([]);
 
     const searchBreeds = async (searchTerm: string) => {
