@@ -1,20 +1,9 @@
 {
     "routes": [
         {
-            "src": "/",
-            "dest": "/"
-        },
-        {
-            "src": "/voting",
-            "dest": "/"
-        },
-        {
-            "src": "/breeds",
-            "dest": "/"
-        },
-        {
-            "src": "/gallery",
-            "dest": "/"
+            "src": "/[^.]+",
+            "dest": "/",
+            "status": 200
         }
     ]
 }
