@@ -3,12 +3,13 @@ import fav from '../assets/fav-30.svg';
 import favWhite from '../assets/fav-white-30.svg';
 import favFullWhite from '../assets/fav-full-white-30.svg';
 
-const StyledFavoriteButton = styled.div`
+const StyledFavouriteButton = styled.div`
     width: 5rem;
     height: 5rem;
     background: url(${favWhite}) center no-repeat, #FF868E;
     margin: 0 0.25rem;
-
+    cursor: pointer;
+    
     &:hover {
         background: url(${fav}) center no-repeat, #FF868E4D;
     }
@@ -18,10 +19,14 @@ const StyledFavoriteButton = styled.div`
     }
 `;
 
-function FavoriteButton() {
+type FavouriteButtonProps = {
+    onClick: () => void;
+};
+
+function FavouriteButton({ onClick }: FavouriteButtonProps) {
     return (
-        <StyledFavoriteButton />
+        <StyledFavouriteButton onClick={onClick} />
     );
 }
 
-export default FavoriteButton;
+export default FavouriteButton;

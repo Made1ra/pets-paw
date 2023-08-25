@@ -11,7 +11,8 @@ const StyledSearchButton = styled.button`
     border-radius: 0.625rem;
     background: url(${search}) center no-repeat, #FBE0DC;
     margin-right: 1rem;
-
+    cursor: pointer;
+    
     &:hover {
         background: url(${searchWhite}) center no-repeat, #FF868E;
     }

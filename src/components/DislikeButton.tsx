@@ -7,15 +7,20 @@ const StyledDislikeButton = styled.div`
     height: 5rem;
     background: url(${dislikeWhite}) center no-repeat, #FFD280;
     border-radius: 0 1rem 1rem 0;
-
+    cursor: pointer;
+    
     &:hover {
         background: url(${dislikeColor}) center no-repeat, #FFD2804D;
     }
 `;
 
-function DislikeButton() {
+type DislikeButtonProps = {
+    onClick: () => void;
+};
+
+function DislikeButton({ onClick }: DislikeButtonProps) {
     return (
-        <StyledDislikeButton />
+        <StyledDislikeButton onClick={onClick} />
     );
 }
 

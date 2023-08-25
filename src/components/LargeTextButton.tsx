@@ -12,7 +12,8 @@ const TextContainer = styled.div<{ $isActive: boolean }>`
     border-radius: 0.625rem;
     background: ${props => props.$isActive ? '#FF868E' : '#FFF'};
     margin-left: 0.5rem;
-
+    cursor: pointer;
+    
     &:hover {
         background: #FBE0DC;
     }
