@@ -1,3 +1,5 @@
+import { useSelector } from 'react-redux';
+import { selectBreeds } from '../store';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Container from './Container';
@@ -9,7 +11,7 @@ import Link from './Link';
 import SmallLink from './SmallLink';
 import LargeTextButton from './LargeTextButton';
 import Controls from './Controls';
-
+import ActionMessage from './ActionMessage';
 
 const RightContentContainer = styled.div`
     flex: 1;
@@ -81,8 +83,10 @@ type VotingProps = {
 };
 
 function Voting({ $isActive }: VotingProps) {
+    const breeds = useSelector(selectBreeds);
+
     const API_KEY = import.meta.env.VITE_API_KEY;
-    const [breeds, setBreeds] = useState<{ name: string, image: { url: string } }[]>([]);
+    const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
 
     const searchBreeds = async (searchTerm: string) => {
         const response = await fetch(`https://api.thecatapi.com/v1/breeds/search?q=${searchTerm}`, {
@@ -92,7 +96,7 @@ function Voting({ $isActive }: VotingProps) {
         });
 
         const data = await response.json();
-        setBreeds(data);
+        setSearchedBreeds(data);
     };
 
     return (
@@ -117,12 +121,21 @@ function Voting({ $isActive }: VotingProps) {
                         <LargeTextButton $isActive={true}>VOTING</LargeTextButton>
                     </NavigationContainer>
                     <ImageContainer>
-                        <Image $url={breeds.length > 0 ? `${breeds[0].image.url}` : ''} />
+                        <Image $url={searchedBreeds.length > 0 ? `${searchedBreeds[0].image.url}` : ''} />
                         <ControlsContainer>
-                            <Controls />
+                            <Controls reference_image_id={searchedBreeds.length > 0 ? searchedBreeds[0].reference_image_id : ''} />
                         </ControlsContainer>
                     </ImageContainer>
-
+                    {
+                        breeds.slice().reverse().map((breed, i) => (
+                            <ActionMessage
+                                key={i}
+                                reference_image_id={breed.reference_image_id}
+                                category={breed.category}
+                                dateOfEditing={breed.dateOfEditing}
+                            />
+                        ))
+                    }
                 </ActionsContainer>
             </RightContentContainer>
         </Container>

@@ -13,6 +13,8 @@ const StyledLink = styled.div<{ $imageTitle: string }>`
     justify-content: center;
     margin: 1rem 0.75rem;
 
+    cursor: pointer;
+
     &:hover {
         background: url(src/assets/${props => props.$imageTitle}-30.svg) center no-repeat, #FBE0DC;
     }

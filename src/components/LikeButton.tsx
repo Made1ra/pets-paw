@@ -3,6 +3,7 @@ import likeWhite from '../assets/like-white-30.svg';
 import likeColor from '../assets/like-color-30.svg';
 
 const StyledLikeButton = styled.div`
+    cursor: pointer;
     width: 5rem;
     height: 5rem;
     background: url(${likeWhite}) center no-repeat, #97EAB9;
@@ -13,9 +14,13 @@ const StyledLikeButton = styled.div`
     }
 `;
 
-function LikeButton() {
+type LikeButtonProps = {
+    onClick: () => void;
+};
+
+function LikeButton({ onClick }: LikeButtonProps) {
     return (
-        <StyledLikeButton />
+        <StyledLikeButton onClick={onClick} />
     );
 }
 

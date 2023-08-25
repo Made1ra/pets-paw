@@ -1,7 +1,9 @@
+import { useSelector } from 'react-redux';
+import { Breed, selectBreeds } from '../store';
 import styled from 'styled-components';
-// import likeColor from '../assets/like-color-20.svg';
-// import favColor from '../assets/fav-20.svg';
-// import dislikeColor from '../assets/dislike-color-20.svg';
+import likeColor from '../assets/like-color-20.svg';
+import favColor from '../assets/fav-20.svg';
+import dislikeColor from '../assets/dislike-color-20.svg';
 
 const StyledActionMessage = styled.div`
     width: 40rem;
@@ -10,6 +12,11 @@ const StyledActionMessage = styled.div`
 
     border-radius: 0.625rem;
     background: #F8F8F7;
+    display: flex;
+    flex-direction: row;
+    align-items: center;   
+    justify-content: space-between;
+    padding: 0 1rem;
 `;
 
 const Time = styled.div`
@@ -21,15 +28,18 @@ const Time = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 1.5rem;
+    margin-right: 2rem;
 `;
 
 const Text = styled.div`
+    width: 100%;
     color: #8C8C8C;
     font-family: Jost;
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5rem;
+    display: flex;
 `;
 
 const BoldText = styled.div`
@@ -39,29 +49,34 @@ const BoldText = styled.div`
     font-style: normal;
     font-weight: 500;
     line-height: 1.5rem;
+    display: flex;
+    margin: 0 0.5rem;
 `;
 
 const Image = styled.div<{ $url: string }>`
     width: 1.25rem;
     height: 1.25rem;
     flex-shrink: 0;
-
     background: url(${props => props.$url}) center no-repeat;
 `;
 
-type ActionMessageProps = {
-    time: string;
-    imageId: string;
-    url: string;
-    action: string;
-};
+function ActionMessage({ dateOfEditing, reference_image_id, category }: Breed) {
+    const breeds = useSelector(selectBreeds);
+    const filteredBreeds = breeds.filter((breed) => breed.reference_image_id === reference_image_id)
+    let url = '';
+    if (category === 'Likes') {
+        url = likeColor;
+    } else if (category === 'Favourites') {
+        url = favColor;
+    } else if (category === 'Dislikes') {
+        url = dislikeColor;
+    }
 
-function ActionMessage({ time, imageId, url, action }: ActionMessageProps) {
     return (
         <StyledActionMessage>
-            <Time>{time}</Time>
+            <Time>{dateOfEditing}</Time>
             <Text>
-                Image ID: <BoldText>{imageId}</BoldText> was {action} to
+                Image ID:<BoldText>{reference_image_id}</BoldText>was {filteredBreeds.length > 0 ? 'added to ' : 'removed from'}{category}
             </Text>
             <Image $url={url} />
         </StyledActionMessage>
