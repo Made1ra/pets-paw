@@ -1,10 +1,33 @@
-import { createSlice, configureStore, createSelector } from '@reduxjs/toolkit';
+import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit';
+
+export type Category = 'Likes' | 'Favourites' | 'Dislikes';
 
 export type Breed = {
     reference_image_id: string;
     dateOfEditing?: string;
-    category?: string;
+    category?: Category;
 };
+
+export type Action = 'added to' | 'removed from';
+
+export type Log = {
+    reference_image_id: string;
+    dateOfEditing: string;
+    category: Category;
+    action: Action;
+};
+
+const logsSlice = createSlice({
+    name: 'logs',
+    initialState: {
+        logs: [] as Breed[]
+    },
+    reducers: {
+        addLog: (state, action) => {
+            state.logs.push(action.payload);
+        }
+    }
+});
 
 const breedsSlice = createSlice({
     name: 'breeds',
@@ -18,22 +41,22 @@ const breedsSlice = createSlice({
             }
         },
         removeBreed: (state, action) => {
-            state.breeds = state.breeds.filter((breed) => breed.reference_image_id !== action.payload);
-        },
+            state.breeds = state.breeds.filter((breed) => breed.reference_image_id === action.payload);
+        }
     }
 });
 
+export const { addLog } = logsSlice.actions;
+
 export const { addBreed, removeBreed } = breedsSlice.actions;
 
-const selectSelf = (state: { breeds: Breed[] }) => state;
-
-export const selectBreeds = createSelector(
-    selectSelf,
-    (state) => state.breeds || []
-);
+const rootReducer = combineReducers({
+    breeds: breedsSlice.reducer,
+    logs: logsSlice.reducer
+});
 
 const store = configureStore({
-    reducer: breedsSlice.reducer
+    reducer: rootReducer
 });
 
 export default store;

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Breed, selectBreeds, addBreed, removeBreed } from '../store';
+import { Breed, addBreed, removeBreed, addLog } from '../store';
 import { formatDate } from '../utilities/formatDate';
 import styled from 'styled-components';
 import LikeButton from './LikeButton';
@@ -17,15 +17,22 @@ const StyledControls = styled.div`
 `;
 
 function Controls({ reference_image_id }: Breed) {
-    const breeds = useSelector(selectBreeds);
+    const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
     const dispatch = useDispatch();
 
     const handleClick = (category: string, reference_image_id: string) => {
-        const filteredBreeds = breeds.filter((breed) => breed.reference_image_id === reference_image_id)
-        if (filteredBreeds.length === 0) {
+        const filteredBreeds = breeds.find((breed) => breed.reference_image_id === reference_image_id);
+        if (!filteredBreeds) {
             dispatch(addBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category }))
-        } else if (filteredBreeds.length > 0) {
-            dispatch(removeBreed({ reference_image_id, category }))
+            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'added to' }))
+        } else if (filteredBreeds && filteredBreeds.category !== category) {
+            dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category }))
+            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: filteredBreeds.category, action: 'removed from' }))
+            dispatch(addBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category }))
+            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'added to' }))
+        } else {
+            dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category }))
+            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'removed from' }))
         }
     };
 

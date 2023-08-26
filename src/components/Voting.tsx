@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectBreeds } from '../store';
+import { Log } from '../store';
 import { useState } from 'react';
 import styled from 'styled-components';
 import Container from './Container';
@@ -20,7 +20,7 @@ const RightContentContainer = styled.div`
     align-items: flex-start;
 
     @media (max-width: 768px) {
-        margin-left: 6.5rem;
+        align-items: center;
     }
 `;
 
@@ -83,7 +83,7 @@ type VotingProps = {
 };
 
 function Voting({ $isActive }: VotingProps) {
-    const breeds = useSelector(selectBreeds);
+    const logs = useSelector((state: { logs: { logs: Log[] } }) => state.logs.logs);
 
     const API_KEY = import.meta.env.VITE_API_KEY;
     const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
@@ -108,16 +108,13 @@ function Voting({ $isActive }: VotingProps) {
             <RightContentContainer>
                 <SearchBarContainer>
                     <SearchBar onSearch={searchBreeds} />
-                    <Link $imageTitle="like" />
-                    <Link $imageTitle="fav" />
-                    <Link $imageTitle="dislike" />
+                    <Link imageTitle="like" />
+                    <Link imageTitle="fav" />
+                    <Link imageTitle="dislike" />
                 </SearchBarContainer>
                 <ActionsContainer>
                     <NavigationContainer>
-                        <SmallLink
-                            $backgroundColor="#FBE0DC"
-                            $imageTitle="back"
-                        />
+                        <SmallLink />
                         <LargeTextButton $isActive={true}>VOTING</LargeTextButton>
                     </NavigationContainer>
                     <ImageContainer>
@@ -127,13 +124,16 @@ function Voting({ $isActive }: VotingProps) {
                         </ControlsContainer>
                     </ImageContainer>
                     {
-                        breeds.slice().reverse().map((breed, i) => (
+                        logs.length > 0 && logs.slice().reverse().map((log, i) => (
+                            // i < 4 && (
                             <ActionMessage
                                 key={i}
-                                reference_image_id={breed.reference_image_id}
-                                category={breed.category}
-                                dateOfEditing={breed.dateOfEditing}
+                                reference_image_id={log.reference_image_id}
+                                category={log.category}
+                                dateOfEditing={log.dateOfEditing}
+                                action={log.action}
                             />
+                            // )
                         ))
                     }
                 </ActionsContainer>

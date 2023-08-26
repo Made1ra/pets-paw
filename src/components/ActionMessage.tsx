@@ -1,5 +1,4 @@
-import { useSelector } from 'react-redux';
-import { Breed, selectBreeds } from '../store';
+import { Log } from '../store';
 import styled from 'styled-components';
 import likeColor from '../assets/like-color-20.svg';
 import favColor from '../assets/fav-20.svg';
@@ -60,9 +59,7 @@ const Image = styled.div<{ $url: string }>`
     background: url(${props => props.$url}) center no-repeat;
 `;
 
-function ActionMessage({ dateOfEditing, reference_image_id, category }: Breed) {
-    const breeds = useSelector(selectBreeds);
-    const filteredBreeds = breeds.filter((breed) => breed.reference_image_id === reference_image_id)
+function ActionMessage({ dateOfEditing, reference_image_id, category, action }: Log) {
     let url = '';
     if (category === 'Likes') {
         url = likeColor;
@@ -71,12 +68,12 @@ function ActionMessage({ dateOfEditing, reference_image_id, category }: Breed) {
     } else if (category === 'Dislikes') {
         url = dislikeColor;
     }
-
+    
     return (
         <StyledActionMessage>
             <Time>{dateOfEditing}</Time>
             <Text>
-                Image ID:<BoldText>{reference_image_id}</BoldText>was {filteredBreeds.length > 0 ? 'added to ' : 'removed from'}{category}
+                Image ID:<BoldText>{reference_image_id}</BoldText>was {action} {category}
             </Text>
             <Image $url={url} />
         </StyledActionMessage>
