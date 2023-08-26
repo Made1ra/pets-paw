@@ -5,10 +5,6 @@ const StyledLeftContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
-    @media (max-width: 768px) {
-        margin-left: 1rem;
-    }
 `;
 
 type LeftContentProps = {

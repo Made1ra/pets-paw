@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import back from '../assets/back-20.svg';
 import backWhite from '../assets/back-white-20.svg';
 
-const StyledPreviousButton = styled.button<{ $isHovered: boolean, $isDisabled: boolean }>`
+const StyledPreviousButton = styled.button`
     display: flex;
     padding: 0.75rem 1.875rem;
     flex-direction: column;
@@ -13,31 +12,27 @@ const StyledPreviousButton = styled.button<{ $isHovered: boolean, $isDisabled: b
 
     border-radius: 0.625rem;
     border: none;
-    background: ${props => props.$isHovered ? '#FF868E' : '#FBE0DC'};
-    background: ${props => props.$isDisabled && '#F8F8F7'};
+    background: #FBE0DC;
+
+    &:hover {
+        background: #FF868E;
+    }
 `;
 
-const Back = styled.div<{ $isHovered: boolean }>`
+const Back = styled.div`
     width: 1rem;
     height: 1rem;
-    background: url(${props => props.$isHovered ? backWhite : back}) center no-repeat;
+    background: url(${back}) center no-repeat;
+
+    &:hover {
+        background: url(${backWhite}) center no-repeat;
+    }
 `;
 
-type PreviousButtonProps = {
-    $isDisabled: boolean;
-};
-
-function PreviousButton({ $isDisabled }: PreviousButtonProps) {
-    const [isHovered, setIsHovered] = useState(false);
-
+function PreviousButton() {
     return (
-        <StyledPreviousButton
-            $isHovered={isHovered}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            $isDisabled={$isDisabled}
-        >
-            <Back $isHovered={isHovered} />
+        <StyledPreviousButton>
+            <Back />
         </StyledPreviousButton>
     );
 }

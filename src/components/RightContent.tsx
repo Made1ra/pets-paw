@@ -5,6 +5,7 @@ const StyledRightContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    margin-right: -8.5rem;
 `;
 
 type RightContentProps = {
