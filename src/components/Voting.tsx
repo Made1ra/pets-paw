@@ -84,7 +84,7 @@ type VotingProps = {
 
 function Voting({ $isActive }: VotingProps) {
     const API_KEY = import.meta.env.VITE_API_KEY;
-    console.log(API_KEY);
+    
     const logs = useSelector((state: { logs: { logs: Log[] } }) => state.logs.logs);
 
     const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
