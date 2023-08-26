@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import dropdown from '../assets/dropdown-12.svg';
 import LeftContent from './LeftContent';
+import Dropdown from './Dropdown';
 
 const StyledSelect = styled.div`
     width: 14.125rem;
@@ -15,6 +15,7 @@ const StyledSelect = styled.div`
     justify-content: flex-end;
 
     padding: 1rem;
+    margin-left: 0.5rem;
 
     &:hover {
         border: 2px solid #FBE0DC;
@@ -28,14 +29,6 @@ const TextSelect = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 1.5rem;
-`;
-
-const Dropdown = styled.div`
-    width: 0.75rem;
-    height: 0.75rem;
-    flex-shrink: 0;
-
-    background: url(${dropdown}) center no-repeat;
 `;
 
 function BreedsSelect() {

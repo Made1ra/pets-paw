@@ -1,11 +1,12 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Log } from '../store';
-import { useState } from 'react';
 import styled from 'styled-components';
 import Container from './Container';
 import LeftContent from './LeftContent';
 import Logo from './Logo';
 import Welcome from './Welcome';
+import SearchBarContainer from './SearchBarContainer';
 import SearchBar from './SearchBar';
 import Link from './Link';
 import SmallLink from './SmallLink';
@@ -22,12 +23,6 @@ const RightContentContainer = styled.div`
     @media (max-width: 768px) {
         align-items: center;
     }
-`;
-
-const SearchBarContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-right: 1rem;
 `;
 
 const ActionsContainer = styled.div`
@@ -84,7 +79,7 @@ type VotingProps = {
 
 function Voting({ $isActive }: VotingProps) {
     const API_KEY = import.meta.env.VITE_API_KEY;
-    
+
     const logs = useSelector((state: { logs: { logs: Log[] } }) => state.logs.logs);
 
     const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
