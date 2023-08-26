@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import sortRevert from '../assets/sort-revert-20.svg';
 import sortRevertColor from '../assets/sort-revert-color-20.svg';
+import { SortButtonProps } from './SortButton';
 
 const StyledSortButton = styled.button<{ $isHovered: boolean }>`
     width: 2.5rem;
@@ -15,6 +16,8 @@ const StyledSortButton = styled.button<{ $isHovered: boolean }>`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    margin-left: 0.5rem;
 `;
 
 const SortImage = styled.div<{ $isHovered: boolean }>`
@@ -25,7 +28,7 @@ const SortImage = styled.div<{ $isHovered: boolean }>`
     background: url(${props => props.$isHovered ? sortRevertColor : sortRevert});
 `;
 
-function SortRevertButton() {
+function SortRevertButton({ onClick }: SortButtonProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -33,6 +36,7 @@ function SortRevertButton() {
             $isHovered={isHovered}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={onClick}
         >
             <SortImage $isHovered={isHovered} />
         </StyledSortButton>

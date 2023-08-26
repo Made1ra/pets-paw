@@ -15,6 +15,8 @@ const StyledSortButton = styled.button<{ $isHovered: boolean }>`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    margin-left: 0.5rem;
 `;
 
 const SortImage = styled.div<{ $isHovered: boolean }>`
@@ -25,7 +27,11 @@ const SortImage = styled.div<{ $isHovered: boolean }>`
     background: url(${props => props.$isHovered ? sortColor : sort});
 `;
 
-function SortButton() {
+export type SortButtonProps = {
+    onClick?: () => void;
+};
+
+function SortButton({ onClick }: SortButtonProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -33,6 +39,7 @@ function SortButton() {
             $isHovered={isHovered}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={onClick}
         >
             <SortImage $isHovered={isHovered} />
         </StyledSortButton>
