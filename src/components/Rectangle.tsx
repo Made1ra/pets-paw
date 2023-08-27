@@ -5,6 +5,7 @@ const RectangleContainer = styled.div`
     flex-direction: column;
     margin-right: 1rem;
     margin-bottom: 0.5rem;
+    cursor: pointer;
 `;
 
 const StyledRectangle = styled.div<{ $backgroundColor: string }>`

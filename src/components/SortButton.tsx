@@ -15,7 +15,7 @@ const StyledSortButton = styled.button<{ $isHovered: boolean }>`
     display: flex;
     align-items: center;
     justify-content: center;
-
+    cursor: pointer;
     margin-left: 0.5rem;
 `;
 

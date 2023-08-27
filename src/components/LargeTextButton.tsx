@@ -5,7 +5,7 @@ const TextContainer = styled.div<{ $isActive: boolean }>`
     align-items: center;
     justify-content: center;
 
-    width: 9.125rem;
+    width: fit-content;
     height: 2.5rem;
     flex-shrink: 0;
 
@@ -24,7 +24,7 @@ const TextContainer = styled.div<{ $isActive: boolean }>`
 `;
 
 const StyledText = styled.p<{ $isActive: boolean }>`
-    width: 5.375rem;
+    width: fit-content;
 
     color: #FFF;
     text-align: center;
@@ -34,7 +34,7 @@ const StyledText = styled.p<{ $isActive: boolean }>`
     font-weight: 500;
     line-height: 1.875rem;
     letter-spacing: 0.125rem;
-
+    padding: 0 2rem;
     text-transform: uppercase;
 
     &:active {

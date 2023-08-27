@@ -1,7 +1,14 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import TextInput from './TextInput';
 import SearchButton from './SearchButton';
+
+const SearchBarContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-right: 1rem;
+`;
 
 const StyledSearchBar = styled.div`
     width: 29.375rem;
@@ -27,24 +34,33 @@ const StyledSearchBar = styled.div`
 `;
 
 type SearchBarProps = {
-    onSearch: (searchTerm: string) => void;
+    onSearch?: (searchTerm: string) => void;
 };
 
 function SearchBar({ onSearch }: SearchBarProps) {
     const [searchTerm, setSearchTerm] = useState('');
 
     const handleSearch = () => {
-        onSearch(searchTerm);
+        if (onSearch) {
+            onSearch(searchTerm);
+        }
     };
 
     return (
-        <StyledSearchBar>
-            <TextInput
-                value={searchTerm}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-            />
-            <SearchButton onClick={() => handleSearch()} />
-        </StyledSearchBar>
+        <Link
+            to="/search"
+            style={{ textDecoration: 'none' }}
+        >
+            <SearchBarContainer>
+                <StyledSearchBar>
+                    <TextInput
+                        value={searchTerm}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                    />
+                    <SearchButton onClick={() => handleSearch()} />
+                </StyledSearchBar>
+            </SearchBarContainer>
+        </Link>
     );
 }
 

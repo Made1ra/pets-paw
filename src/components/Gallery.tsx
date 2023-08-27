@@ -1,12 +1,12 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import styled from 'styled-components';
 import Container from './Container';
 import LeftContent from './LeftContent';
 import Logo from './Logo';
 import Welcome from './Welcome';
-import SearchBarContainer from './SearchBarContainer';
+import LinkContainer from './LinkContainer';
 import SearchBar from './SearchBar';
-import Link from './Link';
+import Smiles from './Smiles';
 import SmallLink from './SmallLink';
 import LargeTextButton from './LargeTextButton';
 
@@ -48,20 +48,20 @@ type BreedsProps = {
 };
 
 function Gallery({ $isActive }: BreedsProps) {
-    const API_KEY = import.meta.env.VITE_API_KEY;
+    // const API_KEY = import.meta.env.VITE_API_KEY;
 
-    const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
+    // const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
 
-    const searchBreeds = async (searchTerm: string) => {
-        const response = await fetch(`https://api.thecatapi.com/v1/breeds/search?q=${searchTerm}`, {
-            headers: {
-                'x-api-key': API_KEY
-            }
-        });
+    // const searchBreeds = async (searchTerm: string) => {
+    //     const response = await fetch(`https://api.thecatapi.com/v1/breeds/search?q=${searchTerm}`, {
+    //         headers: {
+    //             'x-api-key': API_KEY
+    //         }
+    //     });
 
-        const data = await response.json();
-        setSearchedBreeds(data);
-    };
+    //     const data = await response.json();
+    //     setSearchedBreeds(data);
+    // };
 
     return (
         <Container>
@@ -70,12 +70,10 @@ function Gallery({ $isActive }: BreedsProps) {
                 <Welcome $isActive={$isActive} />
             </LeftContent>
             <RightContentContainer>
-                <SearchBarContainer>
-                    <SearchBar onSearch={searchBreeds} />
-                    <Link imageTitle="like" />
-                    <Link imageTitle="fav" />
-                    <Link imageTitle="dislike" />
-                </SearchBarContainer>
+                <LinkContainer>
+                    <SearchBar />
+                    <Smiles />
+                </LinkContainer>
                 <ActionsContainer>
                     <NavigationContainer>
                         <SmallLink />
