@@ -6,6 +6,7 @@ export type Breed = {
     reference_image_id: string;
     dateOfEditing?: string;
     category?: Category;
+    url?: string;
 };
 
 export type Action = 'added to' | 'removed from';
