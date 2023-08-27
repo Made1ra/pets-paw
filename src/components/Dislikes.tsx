@@ -1,4 +1,5 @@
-// import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Breed } from '../store';
 import styled from 'styled-components';
 import Container from './Container';
 import LeftContent from './LeftContent';
@@ -9,6 +10,8 @@ import SearchBar from './SearchBar';
 import Smiles from './Smiles';
 import SmallLink from './SmallLink';
 import LargeTextButton from './LargeTextButton';
+import TextSpan from './TextSpan';
+import PetImage from './PetImage';
 
 const RightContentContainer = styled.div`
     flex: 1;
@@ -39,35 +42,20 @@ const ActionsContainer = styled.div`
 
 const NavigationContainer = styled.div`
     display: flex;
+    align-items: center;
     flex-direction: row;
     margin-bottom: 1.5rem;
 `;
 
-type BreedsProps = {
-    $isActive: number;
-};
-
-function Gallery({ $isActive }: BreedsProps) {
-    // const API_KEY = import.meta.env.VITE_API_KEY;
-
-    // const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
-
-    // const searchBreeds = async (searchTerm: string) => {
-    //     const response = await fetch(`https://api.thecatapi.com/v1/breeds/search?q=${searchTerm}`, {
-    //         headers: {
-    //             'x-api-key': API_KEY
-    //         }
-    //     });
-
-    //     const data = await response.json();
-    //     setSearchedBreeds(data);
-    // };
+function Dislikes() {
+    const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
+    const filteredBreeds = breeds.filter((breed) => breed.category === 'Dislikes');
 
     return (
         <Container>
             <LeftContent>
                 <Logo />
-                <Welcome $isActive={$isActive} />
+                <Welcome $isActive={4} />
             </LeftContent>
             <RightContentContainer>
                 <LinkContainer>
@@ -77,12 +65,22 @@ function Gallery({ $isActive }: BreedsProps) {
                 <ActionsContainer>
                     <NavigationContainer>
                         <SmallLink />
-                        <LargeTextButton $isActive={true}>GALLERY</LargeTextButton>
+                        <LargeTextButton $isActive={true}>DISLIKES</LargeTextButton>
                     </NavigationContainer>
+                    {filteredBreeds.length === 0 ? (
+                        <TextSpan>No item found</TextSpan>
+                    ) : (
+                        filteredBreeds.map((breed, i) => (
+                            <PetImage
+                                key={i}
+                                $url={breed.url || ''}
+                            />
+                        ))
+                    )}
                 </ActionsContainer>
             </RightContentContainer>
         </Container>
     );
 }
 
-export default Gallery;
+export default Dislikes;

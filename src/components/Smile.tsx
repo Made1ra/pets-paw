@@ -18,7 +18,7 @@ const StyledLink = styled.div<{ $url: string, $urlWhite: string }>`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1rem 0.75rem;
+    margin: 1rem 0.5rem;
 
     cursor: pointer;
 
@@ -32,11 +32,11 @@ const StyledLink = styled.div<{ $url: string, $urlWhite: string }>`
     }
 `;
 
-export type LinkProps = {
+export type SmileProps = {
     imageTitle: string;
 };
 
-function Link({ imageTitle }: LinkProps) {
+function Smile({ imageTitle }: SmileProps) {
     let url = '';
     let urlWhite = '';
     if (imageTitle === 'like') {
@@ -58,4 +58,4 @@ function Link({ imageTitle }: LinkProps) {
     );
 }
 
-export default Link;
+export default Smile;

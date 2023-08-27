@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Log } from '../store';
 import styled from 'styled-components';
@@ -6,9 +6,9 @@ import Container from './Container';
 import LeftContent from './LeftContent';
 import Logo from './Logo';
 import Welcome from './Welcome';
-import SearchBarContainer from './SearchBarContainer';
+import LinkContainer from './LinkContainer';
 import SearchBar from './SearchBar';
-import Link from './Link';
+import Smiles from './Smiles';
 import SmallLink from './SmallLink';
 import LargeTextButton from './LargeTextButton';
 import Controls from './Controls';
@@ -82,17 +82,29 @@ function Voting({ $isActive }: VotingProps) {
 
     const logs = useSelector((state: { logs: { logs: Log[] } }) => state.logs.logs);
 
-    const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
+    const [randomBreed, setRandomBreed] = useState<{ name: string, url: string, id: string }[]>([]);
 
-    const searchBreeds = async (searchTerm: string) => {
-        const response = await fetch(`https://api.thecatapi.com/v1/breeds/search?q=${searchTerm}`, {
+    useEffect(() => {
+        const getRandomBreed = async () => {
+            const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=1`, {
+                headers: {
+                    'x-api-key': API_KEY
+                }
+            });
+            const data = await response.json();
+            setRandomBreed(data);
+        };
+        getRandomBreed();
+    }, [API_KEY]);
+
+    const handleLikeDislikeClick = async () => {
+        const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=1`, {
             headers: {
                 'x-api-key': API_KEY
             }
         });
-
         const data = await response.json();
-        setSearchedBreeds(data);
+        setRandomBreed(data);
     };
 
     return (
@@ -102,34 +114,36 @@ function Voting({ $isActive }: VotingProps) {
                 <Welcome $isActive={$isActive} />
             </LeftContent>
             <RightContentContainer>
-                <SearchBarContainer>
-                    <SearchBar onSearch={searchBreeds} />
-                    <Link imageTitle="like" />
-                    <Link imageTitle="fav" />
-                    <Link imageTitle="dislike" />
-                </SearchBarContainer>
+                <LinkContainer>
+                    <SearchBar />
+                    <Smiles />
+                </LinkContainer>
                 <ActionsContainer>
                     <NavigationContainer>
                         <SmallLink />
                         <LargeTextButton $isActive={true}>VOTING</LargeTextButton>
                     </NavigationContainer>
                     <ImageContainer>
-                        <Image $url={searchedBreeds.length > 0 ? `${searchedBreeds[0].image.url}` : ''} />
+                        <Image $url={randomBreed.length > 0 ? `${randomBreed[0].url}` : ''} />
                         <ControlsContainer>
-                            <Controls reference_image_id={searchedBreeds.length > 0 ? searchedBreeds[0].reference_image_id : ''} />
+                            <Controls
+                                reference_image_id={randomBreed.length > 0 ? randomBreed[0].id : ''}
+                                url={randomBreed.length > 0 ? randomBreed[0].url : ''}
+                                onLikeDislikeClick={() => handleLikeDislikeClick()}
+                            />
                         </ControlsContainer>
                     </ImageContainer>
                     {
                         logs.length > 0 && logs.slice().reverse().map((log, i) => (
-                            // i < 4 && (
-                            <ActionMessage
-                                key={i}
-                                reference_image_id={log.reference_image_id}
-                                category={log.category}
-                                dateOfEditing={log.dateOfEditing}
-                                action={log.action}
-                            />
-                            // )
+                            i < 4 && (
+                                <ActionMessage
+                                    key={i}
+                                    reference_image_id={log.reference_image_id}
+                                    category={log.category}
+                                    dateOfEditing={log.dateOfEditing}
+                                    action={log.action}
+                                />
+                            )
                         ))
                     }
                 </ActionsContainer>

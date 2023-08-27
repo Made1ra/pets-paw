@@ -16,14 +16,20 @@ const StyledControls = styled.div`
     margin: 1rem;
 `;
 
-function Controls({ reference_image_id }: Breed) {
+type ControlsProps = {
+    reference_image_id: string;
+    url: string;
+    onLikeDislikeClick: () => void;
+};
+
+function Controls({ reference_image_id, url, onLikeDislikeClick }: ControlsProps) {
     const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
     const dispatch = useDispatch();
 
     const handleClick = (category: string, reference_image_id: string) => {
         const filteredBreeds = breeds.find((breed) => breed.reference_image_id === reference_image_id);
         if (!filteredBreeds) {
-            dispatch(addBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category }))
+            dispatch(addBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, url: url }))
             dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'added to' }))
         } else if (filteredBreeds && filteredBreeds.category !== category) {
             dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category }))
@@ -33,6 +39,10 @@ function Controls({ reference_image_id }: Breed) {
         } else {
             dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category }))
             dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'removed from' }))
+        }
+
+        if (category === 'Likes' || category === 'Dislikes') {
+            onLikeDislikeClick();
         }
     };
 
