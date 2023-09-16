@@ -15,6 +15,8 @@ const StyledUploadButton = styled.button<{ $isHovered: boolean }>`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    margin-left: 17.5rem;
 `;
 
 const UploadImage = styled.div<{ $isHovered: boolean }>`

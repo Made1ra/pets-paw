@@ -18,7 +18,6 @@ const StyledPetImage = styled.div<{ $url: string }>`
 
     &:hover {
         height: 8.25rem;
-        // background: rgba(255, 134, 142, 0.60);
     }
 `;
 
@@ -29,7 +28,9 @@ type PetImageProps = {
 
 function PetImage({ $url, children }: PetImageProps) {
     return (
-        <StyledPetImage $url={$url}>
+        <StyledPetImage
+            $url={$url}
+        >
             {children}
         </StyledPetImage>
     );

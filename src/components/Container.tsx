@@ -1,27 +1,12 @@
-import styled from 'styled-components';
-
-const StyledContainer = styled.div`
-    width: 100%;
-    max-width: 90rem;
-    height: auto;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    float: right;
-
-    @media (max-width: 768px) {
-        flex-direction: column;
-        align-items: center;
-    }
-`;
-
 type ContainerProps = {
     children?: React.ReactNode;
 };
 
 function Container({ children }: ContainerProps) {
     return (
-        <StyledContainer>{children}</StyledContainer>
+        <div className="w-full max-w-90rem h-auto flex items-center justify-between flex-col float-right md:flex-row md:items-start">
+            {children}
+        </div>
     );
 }
 

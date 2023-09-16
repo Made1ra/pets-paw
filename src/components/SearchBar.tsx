@@ -1,37 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import TextInput from './TextInput';
 import SearchButton from './SearchButton';
-
-const SearchBarContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-right: 1rem;
-`;
-
-const StyledSearchBar = styled.div`
-    width: 29.375rem;
-    height: 3.75rem;
-    flex-shrink: 0;
-
-    border-radius: 1.25rem;
-    border: none;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #FFF;
-    margin: 1rem 0.5rem;
-
-    &:hover {
-        border: 2px solid #FBE0DC;
-    }
-
-    &:active {
-        border: 2px solid #FF868E;
-    }
-`;
 
 type SearchBarProps = {
     onSearch?: (searchTerm: string) => void;
@@ -49,18 +19,18 @@ function SearchBar({ onSearch }: SearchBarProps) {
     return (
         <Link
             to="/search"
-            style={{ textDecoration: 'none' }}
+            className="no-underline"
         >
-            <SearchBarContainer>
-                <StyledSearchBar>
+            <div className="flex flex-row mr-4">
+                <div className="flex items-center justify-between w-[470px] h-[60px] my-4 mx-2 bg-white rounded-[20px] hover:border-2 hover:border-red-100 active:border-2 active:border-rose-400">
                     <TextInput
                         value={searchTerm}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                     />
                     <SearchButton onClick={() => handleSearch()} />
-                </StyledSearchBar>
-            </SearchBarContainer>
-        </Link>
+                </div>
+            </div>
+        </Link >
     );
 }
 

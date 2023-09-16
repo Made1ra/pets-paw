@@ -2,19 +2,31 @@ import { Link } from 'react-router-dom';
 import Smile from './Smile';
 
 function Smiles() {
+    const smiles = [
+        {
+            title: 'likes'
+        },
+        {
+            title: 'favourites'
+        },
+        {
+            title: 'dislikes'
+        }
+    ];
+
     return (
         <>
-            <Link to="/likes">
-                <Smile imageTitle="like" />
-            </Link>
-            <Link to="/favourites">
-                <Smile imageTitle="fav" />
-            </Link>
-            <Link to="/dislikes">
-                <Smile imageTitle="dislike" />
-            </Link>
+            {
+                smiles.map((smile) => (
+                    <div key={smile.title}>
+                        <Link to={`/${smile.title}`}>
+                            <Smile title={smile.title} />
+                        </Link>
+                    </div >
+                ))
+            }
         </>
     );
 }
 
-export default Smiles
+export default Smiles;

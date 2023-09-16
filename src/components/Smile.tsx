@@ -33,19 +33,19 @@ const StyledLink = styled.div<{ $url: string, $urlWhite: string }>`
 `;
 
 export type SmileProps = {
-    imageTitle: string;
+    title: string;
 };
 
-function Smile({ imageTitle }: SmileProps) {
+function Smile({ title }: SmileProps) {
     let url = '';
     let urlWhite = '';
-    if (imageTitle === 'like') {
+    if (title === 'likes') {
         url = like;
         urlWhite = likeWhite;
-    } else if (imageTitle === 'fav') {
+    } else if (title === 'favourites') {
         url = fav;
         urlWhite = favWhite;
-    } else if (imageTitle === 'dislike') {
+    } else if (title === 'dislikes') {
         url = dislike;
         urlWhite = dislikeWhite;
     }

@@ -1,22 +1,15 @@
-import styled from 'styled-components';
-
-const StyledText = styled.span`
-    color: #8C8C8C;
-    font-family: Jost;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-`;
-
-type TextSpanProps = {
+type TextProps = {
     children?: React.ReactNode;
 }
 
-function TextSpan({ children }: TextSpanProps) {
+function Text({ children }: TextProps) {
     return (
-        <StyledText>{children}</StyledText>
+        <div className="w-[640px] h-[60px] bg-stone-50 rounded-[10px]">
+            <span className="text-neutral-400 text-lg font-normal leading-normal">
+                {children}
+            </span>
+        </div>
     );
 }
 
-export default TextSpan;
+export default Text;
