@@ -1,25 +1,15 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import Container from './Container';
-import LeftContent from './LeftContent';
-import Logo from './Logo';
-import Welcome from './Welcome';
-import LinkContainer from './LinkContainer';
-import SearchBar from './SearchBar';
-import Smiles from './Smiles';
-import SmallLink from './SmallLink';
-import LargeTextButton from './LargeTextButton';
-
-const RightContentContainer = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    @media (max-width: 768px) {
-        align-items: center;
-    }
-`;
+import Container from '../components/Container';
+import LeftSection from '../components/LeftSection';
+import RightSectionContainer from '../components/RightSectionContainer';
+import LinkContainer from '../components/LinkContainer';
+import SearchBar from '../components/SearchBar';
+import Smiles from '../components/Smiles';
+import SmallLink from '../components/SmallLink';
+import UploadButton from '../components/UploadButton';
+import LargeTextButton from '../components/LargeTextButton';
+import Modal from '../components/Modal';
 
 const ActionsContainer = styled.div`
     display: flex;
@@ -44,10 +34,10 @@ const NavigationContainer = styled.div`
 `;
 
 type BreedsProps = {
-    $isActive: number;
+    isActive: number;
 };
 
-function Gallery({ $isActive }: BreedsProps) {
+function Gallery({ isActive }: BreedsProps) {
     // const API_KEY = import.meta.env.VITE_API_KEY;
 
     // const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
@@ -62,14 +52,20 @@ function Gallery({ $isActive }: BreedsProps) {
     //     const data = await response.json();
     //     setSearchedBreeds(data);
     // };
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // const openModal = () => {
+    //     setIsModalOpen(true);
+    // };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     return (
         <Container>
-            <LeftContent>
-                <Logo />
-                <Welcome $isActive={$isActive} />
-            </LeftContent>
-            <RightContentContainer>
+            <LeftSection isActive={isActive} />
+            <RightSectionContainer>
                 <LinkContainer>
                     <SearchBar />
                     <Smiles />
@@ -77,10 +73,17 @@ function Gallery({ $isActive }: BreedsProps) {
                 <ActionsContainer>
                     <NavigationContainer>
                         <SmallLink />
-                        <LargeTextButton $isActive={true}>GALLERY</LargeTextButton>
+                        <LargeTextButton>GALLERY</LargeTextButton>
+                        <UploadButton />
                     </NavigationContainer>
+                    {/* <button onClick={() => openModal()}>Open Modal</button> */}
+                    <Modal
+                        isOpen={isModalOpen}
+                        onClose={() => closeModal()}
+                    >
+                    </Modal>
                 </ActionsContainer>
-            </RightContentContainer>
+            </RightSectionContainer>
         </Container>
     );
 }

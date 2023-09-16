@@ -1,26 +1,14 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import Container from './Container';
-import LeftContent from './LeftContent';
-import Logo from './Logo';
-import Welcome from './Welcome';
-import LinkContainer from './LinkContainer';
-import Text from './TextSpan';
-import SearchBar from './SearchBar';
-import Smiles from './Smiles';
-import SmallLink from './SmallLink';
-import LargeTextButton from './LargeTextButton';
-
-const RightContentContainer = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    @media (max-width: 768px) {
-        align-items: center;
-    }
-`;
+import Container from '../components/Container';
+import LeftContent from '../components/LeftSection';
+import RightSectionContainer from '../components/RightSectionContainer';
+import LinkContainer from '../components/LinkContainer';
+import Text from '../components/TextSpan';
+import SearchBar from '../components/SearchBar';
+import Smiles from '../components/Smiles';
+import SmallLink from '../components/SmallLink';
+import LargeTextButton from '../components/LargeTextButton';
 
 const ActionsContainer = styled.div`
     display: flex;
@@ -84,11 +72,8 @@ function Search() {
 
     return (
         <Container>
-            <LeftContent>
-                <Logo />
-                <Welcome $isActive={4} />
-            </LeftContent>
-            <RightContentContainer>
+            <LeftContent isActive={4} />
+            <RightSectionContainer>
                 <LinkContainer>
                     <SearchBar onSearch={searchBreeds} />
                     <Smiles />
@@ -96,7 +81,7 @@ function Search() {
                 <ActionsContainer>
                     <NavigationContainer>
                         <SmallLink />
-                        <LargeTextButton $isActive={true}>SEARCH</LargeTextButton>
+                        <LargeTextButton>SEARCH</LargeTextButton>
                     </NavigationContainer>
                     {searchedBreeds.length > 0 && (
                         <Text>
@@ -112,7 +97,7 @@ function Search() {
                         ))
                     }
                 </ActionsContainer>
-            </RightContentContainer>
+            </RightSectionContainer>
         </Container>
     );
 }

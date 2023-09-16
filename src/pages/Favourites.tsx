@@ -1,28 +1,16 @@
 import { useSelector } from 'react-redux';
 import { Breed } from '../store';
 import styled from 'styled-components';
-import Container from './Container';
-import LeftContent from './LeftContent';
-import Logo from './Logo';
-import Welcome from './Welcome';
-import LinkContainer from './LinkContainer';
-import SearchBar from './SearchBar';
-import Smiles from './Smiles';
-import SmallLink from './SmallLink';
-import LargeTextButton from './LargeTextButton';
-import TextSpan from './TextSpan';
-import PetImage from './PetImage';
-
-const RightContentContainer = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    @media (max-width: 768px) {
-        align-items: center;
-    }
-`;
+import Container from '../components/Container';
+import LeftSection from '../components/LeftSection';
+import RightSectionContainer from '../components/RightSectionContainer';
+import LinkContainer from '../components/LinkContainer';
+import SearchBar from '../components/SearchBar';
+import Smiles from '../components/Smiles';
+import SmallLink from '../components/SmallLink';
+import LargeTextButton from '../components/LargeTextButton';
+import TextSpan from '../components/TextSpan';
+import PetImage from '../components/PetImage';
 
 const ActionsContainer = styled.div`
     display: flex;
@@ -47,17 +35,14 @@ const NavigationContainer = styled.div`
     margin-bottom: 1.5rem;
 `;
 
-function Dislikes() {
+function Favourites() {
     const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
-    const filteredBreeds = breeds.filter((breed) => breed.category === 'Dislikes');
+    const filteredBreeds = breeds.filter((breed) => breed.category === 'Favourites');
 
     return (
         <Container>
-            <LeftContent>
-                <Logo />
-                <Welcome $isActive={4} />
-            </LeftContent>
-            <RightContentContainer>
+            <LeftSection isActive={4} />
+            <RightSectionContainer>
                 <LinkContainer>
                     <SearchBar />
                     <Smiles />
@@ -65,22 +50,22 @@ function Dislikes() {
                 <ActionsContainer>
                     <NavigationContainer>
                         <SmallLink />
-                        <LargeTextButton $isActive={true}>DISLIKES</LargeTextButton>
+                        <LargeTextButton>FAVOURITES</LargeTextButton>
                     </NavigationContainer>
                     {filteredBreeds.length === 0 ? (
                         <TextSpan>No item found</TextSpan>
                     ) : (
-                        filteredBreeds.map((breed, i) => (
+                        filteredBreeds.map((breed) => (
                             <PetImage
-                                key={i}
+                                key={breed.url}
                                 $url={breed.url || ''}
                             />
                         ))
                     )}
                 </ActionsContainer>
-            </RightContentContainer>
+            </RightSectionContainer>
         </Container>
     );
 }
 
-export default Dislikes;
+export default Favourites;
