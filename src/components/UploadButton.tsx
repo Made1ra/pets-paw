@@ -1,59 +1,25 @@
 import { useState } from 'react';
-import styled from 'styled-components';
-import upload from '../assets/upload-16.svg';
-import uploadWhite from '../assets/upload-white-16.svg';
 
-const StyledUploadButton = styled.button<{ $isHovered: boolean }>`
-    width: 8.9375rem;
-    height: 2.5rem;
-    flex-shrink: 0;
+type UploadButtonProps = {
+    onClick: () => void;
+};
 
-    border-radius: 0.625rem;
-    background: ${props => props.$isHovered ? '#FF868E' : '#FBE0DC'};
-    border: none;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-left: 17.5rem;
-`;
-
-const UploadImage = styled.div<{ $isHovered: boolean }>`
-    width: 0.98538rem;
-    height: 1rem;
-    flex-shrink: 0;
-
-    background: url(${props => props.$isHovered ? uploadWhite : upload});
-    margin-right: 1rem;
-`;
-
-const UploadText = styled.p<{ $isHovered: boolean }>`
-    width: 3.5625rem;
-
-    color: ${props => props.$isHovered ? '#FFFFFF' : '#FF868E'};
-    text-align: center;
-    font-family: Jost;
-    font-size: 0.75rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1rem;
-    letter-spacing: 0.125rem;
-    text-transform: uppercase;
-`;
-
-function UploadButton() {
+function UploadButton({ onClick }: UploadButtonProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <StyledUploadButton
-            $isHovered={isHovered}
+        <div
+            className="flex items-center justify-center w-[143px] h-10 ml-80 bg-red-100 rounded-[10px] cursor-pointer
+            hover:bg-rose-400"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={onClick}
         >
-            <UploadImage $isHovered={isHovered} />
-            <UploadText $isHovered={isHovered}>UPLOAD</UploadText>
-        </StyledUploadButton>
+            <div className={`w-4 h-4 mr-2 bg-no-repeat bg-center ${isHovered ? 'bg-[url("src/assets/upload-white-16.svg")]' : 'bg-[url("src/assets/upload-16.svg")]'}`} />
+            <div className={`w-[57px] text-center text-rose-400 text-xs font-medium font-jost leading-none tracking-widest ${isHovered && 'text-white'}`}>
+                UPLOAD
+            </div>
+        </div >
     );
 }
 

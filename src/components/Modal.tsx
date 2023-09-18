@@ -7,6 +7,7 @@ const Overlay = styled.div`
     flex-shrink: 0;
     border-radius: 1.25rem;
     background: #F8F8F7;
+    z-index: 10;
 `;
 
 const Content = styled.div`

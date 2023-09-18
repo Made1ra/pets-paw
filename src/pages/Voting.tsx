@@ -8,32 +8,12 @@ import RightSectionContainer from '../components/RightSectionContainer';
 import LinkContainer from '../components/LinkContainer';
 import SearchBar from '../components/SearchBar';
 import Smiles from '../components/Smiles';
+import ActionsContainer from '../components/ActionsContainer';
+import NavigationContainer from '../components/NavigationContainer';
 import SmallLink from '../components/SmallLink';
 import LargeTextButton from '../components/LargeTextButton';
 import Controls from '../components/Controls';
 import ActionMessage from '../components/ActionMessage';
-
-const ActionsContainer = styled.div`
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-    margin: 0.5rem;
-    padding: 1rem;
-    width: 42.5rem;
-    height: 48.875rem;
-    flex-shrink: 0;
-    flex-direction: column;
-
-    border-radius: 1.25rem;
-    background: #FFF;
-`;
-
-const NavigationContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1.5rem;
-`;
 
 const ImageContainer = styled.div`
     display: flex;

@@ -15,6 +15,7 @@ import Option from '../components/Option';
 import SortRevertButton from '../components/SortRevertButton';
 import SortButton from '../components/SortButton';
 import PetImage from '../components/PetImage';
+import Button from '../components/Button';
 
 type BreedsProps = {
     isActive: number;
@@ -27,7 +28,6 @@ function Breeds({ isActive }: BreedsProps) {
     const [value, setValue] = useState('Limit: 10');
     const [breeds, setBreeds] = useState<{ id: string, name: string, image: { url: string, id: string } }[]>([]);
     const [searchedBreeds, setSearchedBreeds] = useState<{ id: string, url: string, breeds: { name: string, id: string }[] }[]>([]);
-    // const [isSelected, setIsSelected] = useState(false);
 
     const sortBreedsAlphabetically = (searchedBreeds: { id: string, url: string, breeds: { name: string, id: string }[] }[]) => {
         return searchedBreeds.slice().sort((a: { id: string, url: string, breeds: { name: string, id: string }[] }, b) => {
@@ -121,7 +121,14 @@ function Breeds({ isActive }: BreedsProps) {
                         <PetImage
                             key={breed.id}
                             $url={breed.url || ''}
-                        />
+                        >
+                            <Link
+                                to={`/breed/${breed.breeds[0]?.id}`}
+                                style={{ textDecoration: 'none' }}
+                            >
+                                <Button className="mt-20 z-20 absolute left-2 top-4 w-[180px] h-[34px]">{breed.breeds[0]?.name}</Button>
+                            </Link>
+                        </PetImage>
                     ))}
                 </ActionsContainer>
             </RightSectionContainer>
