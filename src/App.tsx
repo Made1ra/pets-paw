@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/voting" element={<Voting isActive={1} />} />
         <Route path="/breeds" element={<Breeds isActive={2} />} />
-        <Route path="/breed" element={<Breed id="" />} />
+        <Route path="/breed/:id" element={<Breed />} />
         <Route path="/gallery" element={<Gallery isActive={3} />} />
         <Route path="/search" element={<Search />} />
         <Route path="/likes" element={<Likes />} />
