@@ -2,50 +2,18 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Log } from '../store';
 import styled from 'styled-components';
-import Container from './Container';
-import LeftContent from './LeftContent';
-import Logo from './Logo';
-import Welcome from './Welcome';
-import LinkContainer from './LinkContainer';
-import SearchBar from './SearchBar';
-import Smiles from './Smiles';
-import SmallLink from './SmallLink';
-import LargeTextButton from './LargeTextButton';
-import Controls from './Controls';
-import ActionMessage from './ActionMessage';
-
-const RightContentContainer = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    @media (max-width: 768px) {
-        align-items: center;
-    }
-`;
-
-const ActionsContainer = styled.div`
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-    margin: 0.5rem;
-    padding: 1rem;
-    width: 42.5rem;
-    height: 48.875rem;
-    flex-shrink: 0;
-    flex-direction: column;
-
-    border-radius: 1.25rem;
-    background: #FFF;
-`;
-
-const NavigationContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1.5rem;
-`;
+import Container from '../components/Container';
+import LeftSection from '../components/LeftSection';
+import RightSectionContainer from '../components/RightSectionContainer';
+import LinkContainer from '../components/LinkContainer';
+import SearchBar from '../components/SearchBar';
+import Smiles from '../components/Smiles';
+import ActionsContainer from '../components/ActionsContainer';
+import NavigationContainer from '../components/NavigationContainer';
+import SmallLink from '../components/SmallLink';
+import LargeTextButton from '../components/LargeTextButton';
+import Controls from '../components/Controls';
+import ActionMessage from '../components/ActionMessage';
 
 const ImageContainer = styled.div`
     display: flex;
@@ -74,10 +42,10 @@ const ControlsContainer = styled.div`
 `;
 
 type VotingProps = {
-    $isActive: number;
+    isActive: number;
 };
 
-function Voting({ $isActive }: VotingProps) {
+function Voting({ isActive }: VotingProps) {
     const API_KEY = import.meta.env.VITE_API_KEY;
 
     const logs = useSelector((state: { logs: { logs: Log[] } }) => state.logs.logs);
@@ -86,7 +54,7 @@ function Voting({ $isActive }: VotingProps) {
 
     useEffect(() => {
         const getRandomBreed = async () => {
-            const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=1`, {
+            const response = await fetch(`https://api.thecatapi.com/v1/images/search?has_breeds=1&limit=1`, {
                 headers: {
                     'x-api-key': API_KEY
                 }
@@ -98,7 +66,7 @@ function Voting({ $isActive }: VotingProps) {
     }, [API_KEY]);
 
     const handleLikeDislikeClick = async () => {
-        const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=1`, {
+        const response = await fetch(`https://api.thecatapi.com/v1/images/search?has_breeds=1&limit=1`, {
             headers: {
                 'x-api-key': API_KEY
             }
@@ -109,11 +77,8 @@ function Voting({ $isActive }: VotingProps) {
 
     return (
         <Container>
-            <LeftContent>
-                <Logo />
-                <Welcome $isActive={$isActive} />
-            </LeftContent>
-            <RightContentContainer>
+            <LeftSection isActive={isActive} />
+            <RightSectionContainer>
                 <LinkContainer>
                     <SearchBar />
                     <Smiles />
@@ -121,7 +86,7 @@ function Voting({ $isActive }: VotingProps) {
                 <ActionsContainer>
                     <NavigationContainer>
                         <SmallLink />
-                        <LargeTextButton $isActive={true}>VOTING</LargeTextButton>
+                        <LargeTextButton>VOTING</LargeTextButton>
                     </NavigationContainer>
                     <ImageContainer>
                         <Image $url={randomBreed.length > 0 ? `${randomBreed[0].url}` : ''} />
@@ -147,8 +112,8 @@ function Voting({ $isActive }: VotingProps) {
                         ))
                     }
                 </ActionsContainer>
-            </RightContentContainer>
-        </Container>
+            </RightSectionContainer>
+        </Container >
     );
 }
 

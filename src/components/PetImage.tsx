@@ -1,37 +1,30 @@
-import styled from 'styled-components';
-
-const StyledPetImage = styled.div<{ $url: string }>`
-    width: 12.5rem;
-    height: 8.75rem;
-    flex-shrink: 0;
-
-    background: url(${props => props.$url}), lightgray 50% / cover no-repeat;
-    background-size: cover;
-
-    border-radius: 1.25rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin: 1rem;
-
-    &:hover {
-        height: 8.25rem;
-        // background: rgba(255, 134, 142, 0.60);
-    }
-`;
+import { useState } from 'react';
 
 type PetImageProps = {
-    $url: string;
+    url: string;
     children?: React.ReactNode;
 };
 
-function PetImage({ $url, children }: PetImageProps) {
+function PetImage({ url, children }: PetImageProps) {
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
-        <StyledPetImage $url={$url}>
-            {children}
-        </StyledPetImage>
+        <div
+            className="w-52 h-36 cursor-pointer m-4 relative flex items-center justify-center flex-shrink-0 rounded-3xl bg-center bg-no-repeat bg-cover"
+            style={{
+                backgroundImage: `url(${url})`,
+                backgroundColor: 'rgba(211, 211, 211, 0.5)'
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+        >
+            {isHovered && (
+                <>
+                    <div className="w-full h-full bg-rose-400 bg-opacity-60 rounded-[20px] z-10" />
+                    {children}
+                </>
+            )}
+        </div>
     );
 }
 
