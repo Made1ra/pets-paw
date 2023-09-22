@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Log } from '../store';
-import styled from 'styled-components';
 import Container from '../components/Container';
 import LeftSection from '../components/LeftSection';
 import RightSectionContainer from '../components/RightSectionContainer';
@@ -12,34 +11,11 @@ import ActionsContainer from '../components/ActionsContainer';
 import NavigationContainer from '../components/NavigationContainer';
 import SmallLink from '../components/SmallLink';
 import LargeTextButton from '../components/LargeTextButton';
+import ImageContainer from '../components/ImageContainer';
+import Image from '../components/Image';
+import ControlsContainer from '../components/ControlsContainer';
 import Controls from '../components/Controls';
 import ActionMessage from '../components/ActionMessage';
-
-const ImageContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-`;
-
-const Image = styled.div<{ $url: string }>`
-    width: 40rem;
-    height: 22.5rem;
-    flex-shrink: 0;
-
-    border-radius: 1.25rem;
-    background: url(${props => props.$url}), lightgray 50% no-repeat;
-    background-size: cover;
-`;
-
-const ControlsContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #FFF;
-    border-radius: 1rem;
-    margin-top: -3.5rem;
-`;
 
 type VotingProps = {
     isActive: number;
@@ -89,7 +65,7 @@ function Voting({ isActive }: VotingProps) {
                         <LargeTextButton>VOTING</LargeTextButton>
                     </NavigationContainer>
                     <ImageContainer>
-                        <Image $url={randomBreed.length > 0 ? `${randomBreed[0].url}` : ''} />
+                        <Image src={randomBreed.length > 0 ? `${randomBreed[0].url}` : ''} />
                         <ControlsContainer>
                             <Controls
                                 reference_image_id={randomBreed.length > 0 ? randomBreed[0].id : ''}

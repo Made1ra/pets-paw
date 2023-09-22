@@ -90,7 +90,7 @@ function Gallery({ isActive }: BreedsProps) {
         };
         getBreeds();
     }, [API_KEY, breeds, order, type, breedValue, value]);
-    console.log(searchedBreeds);
+
     return (
         <Container className={`${isModalOpen ? 'bg-stone-900 bg-opacity-60' : ''}`}>
             <LeftSection isActive={isActive} />
@@ -104,54 +104,70 @@ function Gallery({ isActive }: BreedsProps) {
                         <SmallLink />
                         <LargeTextButton>GALLERY</LargeTextButton>
                         <UploadButton onClick={() => openModal()} />
-                        <div className="w-[640px] h-[156px] bg-stone-50 rounded-[20px]">
-                            <div className="w-28 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">ORDER</div>
-                            <Select
-                                value={order}
-                                onChange={(e: ChangeEvent<HTMLSelectElement>) => setOrder(e.target.value)}
-                                width=""
-                            >
-                                <Option>Random</Option>
-                                <Option>Desc</Option>
-                                <Option>Asc</Option>
-                            </Select>
-                            <div className="w-28 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">TYPE</div>
-                            <Select
-                                value={type}
-                                onChange={(e: ChangeEvent<HTMLSelectElement>) => setType(e.target.value)}
-                                width=""
-                            >
-                                <Option>All</Option>
-                                <Option>Static</Option>
-                                <Option>Animated</Option>
-                            </Select>
-                            <div className="w-28 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">BREED</div>
-                            <Select
-                                value={breedValue}
-                                onChange={(e) => setBreedValue(e.target.value)}
-                                width=""
-                            >
-                                <Option>None</Option>
-                                {
-                                    breeds.map((breed) => (
-                                        <Option key={breed.name}>{breed.name}</Option>
-                                    ))
-                                }
-                            </Select>
-                            <div className="w-28 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">LIMIT</div>
-                            <Select
-                                value={value}
-                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value)}
-                                width=""
-                            >
-                                <Option>5 items per page</Option>
-                                <Option>10 items per page</Option>
-                                <Option>15 items per page</Option>
-                                <Option>20 items per page</Option>
-                            </Select>
+                    </NavigationContainer>
+                    <div className="w-full h-fit bg-stone-50 rounded-[20px]">
+                        <div className="flex flex-row">
+                            <div className="flex flex-col">
+                                <label className="w-28 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">ORDER</label>
+                                <Select
+                                    value={order}
+                                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setOrder(e.target.value)}
+                                    className="bg-white"
+                                    width=""
+                                >
+                                    <Option>Random</Option>
+                                    <Option>Desc</Option>
+                                    <Option>Asc</Option>
+                                </Select>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="w-28 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">TYPE</label>
+                                <Select
+                                    value={type}
+                                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setType(e.target.value)}
+                                    className="bg-white"
+                                    width=""
+                                >
+                                    <Option>All</Option>
+                                    <Option>Static</Option>
+                                    <Option>Animated</Option>
+                                </Select>
+                            </div>
+                        </div>
+                        <div className="flex flex-row items-end justify-end">
+                            <div className="flex flex-col">
+                                <label className="w-28 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">BREED</label>
+                                <Select
+                                    value={breedValue}
+                                    onChange={(e) => setBreedValue(e.target.value)}
+                                    className="bg-white"
+                                    width=""
+                                >
+                                    <Option>None</Option>
+                                    {
+                                        breeds.map((breed) => (
+                                            <Option key={breed.name}>{breed.name}</Option>
+                                        ))
+                                    }
+                                </Select>
+                            </div>
+                            <div className="flex flex-col">
+                                <label className="w-28 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">LIMIT</label>
+                                <Select
+                                    value={value}
+                                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value)}
+                                    className="bg-white"
+                                    width=""
+                                >
+                                    <Option>5 items per page</Option>
+                                    <Option>10 items per page</Option>
+                                    <Option>15 items per page</Option>
+                                    <Option>20 items per page</Option>
+                                </Select>
+                            </div>
                             <UpdateButton onClick={() => undefined} />
                         </div>
-                    </NavigationContainer>
+                    </div>
                     {searchedBreeds.map((breed) => (
                         <PetImage
                             key={breed.id}

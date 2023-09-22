@@ -26,6 +26,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
                     <TextInput
                         value={searchTerm}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                     />
                     <SearchButton onClick={() => handleSearch()} />
                 </div>
