@@ -7,31 +7,10 @@ import LinkContainer from '../components/LinkContainer';
 import Text from '../components/TextSpan';
 import SearchBar from '../components/SearchBar';
 import Smiles from '../components/Smiles';
+import ActionsContainer from '../components/ActionsContainer';
+import NavigationContainer from '../components/NavigationContainer';
 import SmallLink from '../components/SmallLink';
 import LargeTextButton from '../components/LargeTextButton';
-
-const ActionsContainer = styled.div`
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-    margin: 0.5rem;
-    padding: 1rem;
-    width: 42.5rem;
-    height: 48.875rem;
-    flex-shrink: 0;
-    flex-direction: column;
-
-    border-radius: 1.25rem;
-    background: #FFF;
-`;
-
-const NavigationContainer = styled.div`
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    margin-bottom: 1.5rem;
-`;
 
 const Image = styled.div<{ $url: string }>`
     width: 40rem;
