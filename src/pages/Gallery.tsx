@@ -155,7 +155,7 @@ function Gallery({ isActive }: BreedsProps) {
                     {searchedBreeds.map((breed) => (
                         <PetImage
                             key={breed.id}
-                            $url={breed.url || ''}
+                            url={breed.url || ''}
                         // name={breed.breeds[i]?.name}
                         // id={breed.breeds[i]?.id}
                         >

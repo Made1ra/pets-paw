@@ -120,7 +120,7 @@ function Breeds({ isActive }: BreedsProps) {
                     {searchedBreeds.map((breed) => (
                         <PetImage
                             key={breed.id}
-                            $url={breed.url || ''}
+                            url={breed.url || ''}
                         >
                             <Link
                                 to={`/breed/${breed.breeds[0]?.id}`}
