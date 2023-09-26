@@ -30,13 +30,13 @@ function Welcome({ isActive }: WelcomeProps) {
 
     return (
         <>
-            <p className="w-[182px] text-stone-900 text-[44px] font-medium leading-[58px] mt-16">
+            <p className="w-[182px] text-stone-900 text-[44px] font-medium leading-[58px] mt-16 dark:text-white">
                 Hi!👋
             </p>
             <p className="text-neutral-400 text-xl font-normal mt-4">
                 Welcome to MacPaw Bootcamp 2023
             </p>
-            <p className="text-stone-900 text-xl font-medium font-jost mt-16">
+            <p className="text-stone-900 text-xl font-medium font-jost mt-16 dark:text-white">
                 Lets start using The Cat API
             </p>
             <div className="flex flex-col mt-8 md:flex-row">

@@ -4,6 +4,13 @@
 
 body {
     margin: 1rem 8.5rem 0 1rem;
-    background: #F8F8F7;
     font-family: Jost;
+}
+
+[app-theme="light"] {
+    background: #F8F8F7;
+}
+
+[app-theme="dark"] {
+    background: #1c1917;
 }
