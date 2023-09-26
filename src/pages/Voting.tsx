@@ -26,19 +26,19 @@ function Voting({ isActive }: VotingProps) {
 
     const logs = useSelector((state: { logs: { logs: Log[] } }) => state.logs.logs);
 
-    const [randomBreed, setRandomBreed] = useState<{ name: string, url: string, id: string }[]>([]);
+    const [randomImage, setRandomImage] = useState<{ name: string, url: string, id: string }[]>([]);
 
     useEffect(() => {
-        const getRandomBreed = async () => {
+        const getRandomImage = async () => {
             const response = await fetch(`https://api.thecatapi.com/v1/images/search?has_breeds=1&limit=1`, {
                 headers: {
                     'x-api-key': API_KEY
                 }
             });
             const data = await response.json();
-            setRandomBreed(data);
+            setRandomImage(data);
         };
-        getRandomBreed();
+        getRandomImage();
     }, [API_KEY]);
 
     const handleLikeDislikeClick = async () => {
@@ -48,9 +48,9 @@ function Voting({ isActive }: VotingProps) {
             }
         });
         const data = await response.json();
-        setRandomBreed(data);
+        setRandomImage(data);
     };
-
+    console.log(logs[0]);
     return (
         <Container>
             <LeftSection isActive={isActive} />
@@ -65,11 +65,11 @@ function Voting({ isActive }: VotingProps) {
                         <LargeTextButton>VOTING</LargeTextButton>
                     </NavigationContainer>
                     <ImageContainer>
-                        <Image src={randomBreed.length > 0 ? `${randomBreed[0].url}` : ''} />
+                        <Image src={randomImage.length > 0 ? `${randomImage[0].url}` : ''} />
                         <ControlsContainer>
                             <Controls
-                                reference_image_id={randomBreed.length > 0 ? randomBreed[0].id : ''}
-                                url={randomBreed.length > 0 ? randomBreed[0].url : ''}
+                                reference_image_id={randomImage.length > 0 ? randomImage[0].id : ''}
+                                url={randomImage.length > 0 ? randomImage[0].url : ''}
                                 onLikeDislikeClick={() => handleLikeDislikeClick()}
                             />
                         </ControlsContainer>
