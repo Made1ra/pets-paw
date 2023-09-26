@@ -1,5 +1,6 @@
-import { useSelector } from 'react-redux';
-import { Breed } from '../store';
+import { useSelector, useDispatch } from 'react-redux';
+import { Breed, Log, addLog, removeBreed } from '../store';
+import { formatDate } from '../utilities/formatDate';
 import Container from '../components/Container';
 import LeftSection from '../components/LeftSection';
 import RightSectionContainer from '../components/RightSectionContainer';
@@ -12,10 +13,19 @@ import SmallLink from '../components/SmallLink';
 import LargeTextButton from '../components/LargeTextButton';
 import TextSpan from '../components/TextSpan';
 import PetImage from '../components/PetImage';
+import ActionMessage from '../components/ActionMessage';
 
 function Favourites() {
     const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
+    const logs = useSelector((state: { logs: { logs: Log[] } }) => state.logs.logs);
+    const dispatch = useDispatch();
+
     const filteredBreeds = breeds.filter((breed) => breed.category === 'Favourites');
+
+    const handleClick = (id: string) => {
+        dispatch(addLog({ reference_image_id: id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
+        dispatch(removeBreed({ id, dateOfEditing: formatDate(new Date()), category: 'Favourites' }));
+    };
 
     return (
         <Container>
@@ -37,9 +47,29 @@ function Favourites() {
                             <PetImage
                                 key={breed.url}
                                 url={breed.url || ''}
-                            />
+                            >
+                                <div
+                                    onClick={() => handleClick(breed.reference_image_id)}
+                                    className="absolute w-10 h-10 bg-white rounded-[10px] z-10 bg-center bg-no-repeat bg-[url('../src/assets/fav-color-20.svg')]
+                                    hover:bg-rose-400 hover:bg-[url('../src/assets/fav-full-white-20.svg')]"
+                                >
+                                </div>
+                            </PetImage>
                         ))
                     )}
+                    {
+                        logs.length > 0 && logs.slice().reverse().map((log, i) => (
+                            i < 4 && (
+                                <ActionMessage
+                                    key={i}
+                                    reference_image_id={log.reference_image_id}
+                                    category={log.category}
+                                    dateOfEditing={log.dateOfEditing}
+                                    action={log.action}
+                                />
+                            )
+                        ))
+                    }
                 </ActionsContainer>
             </RightSectionContainer>
         </Container>

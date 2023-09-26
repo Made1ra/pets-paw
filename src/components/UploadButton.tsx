@@ -15,7 +15,7 @@ function UploadButton({ onClick }: UploadButtonProps) {
             onMouseLeave={() => setIsHovered(false)}
             onClick={onClick}
         >
-            <div className={`w-4 h-4 mr-2 bg-no-repeat bg-center ${isHovered ? 'bg-[url("src/assets/upload-white-16.svg")]' : 'bg-[url("src/assets/upload-16.svg")]'}`} />
+            <div className={`w-4 h-4 mr-2 bg-no-repeat bg-center ${isHovered ? 'bg-[url("../src/assets/upload-white-16.svg")]' : 'bg-[url("../src/assets/upload-16.svg")]'}`} />
             <div className={`w-[57px] text-center text-rose-400 text-xs font-medium font-jost leading-none tracking-widest ${isHovered && 'text-white'}`}>
                 UPLOAD
             </div>

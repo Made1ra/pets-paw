@@ -1,4 +1,7 @@
 import { useState, useEffect, ChangeEvent } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Breed, addBreed, addLog, removeBreed } from '../store';
+import { formatDate } from '../utilities/formatDate';
 import Container from '../components/Container';
 import LeftSection from '../components/LeftSection';
 import RightSectionContainer from '../components/RightSectionContainer';
@@ -12,7 +15,7 @@ import UploadButton from '../components/UploadButton';
 import Select from '../components/Select';
 import Option from '../components/Option';
 import LargeTextButton from '../components/LargeTextButton';
-import SmallFavoriteButton from '../components/SmallFavouriteButton';
+import SmallFavouriteButton from '../components/SmallFavouriteButton';
 import Modal from '../components/Modal';
 import UpdateButton from '../components/UpdateButton';
 import PetImage from '../components/PetImage';
@@ -24,12 +27,15 @@ type BreedsProps = {
 function Gallery({ isActive }: BreedsProps) {
     const API_KEY = import.meta.env.VITE_API_KEY;
 
+    const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
+    const dispatch = useDispatch();
+
     const [order, setOrder] = useState('Random');
     const [type, setType] = useState('Static');
     const [breedValue, setBreedValue] = useState('None');
     const [value, setValue] = useState('5 items per page');
-    const [breeds, setBreeds] = useState<{ id: string, name: string, image: { url: string, id: string } }[]>([]);
-    const [searchedBreeds, setSearchedBreeds] = useState<{ id: string, url: string, breeds: { name: string, id: string }[] }[]>([]);
+    const [allBreeds, setAllBreeds] = useState<{ id: string, name: string, reference_image_id: string, image: { url: string, id: string } }[]>([]);
+    const [searchedBreeds, setSearchedBreeds] = useState<{ url: string, breeds: [{ reference_image_id: string, id: string }] }[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = () => {
@@ -40,6 +46,23 @@ function Gallery({ isActive }: BreedsProps) {
         setIsModalOpen(false);
     };
 
+    const handleClick = async (reference_image_id: string) => {
+        const filteredBreeds = breeds.find((breed) => breed.reference_image_id === reference_image_id);
+        if (!filteredBreeds) {
+            const response = await fetch(`https://api.thecatapi.com/v1/images/${reference_image_id}`, {
+                headers: {
+                    'x-api-key': API_KEY
+                }
+            });
+            const data = await response.json();
+            dispatch(addBreed({ id: reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', url: data.url }));
+            dispatch(addLog({ id: reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'added to' }));
+        } else {
+            dispatch(removeBreed({ id: reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites' }));
+            dispatch(addLog({ id: reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
+        }
+    };
+
     useEffect(() => {
         const getBreeds = async () => {
             const response = await fetch(`https://api.thecatapi.com/v1/breeds`, {
@@ -48,14 +71,14 @@ function Gallery({ isActive }: BreedsProps) {
                 }
             });
             const data = await response.json();
-            setBreeds(data);
+            setAllBreeds(data);
         };
         getBreeds();
     }, [API_KEY]);
 
     useEffect(() => {
         const getBreeds = async () => {
-            const searchedBreed = breeds.filter((breed) => breed.name === breedValue);
+            const searchedBreed = allBreeds.filter((breed) => breed.name === breedValue);
             let breed_ids = '';
             if (searchedBreed.length !== 0) {
                 breed_ids = searchedBreed[0].id;
@@ -79,7 +102,7 @@ function Gallery({ isActive }: BreedsProps) {
 
             const limit = value.match(/\d+/g);
 
-            const baseUrl = 'https://api.thecatapi.com/v1/images/search?';
+            const baseUrl = 'https://api.thecatapi.com/v1/images/search?has_breeds=1&';
             const response = await fetch(`${baseUrl}breed_ids=${breed_ids}&order=${breedOrder}&mime_types=${mime_types}&limit=${limit}`, {
                 headers: {
                     'x-api-key': API_KEY
@@ -89,8 +112,8 @@ function Gallery({ isActive }: BreedsProps) {
             setSearchedBreeds(data);
         };
         getBreeds();
-    }, [API_KEY, breeds, order, type, breedValue, value]);
-
+    }, [API_KEY, allBreeds, order, type, breedValue, value]);
+    
     return (
         <Container className={`${isModalOpen ? 'bg-stone-900 bg-opacity-60' : ''}`}>
             <LeftSection isActive={isActive} />
@@ -145,7 +168,7 @@ function Gallery({ isActive }: BreedsProps) {
                                 >
                                     <Option>None</Option>
                                     {
-                                        breeds.map((breed) => (
+                                        allBreeds.map((breed) => (
                                             <Option key={breed.name}>{breed.name}</Option>
                                         ))
                                     }
@@ -170,12 +193,12 @@ function Gallery({ isActive }: BreedsProps) {
                     </div>
                     {searchedBreeds.map((breed) => (
                         <PetImage
-                            key={breed.id}
+                            key={breed.breeds[0].reference_image_id}
                             url={breed.url || ''}
                         // name={breed.breeds[i]?.name}
                         // id={breed.breeds[i]?.id}
                         >
-                            <SmallFavoriteButton />
+                            <SmallFavouriteButton onClick={() => handleClick(breed.breeds[0].reference_image_id)} />
                         </PetImage>
                     ))}
                     <Modal

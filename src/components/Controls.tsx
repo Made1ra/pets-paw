@@ -29,16 +29,16 @@ function Controls({ reference_image_id, url, onLikeDislikeClick }: ControlsProps
     const handleClick = (category: string, reference_image_id: string) => {
         const filteredBreeds = breeds.find((breed) => breed.reference_image_id === reference_image_id);
         if (!filteredBreeds) {
-            dispatch(addBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, url: url }))
-            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'added to' }))
+            dispatch(addBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, url: url }));
+            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'added to' }));
         } else if (filteredBreeds && filteredBreeds.category !== category) {
-            dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category }))
-            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: filteredBreeds.category, action: 'removed from' }))
-            dispatch(addBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category }))
-            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'added to' }))
+            dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category }));
+            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: filteredBreeds.category, action: 'removed from' }));
+            dispatch(addBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category }));
+            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'added to' }));
         } else {
-            dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category }))
-            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'removed from' }))
+            dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category }));
+            dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: category, action: 'removed from' }));
         }
 
         if (category === 'Likes' || category === 'Dislikes') {
