@@ -50,7 +50,7 @@ function Voting({ isActive }: VotingProps) {
         const data = await response.json();
         setRandomImage(data);
     };
-    console.log(logs[0]);
+    
     return (
         <Container>
             <LeftSection isActive={isActive} />
