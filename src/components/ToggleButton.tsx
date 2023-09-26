@@ -1,15 +1,11 @@
-import useTheme from '../hooks/useTheme';
+type ToggleButtonProps = {
+    onClick: () => void;
+};
 
-function ToggleButton() {
-    const { theme, setTheme } = useTheme();
-
-    const handleClick = () => {
-        setTheme(!theme);
-    };
-
+function ToggleButton({ onClick }: ToggleButtonProps) {
     return (
         <div
-            onClick={() => handleClick()}
+            onClick={onClick}
             className="w-11 h-6 relative cursor-pointer"
         >
             <div className="w-11 h-6 left-0 top-0 absolute bg-red-100 rounded-[50px] dark:bg-rose-400 dark:bg-opacity-20" />
