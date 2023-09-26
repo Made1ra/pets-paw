@@ -1,4 +1,5 @@
 import Logo from './Logo';
+import ToggleTheme from './ToggleTheme';
 import Welcome from './Welcome';
 
 type LeftSectionProps = {
@@ -8,7 +9,10 @@ type LeftSectionProps = {
 function LeftSection({ isActive }: LeftSectionProps) {
     return (
         <div className="sticky top-4 z-10 flex flex-col items-start ml-80">
-            <Logo />
+            <div className="flex">
+                <Logo />
+                <ToggleTheme />
+            </div>
             <Welcome isActive={isActive} />
         </div>
     );
