@@ -7,6 +7,10 @@ body {
     font-family: Jost;
 }
 
+#logo path {
+    @apply dark:fill-slate-100;
+}
+
 [app-theme="light"] {
     background: #F8F8F7;
 }

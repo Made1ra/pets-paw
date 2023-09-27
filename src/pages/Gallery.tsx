@@ -113,7 +113,7 @@ function Gallery({ isActive }: BreedsProps) {
         };
         getBreeds();
     }, [API_KEY, allBreeds, order, type, breedValue, value]);
-    
+
     return (
         <Container className={`${isModalOpen ? 'bg-stone-900 bg-opacity-60' : ''}`}>
             <LeftSection isActive={isActive} />
@@ -128,14 +128,15 @@ function Gallery({ isActive }: BreedsProps) {
                         <LargeTextButton>GALLERY</LargeTextButton>
                         <UploadButton onClick={() => openModal()} />
                     </NavigationContainer>
-                    <div className="w-full h-fit bg-stone-50 rounded-[20px]">
+                    <div className="w-full h-fit bg-stone-50 rounded-[20px]
+                    dark:bg-white dark:bg-opacity-5">
                         <div className="flex flex-row">
                             <div className="flex flex-col">
                                 <label className="w-28 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">ORDER</label>
                                 <Select
                                     value={order}
                                     onChange={(e: ChangeEvent<HTMLSelectElement>) => setOrder(e.target.value)}
-                                    className="bg-white"
+                                    className="bg-white dark:bg-stone-900 dark:text-white"
                                     width=""
                                 >
                                     <Option>Random</Option>
@@ -148,7 +149,7 @@ function Gallery({ isActive }: BreedsProps) {
                                 <Select
                                     value={type}
                                     onChange={(e: ChangeEvent<HTMLSelectElement>) => setType(e.target.value)}
-                                    className="bg-white"
+                                    className="bg-white dark:bg-stone-900 dark:text-white"
                                     width=""
                                 >
                                     <Option>All</Option>
@@ -163,7 +164,7 @@ function Gallery({ isActive }: BreedsProps) {
                                 <Select
                                     value={breedValue}
                                     onChange={(e) => setBreedValue(e.target.value)}
-                                    className="bg-white"
+                                    className="bg-white dark:bg-stone-900 dark:text-white"
                                     width=""
                                 >
                                     <Option>None</Option>
@@ -179,7 +180,7 @@ function Gallery({ isActive }: BreedsProps) {
                                 <Select
                                     value={value}
                                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value)}
-                                    className="bg-white"
+                                    className="bg-white dark:bg-stone-900 dark:text-white"
                                     width=""
                                 >
                                     <Option>5 items per page</Option>

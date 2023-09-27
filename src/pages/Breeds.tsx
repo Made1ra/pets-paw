@@ -94,6 +94,7 @@ function Breeds({ isActive }: BreedsProps) {
                             value={breedValue}
                             onChange={(e) => setBreedValue(e.target.value)}
                             width="14.125rem"
+                            className="dark:bg-opacity-10 dark:text-neutral-400"
                         >
                             <Option>All breeds</Option>
                             {
@@ -106,6 +107,7 @@ function Breeds({ isActive }: BreedsProps) {
                             value={value}
                             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value)}
                             width="6.3125rem"
+                            className="dark:bg-opacity-10 dark:text-neutral-400"
                         >
                             <Option>Limit: 5</Option>
                             <Option>Limit: 10</Option>
@@ -126,7 +128,9 @@ function Breeds({ isActive }: BreedsProps) {
                                 to={`/breed/${breed.breeds[0]?.id}`}
                                 style={{ textDecoration: 'none' }}
                             >
-                                <Button className="mt-20 z-20 absolute left-2 top-4 w-[180px] h-[34px]">{breed.breeds[0]?.name}</Button>
+                                <Button className="mt-20 z-20 absolute left-2 top-4 w-[180px] h-[34px] dark:bg-zinc-800">
+                                    {breed.breeds[0]?.name}
+                                </Button>
                             </Link>
                         </PetImage>
                     ))}
