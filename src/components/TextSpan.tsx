@@ -4,8 +4,9 @@ type TextProps = {
 
 function Text({ children }: TextProps) {
     return (
-        <div className="w-[640px] h-[60px] rounded-[10px]">
-            <span className="bg-stone-50 text-neutral-400 text-xl font-normal font-jost leading-normal">
+        <div className="flex items-center w-[640px] h-[60px] rounded-[10px] dark:bg-white dark:bg-opacity-5">
+            <span className="bg-stone-50 text-neutral-400 text-xl outline-0 border-none border-0 font-normal ml-4 font-jost leading-normal
+            dark:bg-neutral-700 dark:bg-opacity-10">
                 {children}
             </span>
         </div>

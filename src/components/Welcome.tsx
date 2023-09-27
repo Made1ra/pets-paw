@@ -30,7 +30,7 @@ function Welcome({ isActive }: WelcomeProps) {
 
     return (
         <>
-            <p className="w-[182px] text-stone-900 text-[44px] font-medium leading-[58px] mt-16 dark:text-white">
+            <p className="w-[11.375rem] text-stone-900 text-[2.75rem] font-medium leading-[3.625rem] mt-16 dark:text-white">
                 Hi!👋
             </p>
             <p className="text-neutral-400 text-xl font-normal mt-4">

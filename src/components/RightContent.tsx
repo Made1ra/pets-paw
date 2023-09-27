@@ -4,7 +4,7 @@ type RightContentProps = {
 
 function RightContent({ children }: RightContentProps) {
     return (
-        <div className="flex flex-1 flex-col items-end -mr-[8.5rem]">
+        <div className="hidden flex-1 flex-col items-end -mr-[8.5rem]  lg:flex">
             {children}
         </div>
     );

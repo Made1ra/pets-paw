@@ -1,60 +1,23 @@
-import styled from 'styled-components';
-import like from '../assets/like-30.svg';
-import likeWhite from '../assets/like-white-30.svg';
-import fav from '../assets/fav-30.svg';
-import favWhite from '../assets/fav-white-30.svg';
-import dislike from '../assets/dislike-30.svg';
-import dislikeWhite from '../assets/dislike-white-30.svg';
-
-const StyledLink = styled.div<{ $url: string, $urlWhite: string }>`
-    width: 3.75rem;
-    height: 3.75rem;
-    flex-shrink: 0;
-
-    border-radius: 1.25rem;
-    background: url(${props => props.$url}) center no-repeat;
-    background-color: #FFF;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem 0.5rem;
-
-    cursor: pointer;
-
-    &:hover {
-        background-color: #FBE0DC;
-    }
-
-    &:active {
-        background: url(${props => props.$urlWhite}) center no-repeat;
-        background-color: #FF868E;
-    }
-`;
-
 export type SmileProps = {
     title: string;
 };
 
 function Smile({ title }: SmileProps) {
-    let url = '';
-    let urlWhite = '';
-    if (title === 'likes') {
-        url = like;
-        urlWhite = likeWhite;
-    } else if (title === 'favourites') {
-        url = fav;
-        urlWhite = favWhite;
-    } else if (title === 'dislikes') {
-        url = dislike;
-        urlWhite = dislikeWhite;
-    }
-
     return (
-        <StyledLink
-            $url={url}
-            $urlWhite={urlWhite}
-        />
+        <>
+            {title === 'likes' && (
+                <div className={`flex flex-shrink-0 items-center justify-center cursor-pointer my-4 mx-2 w-[60px] h-[60px] bg-white rounded-[20px] bg-center bg-no-repeat bg-[url("../src/assets/like-30.svg")]
+                dark:bg-opacity-5 hover:bg-red-100 active:bg-rose-400 active:bg-[url("../src/assets/like-white-30.svg")]`} />
+            )}
+            {title === 'favourites' && (
+                <div className={`flex flex-shrink-0 items-center justify-center cursor-pointer my-4 mx-2 w-[60px] h-[60px] bg-white rounded-[20px] bg-center bg-no-repeat bg-[url("../src/assets/fav-30.svg")]
+                dark:bg-opacity-5 hover:bg-red-100 active:bg-rose-400 active:bg-[url("../src/assets/fav-white-30.svg")]`} />
+            )}
+            {title === 'dislikes' && (
+                <div className={`flex flex-shrink-0 items-center justify-center cursor-pointer my-4 mx-2 w-[60px] h-[60px] bg-white rounded-[20px] bg-center bg-no-repeat bg-[url("../src/assets/dislike-30.svg")]
+                dark:bg-opacity-5 hover:bg-red-100 active:bg-rose-400 active:bg-[url("../src/assets/dislike-white-30.svg")]`} />
+            )}
+        </>
     );
 }
 

@@ -8,7 +8,7 @@ type LeftSectionProps = {
 
 function LeftSection({ isActive }: LeftSectionProps) {
     return (
-        <div className="sticky top-4 z-10 flex flex-col items-start ml-80">
+        <div className="top-4 z-10 flex flex-col items-start md:ml-64 lg:ml-80 lg:sticky">
             <div className="flex">
                 <Logo />
                 <ToggleTheme />
