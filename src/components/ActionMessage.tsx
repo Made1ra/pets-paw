@@ -1,82 +1,40 @@
 import { Log } from '../store';
-import styled from 'styled-components';
-import likeColor from '../assets/like-color-20.svg';
-import favColor from '../assets/fav-20.svg';
-import dislikeColor from '../assets/dislike-color-20.svg';
-
-const StyledActionMessage = styled.div`
-    width: 40rem;
-    height: 3.75rem;
-    flex-shrink: 0;
-
-    border-radius: 0.625rem;
-    background: #F8F8F7;
-    display: flex;
-    flex-direction: row;
-    align-items: center;   
-    justify-content: space-between;
-    padding: 0 1rem;
-`;
-
-const Time = styled.div`
-    width: 2.5625rem;
-
-    color: #1D1D1D;
-    font-family: Jost;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5rem;
-    margin-right: 2rem;
-`;
-
-const Text = styled.div`
-    width: 100%;
-    color: #8C8C8C;
-    font-family: Jost;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5rem;
-    display: flex;
-`;
-
-const BoldText = styled.div`
-    color: #1D1D1D;
-    font-family: Jost;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 1.5rem;
-    display: flex;
-    margin: 0 0.5rem;
-`;
-
-const Image = styled.div<{ $url: string }>`
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
-    background: url(${props => props.$url}) center no-repeat;
-`;
 
 function ActionMessage({ dateOfEditing, reference_image_id, category, action }: Log) {
     let url = '';
     if (category === 'Likes') {
-        url = likeColor;
+        url = '../src/assets/like-color-20.svg';
     } else if (category === 'Favourites') {
-        url = favColor;
+        url = '../src/assets/fav-color-20.svg';
     } else if (category === 'Dislikes') {
-        url = dislikeColor;
+        url = '../src/assets/dislike-color-20.svg';
     }
-    
+
     return (
-        <StyledActionMessage>
-            <Time>{dateOfEditing}</Time>
-            <Text>
-                Image ID:<BoldText>{reference_image_id}</BoldText>was {action} {category}
-            </Text>
-            <Image $url={url} />
-        </StyledActionMessage>
+        <div className="flex flex-shrink-0 flex-row items-center justify-between mb-3 px-4 py-4 w-[40rem] h-[3.75rem] rounded-[0.625rem] bg-stone-50
+        dark:bg-white dark:bg-opacity-5">
+            <div className="flex items-center justify-center w-[3.8125rem] h-[1.875rem] bg-white rounded-[0.3125rem] dark:bg-stone-900">
+                <div className="w-[2.5625rem] text-stone-900 text-base font-normal font-jost leading-normal dark:text-white">
+                    {dateOfEditing}
+                </div>
+            </div>
+            <div className="w-full ml-4">
+                <span className="text-neutral-400 text-base font-normal font-jost leading-normal">
+                    Image ID:
+                </span>
+                <span className="mx-2 text-stone-900 text-base font-medium font-jost leading-normal">
+                    {reference_image_id}
+                </span>
+                <span className="text-neutral-400 text-base font-normal font-jost leading-normal">
+                    was {action} {category}
+                </span>
+            </div>
+            <div className="flex items-start justify-start">
+                <div
+                    className="w-5 h-5 flex-shrink-0 bg-no-repeat bg-center"
+                    style={{ backgroundImage: `url(${url})` }} />
+            </div>
+        </div>
     );
 }
 
