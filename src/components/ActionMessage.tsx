@@ -13,7 +13,7 @@ function ActionMessage({ dateOfEditing, reference_image_id, category, action }: 
                 <span className="text-neutral-400 text-base font-normal font-jost leading-normal">
                     Image ID:
                 </span>
-                <span className="mx-2 text-stone-900 text-base font-medium font-jost leading-normal">
+                <span className="mx-2 text-stone-900 text-base font-medium font-jost leading-normal dark:text-white">
                     {reference_image_id}
                 </span>
                 <span className="text-neutral-400 text-base font-normal font-jost leading-normal">
