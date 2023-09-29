@@ -1,15 +1,6 @@
 import { Log } from '../store';
 
 function ActionMessage({ dateOfEditing, reference_image_id, category, action }: Log) {
-    let url = '';
-    if (category === 'Likes') {
-        url = '../src/assets/like-color-20.svg';
-    } else if (category === 'Favourites') {
-        url = '../src/assets/fav-color-20.svg';
-    } else if (category === 'Dislikes') {
-        url = '../src/assets/dislike-color-20.svg';
-    }
-
     return (
         <div className="flex flex-shrink-0 flex-row items-center justify-between mb-3 px-4 py-4 w-[40rem] h-[3.75rem] rounded-[0.625rem] bg-stone-50
         dark:bg-white dark:bg-opacity-5">
@@ -30,9 +21,17 @@ function ActionMessage({ dateOfEditing, reference_image_id, category, action }: 
                 </span>
             </div>
             <div className="flex items-start justify-start">
-                <div
-                    className="w-5 h-5 flex-shrink-0 bg-no-repeat bg-center"
-                    style={{ backgroundImage: `url(${url})` }} />
+                <>
+                    {category === 'Likes' && (
+                        <div className="w-5 h-5 flex-shrink-0 bg-no-repeat bg-center bg-[url('../src/assets/like-color-20.svg')]" />
+                    )}
+                    {category === 'Favourites' && (
+                        <div className="w-5 h-5 flex-shrink-0 bg-no-repeat bg-center bg-[url('../src/assets/fav-color-20.svg')]" />
+                    )}
+                    {category === 'Dislikes' && (
+                        <div className="w-5 h-5 flex-shrink-0 bg-no-repeat bg-center bg-[url('../src/assets/dislike-color-20.svg')]" />
+                    )}
+                </>
             </div>
         </div>
     );
