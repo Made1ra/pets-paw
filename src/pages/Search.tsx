@@ -43,7 +43,7 @@ function Search() {
                         <LargeTextButton>SEARCH</LargeTextButton>
                     </NavigationContainer>
                     {searchedBreeds.length > 0 && (
-                        <TextSpan>
+                        <TextSpan className="mb-2">
                             Search results for: <BoldText>{searchedBreeds[0].name}</BoldText>
                         </TextSpan>
                     )}
