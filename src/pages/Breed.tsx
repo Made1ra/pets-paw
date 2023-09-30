@@ -27,8 +27,10 @@ function Breed() {
             description: string,
             temperament: string,
             origin: string,
-            weight: string,
-            lifeSpan: string
+            weight: {
+                metric: string
+            },
+            life_span: string
         }[]
     }>();
 
@@ -40,12 +42,17 @@ function Breed() {
                 }
             });
             const data = await response.json();
-            setSearchedBreed(data);
+            setSearchedBreed(data[0]);
         };
         getBreed();
-
     }, [API_KEY, id]);
-    console.log(searchedBreed);
+
+    if (!searchedBreed) {
+        return (
+            <div>Loading...</div>
+        );
+    }
+    
     return (
         <Container>
             <LeftSection isActive={4} />
@@ -57,12 +64,12 @@ function Breed() {
                 <ActionsContainer>
                     <NavigationContainer>
                         <SmallLink />
-                        <TextButton
-                            isActive
-                            className="ml-2"
-                        >
-                            {searchedBreed?.breeds && searchedBreed.breeds[0]?.name}
-                        </TextButton>
+                        <div className="flex items-center justify-center w-[8.9375rem] h-10 ml-2 bg-red-100 rounded-[0.625rem] 
+                        text-center text-rose-400 text-xl font-medium font-jost leading-[1.875rem] tracking-widest
+                        hover:bg-rose-400 dark:bg-rose-400 dark:bg-opacity-20 dark:hover:bg-rose-400 
+                        hover:text-white dark:text-rose-400 dark:hover:text-white">
+                            BREEDS
+                        </div>
                         <TextButton
                             isActive
                             className="ml-2"
@@ -71,20 +78,20 @@ function Breed() {
                         </TextButton>
                     </NavigationContainer>
                     <ImageContainer>
-                        <Image src={searchedBreed?.url || ''} />
+                        <Image src={searchedBreed.url} />
                         <SelectedControls />
                     </ImageContainer>
                     <PetInfo
-                        name={searchedBreed?.breeds[0].name || ''}
-                        description={searchedBreed?.breeds[0].description || ''}
-                        temperament={searchedBreed?.breeds[0].temperament || ''}
-                        origin={searchedBreed?.breeds[0].origin || ''}
-                        weight={searchedBreed?.breeds[0].weight || ''}
-                        lifeSpan={searchedBreed?.breeds[0].lifeSpan || ''}
+                        name={searchedBreed.breeds[0].name}
+                        description={searchedBreed.breeds[0].description}
+                        temperament={searchedBreed.breeds[0].temperament}
+                        origin={searchedBreed.breeds[0].origin}
+                        weight={searchedBreed.breeds[0].weight.metric}
+                        lifeSpan={searchedBreed.breeds[0].life_span}
                     />
                 </ActionsContainer>
             </RightSectionContainer>
-        </Container>
+        </Container >
     );
 }
 
