@@ -10,7 +10,7 @@ function UploadButton({ onClick }: UploadButtonProps) {
     return (
         <div
             className="flex items-center justify-center w-[143px] h-10 ml-80 bg-red-100 rounded-[10px] cursor-pointer
-            dark:bg-rose-400 dark:bg-opacity-20 hover:bg-rose-400"
+            dark:bg-rose-400 dark:bg-opacity-20 hover:bg-rose-400 dark:hover:bg-rose-400"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={onClick}
