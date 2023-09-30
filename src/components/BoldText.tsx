@@ -4,7 +4,7 @@ type BoldTextProps = {
 
 function BoldText({ children }: BoldTextProps) {
     return (
-        <span className="text-stone-900 text-xl font-medium font-jost">{children}</span>
+        <span className="text-stone-900 text-xl font-medium font-jost dark:text-white">{children}</span>
     );
 }
 
