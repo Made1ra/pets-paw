@@ -9,7 +9,6 @@ import Smiles from '../components/Smiles';
 import SmallLink from '../components/SmallLink';
 import ActionsContainer from '../components/ActionsContainer';
 import NavigationContainer from '../components/NavigationContainer';
-import TextButton from '../components/TextButton';
 import Loader from '../components/Loader';
 import ImageContainer from '../components/ImageContainer';
 import Image from '../components/Image';
@@ -21,7 +20,7 @@ function Breed() {
 
     const API_KEY = import.meta.env.VITE_API_KEY;
 
-    const [searchedBreed, setSearchedBreed] = useState<{
+    const [searchedBreeds, setSearchedBreeds] = useState<{
         id: string, url: string, breeds: {
             id: string,
             name: string,
@@ -33,21 +32,21 @@ function Breed() {
             },
             life_span: string
         }[]
-    }>();
+    }[]>([]);
 
     useEffect(() => {
         const getBreed = async () => {
-            const response = await fetch(`https://api.thecatapi.com/v1/images/search?has_breeds=1&breed_ids=${id}&limit=1`, {
+            const response = await fetch(`https://api.thecatapi.com/v1/images/search?has_breeds=1&breed_ids=${id}&limit=5`, {
                 headers: {
                     'x-api-key': API_KEY
                 }
             });
             const data = await response.json();
-            setSearchedBreed(data[0]);
+            setSearchedBreeds(data);
         };
         getBreed();
     }, [API_KEY, id]);
-
+    
     return (
         <Container>
             <LeftSection isActive={4} />
@@ -65,28 +64,27 @@ function Breed() {
                         hover:text-white dark:text-rose-400 dark:hover:text-white">
                             BREEDS
                         </div>
-                        <TextButton
-                            isActive
-                            className="ml-2"
-                        >
-                            {id}
-                        </TextButton>
+                        <div className="flex items-center justify-center text-center w-fit h-10 bg-rose-400 rounded-[0.625rem] p-4 ml-2 uppercase text-white hover:bg-red-100 hover:text-rose-400">
+                            <div className="w-[fit text-center text-xl font-medium font-jost leading-[1.875rem] tracking-widest">
+                                {id}
+                            </div>
+                        </div>
                     </NavigationContainer>
-                    {!searchedBreed ? (
+                    {!searchedBreeds.length ? (
                         <Loader />
                     ) : (
                         <>
                             <ImageContainer>
-                                <Image src={searchedBreed.url} />
+                                <Image src={searchedBreeds[0].url} />
                                 <SelectedControls />
                             </ImageContainer>
                             <PetInfo
-                                name={searchedBreed.breeds[0].name}
-                                description={searchedBreed.breeds[0].description}
-                                temperament={searchedBreed.breeds[0].temperament}
-                                origin={searchedBreed.breeds[0].origin}
-                                weight={searchedBreed.breeds[0].weight.metric}
-                                lifeSpan={searchedBreed.breeds[0].life_span}
+                                name={searchedBreeds[0].breeds[0].name}
+                                description={searchedBreeds[0].breeds[0].description}
+                                temperament={searchedBreeds[0].breeds[0].temperament}
+                                origin={searchedBreeds[0].breeds[0].origin}
+                                weight={searchedBreeds[0].breeds[0].weight.metric}
+                                lifeSpan={searchedBreeds[0].breeds[0].life_span}
                             />
                         </>
                     )}
