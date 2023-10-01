@@ -10,6 +10,7 @@ import SmallLink from '../components/SmallLink';
 import ActionsContainer from '../components/ActionsContainer';
 import NavigationContainer from '../components/NavigationContainer';
 import TextButton from '../components/TextButton';
+import Loader from '../components/Loader';
 import ImageContainer from '../components/ImageContainer';
 import Image from '../components/Image';
 import SelectedControls from '../components/SelectedControls';
@@ -47,12 +48,6 @@ function Breed() {
         getBreed();
     }, [API_KEY, id]);
 
-    if (!searchedBreed) {
-        return (
-            <div>Loading...</div>
-        );
-    }
-    
     return (
         <Container>
             <LeftSection isActive={4} />
@@ -77,18 +72,24 @@ function Breed() {
                             {id}
                         </TextButton>
                     </NavigationContainer>
-                    <ImageContainer>
-                        <Image src={searchedBreed.url} />
-                        <SelectedControls />
-                    </ImageContainer>
-                    <PetInfo
-                        name={searchedBreed.breeds[0].name}
-                        description={searchedBreed.breeds[0].description}
-                        temperament={searchedBreed.breeds[0].temperament}
-                        origin={searchedBreed.breeds[0].origin}
-                        weight={searchedBreed.breeds[0].weight.metric}
-                        lifeSpan={searchedBreed.breeds[0].life_span}
-                    />
+                    {!searchedBreed ? (
+                        <Loader />
+                    ) : (
+                        <>
+                            <ImageContainer>
+                                <Image src={searchedBreed.url} />
+                                <SelectedControls />
+                            </ImageContainer>
+                            <PetInfo
+                                name={searchedBreed.breeds[0].name}
+                                description={searchedBreed.breeds[0].description}
+                                temperament={searchedBreed.breeds[0].temperament}
+                                origin={searchedBreed.breeds[0].origin}
+                                weight={searchedBreed.breeds[0].weight.metric}
+                                lifeSpan={searchedBreed.breeds[0].life_span}
+                            />
+                        </>
+                    )}
                 </ActionsContainer>
             </RightSectionContainer>
         </Container >
