@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
 import Container from '../components/Container';
 import LeftSection from '../components/LeftSection';
 import RightSectionContainer from '../components/RightSectionContainer';
@@ -10,10 +12,10 @@ import SmallLink from '../components/SmallLink';
 import ActionsContainer from '../components/ActionsContainer';
 import NavigationContainer from '../components/NavigationContainer';
 import Loader from '../components/Loader';
-import ImageContainer from '../components/ImageContainer';
 import Image from '../components/Image';
-import SelectedControls from '../components/SelectedControls';
 import PetInfo from '../components/PetInfo';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 function Breed() {
     const { id } = useParams();
@@ -46,7 +48,7 @@ function Breed() {
         };
         getBreed();
     }, [API_KEY, id]);
-    
+
     return (
         <Container>
             <LeftSection isActive={4} />
@@ -65,7 +67,7 @@ function Breed() {
                             BREEDS
                         </div>
                         <div className="flex items-center justify-center text-center w-fit h-10 bg-rose-400 rounded-[0.625rem] p-4 ml-2 uppercase text-white hover:bg-red-100 hover:text-rose-400">
-                            <div className="w-[fit text-center text-xl font-medium font-jost leading-[1.875rem] tracking-widest">
+                            <div className="w-fit text-center text-xl font-medium font-jost leading-[1.875rem] tracking-widest">
                                 {id}
                             </div>
                         </div>
@@ -74,10 +76,25 @@ function Breed() {
                         <Loader />
                     ) : (
                         <>
-                            <ImageContainer>
-                                <Image src={searchedBreeds[0].url} />
-                                <SelectedControls />
-                            </ImageContainer>
+                            <Swiper
+                                pagination={{
+                                    clickable: true,
+                                    type: "bullets",
+                                }}
+                                grabCursor
+                                modules={[Pagination]}
+                            >
+                                {
+                                    searchedBreeds.slice(0, 5).map((breed) => (
+                                        <SwiperSlide key={breed.url}>
+                                            <Image
+                                                src={breed.url}
+                                                alt={breed.breeds[0].name}
+                                            />
+                                        </SwiperSlide>
+                                    ))
+                                }
+                            </Swiper>
                             <PetInfo
                                 name={searchedBreeds[0].breeds[0].name}
                                 description={searchedBreeds[0].breeds[0].description}
