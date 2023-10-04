@@ -4,7 +4,7 @@
 
 body {
     margin: 1rem 8.5rem 0 1rem;
-    font-family: Jost;
+    @apply font-jost;
 }
 
 #logo path {
@@ -20,7 +20,7 @@ body {
 }
 
 .swiper-pagination-horizontal {
-    @apply absolute flex items-center w-[5.625rem] h-[1.875rem] left-1/2 bg-white rounded-[20px];
+    @apply absolute flex items-center w-[5.625rem] h-[1.875rem] left-1/2 bg-white rounded-[1.25rem];
 }
 
 .swiper-pagination-bullet {
