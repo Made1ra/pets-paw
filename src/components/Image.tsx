@@ -6,7 +6,7 @@ type ImageProps = {
 function Image({ src, alt }: ImageProps) {
     return (
         <img
-            className="w-[640px] h-[360px] rounded-[20px]"
+            className="w-[40rem] h-[22.5rem] rounded-[1.25rem]"
             src={src}
             alt={alt}
         />
