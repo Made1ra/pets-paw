@@ -84,16 +84,14 @@ function Breed() {
                                 grabCursor
                                 modules={[Pagination]}
                             >
-                                {
-                                    searchedBreeds.slice(0, 5).map((breed) => (
-                                        <SwiperSlide key={breed.url}>
-                                            <Image
-                                                src={breed.url}
-                                                alt={breed.breeds[0].name}
-                                            />
-                                        </SwiperSlide>
-                                    ))
-                                }
+                                {searchedBreeds.slice(0, 5).map((breed) => (
+                                    <SwiperSlide key={breed.url}>
+                                        <Image
+                                            src={breed.url}
+                                            alt={breed.breeds[0].name}
+                                        />
+                                    </SwiperSlide>
+                                ))}
                             </Swiper>
                             <PetInfo
                                 name={searchedBreeds[0].breeds[0].name}
