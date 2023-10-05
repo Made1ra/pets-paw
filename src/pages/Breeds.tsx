@@ -46,37 +46,33 @@ function Breeds({ isActive }: BreedsProps) {
     }
 
     useEffect(() => {
-        const getBreeds = async () => {
-            const response = await fetch(`https://api.thecatapi.com/v1/breeds`, {
+        const fetchData = async () => {
+            const breedResponse = await fetch(`https://api.thecatapi.com/v1/breeds`, {
                 headers: {
                     'x-api-key': API_KEY
                 }
             });
-            const data = await response.json();
-            setBreeds(data);
-        };
-        getBreeds();
-    }, [API_KEY]);
+            const breedData = await breedResponse.json();
+            setBreeds(breedData);
 
-    useEffect(() => {
-        const getBreeds = async () => {
-            const searchedBreed = breeds.filter((breed) => breed.name === breedValue);
+            const searchedBreed = breedData.filter((breed: { id: string, name: string, image: { url: string, id: string } }) => breed.name === breedValue);
             let breed_ids = '';
             if (searchedBreed.length !== 0) {
                 breed_ids = searchedBreed[0].id;
             }
 
             const limit = value.replace(/^\D+/g, '');
-            const response = await fetch(`https://api.thecatapi.com/v1/images/search?has_breeds=1&breed_ids=${breed_ids}&limit=${limit}`, {
+            const imageResponse = await fetch(`https://api.thecatapi.com/v1/images/search?has_breeds=1&breed_ids=${breed_ids}&limit=${limit}`, {
                 headers: {
                     'x-api-key': API_KEY
                 }
             });
-            const data = await response.json();
-            setSearchedBreeds(data);
+            const imageData = await imageResponse.json();
+            setSearchedBreeds(imageData);
         };
-        getBreeds();
-    }, [API_KEY, value, breedValue, breeds]);
+
+        fetchData();
+    }, [API_KEY, value, breedValue]);
 
     return (
         <Container>
