@@ -54,8 +54,6 @@ function Gallery({ isActive }: BreedsProps) {
             id = match[1];
         }
 
-        console.log(url);
-        console.log(id);
         const filteredBreeds = breeds.find((breed) => breed.url === url);
         if (!filteredBreeds) {
             dispatch(addBreed({ reference_image_id: id, dateOfEditing: formatDate(new Date()), category: 'Favourites', url }));
@@ -201,10 +199,13 @@ function Gallery({ isActive }: BreedsProps) {
                     </div>
                     {searchedBreeds.map((breed) => (
                         <PetImage
-                            key={breed.breeds[0].reference_image_id}
+                            key={breed.url}
                             url={breed.url}
                         >
-                            <SmallFavouriteButton onClick={() => handleClick(breed.url)} />
+                            <SmallFavouriteButton
+                                isFavourite={undefined !== breeds.find((b) => b.url === breed.url)}
+                                onClick={() => handleClick(breed.url)}
+                            />
                         </PetImage>
                     ))}
                     <Modal
