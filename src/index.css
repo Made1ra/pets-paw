@@ -26,7 +26,7 @@ body {
 }
 
 .swiper-pagination-horizontal {
-    @apply absolute flex items-center w-[5.625rem] h-[1.875rem] left-1/2 bg-white rounded-[1.25rem];
+    @apply absolute flex items-center w-[5.625rem] h-[1.875rem] left-1/2 bg-white rounded-[1.25rem] dark:bg-zinc-800;
 }
 
 .swiper-pagination-bullet {
