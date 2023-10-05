@@ -52,6 +52,7 @@ function Search() {
                             <Image
                                 key={breed.reference_image_id}
                                 src={breed.image.url || ''}
+                                alt={breed.name}
                             />
                         ))
                     }

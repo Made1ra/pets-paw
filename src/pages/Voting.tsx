@@ -50,7 +50,7 @@ function Voting({ isActive }: VotingProps) {
         const data = await response.json();
         setRandomImage(data);
     };
-    
+
     return (
         <Container>
             <LeftSection isActive={isActive} />
@@ -65,7 +65,10 @@ function Voting({ isActive }: VotingProps) {
                         <LargeTextButton>VOTING</LargeTextButton>
                     </NavigationContainer>
                     <ImageContainer>
-                        <Image src={randomImage.length > 0 ? `${randomImage[0].url}` : ''} />
+                        <Image
+                            src={randomImage.length > 0 ? `${randomImage[0].url}` : ''}
+                            alt={randomImage[0].name}
+                        />
                         <ControlsContainer>
                             <Controls
                                 reference_image_id={randomImage.length > 0 ? randomImage[0].id : ''}
