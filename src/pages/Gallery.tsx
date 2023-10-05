@@ -111,7 +111,9 @@ function Gallery({ isActive }: BreedsProps) {
             const data = await response.json();
             setSearchedBreeds(data);
         };
-        getBreeds();
+        if (allBreeds.length !== 0) {
+            getBreeds();
+        }
     }, [API_KEY, allBreeds, order, type, breedValue, value]);
 
     return (
