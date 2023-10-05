@@ -22,11 +22,12 @@ function Favourites() {
 
     const filteredBreeds = breeds.filter((breed) => breed.category === 'Favourites');
 
-    const handleClick = (id: string) => {
-        dispatch(addLog({ reference_image_id: id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
-        dispatch(removeBreed({ id, dateOfEditing: formatDate(new Date()), category: 'Favourites' }));
+    const handleClick = (reference_image_id: string) => {
+        dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites' }));
+        dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
+        console.log(reference_image_id);
     };
-
+    console.log(filteredBreeds);
     return (
         <Container>
             <LeftSection isActive={4} />
@@ -45,7 +46,7 @@ function Favourites() {
                     ) : (
                         filteredBreeds.map((breed) => (
                             <PetImage
-                                key={breed.url}
+                                key={breed.reference_image_id}
                                 url={breed.url || ''}
                             >
                                 <div
