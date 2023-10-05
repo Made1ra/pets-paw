@@ -42,7 +42,7 @@ const breedsSlice = createSlice({
             }
         },
         removeBreed: (state, action) => {
-            state.breeds = state.breeds.filter((breed) => breed.reference_image_id === action.payload);
+            state.breeds = state.breeds.filter((breed) => breed.reference_image_id !== action.payload.reference_image_id);
         }
     }
 });

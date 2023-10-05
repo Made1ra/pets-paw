@@ -47,20 +47,22 @@ function Gallery({ isActive }: BreedsProps) {
         setIsModalOpen(false);
     };
 
-    const handleClick = async (reference_image_id: string) => {
-        const filteredBreeds = breeds.find((breed) => breed.reference_image_id === reference_image_id);
+    const handleClick = async (url: string) => {
+        const match = url.match(/\/images\/([^/]+)\.\w+$/);
+        let id = '';
+        if (match) {
+            id = match[1];
+        }
+
+        console.log(url);
+        console.log(id);
+        const filteredBreeds = breeds.find((breed) => breed.url === url);
         if (!filteredBreeds) {
-            const response = await fetch(`https://api.thecatapi.com/v1/images/${reference_image_id}`, {
-                headers: {
-                    'x-api-key': API_KEY
-                }
-            });
-            const data = await response.json();
-            dispatch(addBreed({ id: reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', url: data.url }));
-            dispatch(addLog({ id: reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'added to' }));
+            dispatch(addBreed({ reference_image_id: id, dateOfEditing: formatDate(new Date()), category: 'Favourites', url }));
+            dispatch(addLog({ reference_image_id: id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'added to' }));
         } else {
-            dispatch(removeBreed({ id: reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites' }));
-            dispatch(addLog({ id: reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
+            dispatch(removeBreed({ reference_image_id: filteredBreeds.reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites' }));
+            dispatch(addLog({ reference_image_id: filteredBreeds.reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
         }
     };
 
@@ -112,7 +114,7 @@ function Gallery({ isActive }: BreedsProps) {
             const data = await response.json();
             setSearchedBreeds(data);
         };
-        
+
         if (allBreeds.length !== 0 && shouldBeUpdated) {
             getBreeds();
             setShouldBeUpdated(false);
@@ -199,10 +201,10 @@ function Gallery({ isActive }: BreedsProps) {
                     </div>
                     {searchedBreeds.map((breed) => (
                         <PetImage
-                            key={breed.url}
-                            url={breed.url || ''}
+                            key={breed.breeds[0].reference_image_id}
+                            url={breed.url}
                         >
-                            <SmallFavouriteButton onClick={() => handleClick(breed.breeds[0].reference_image_id)} />
+                            <SmallFavouriteButton onClick={() => handleClick(breed.url)} />
                         </PetImage>
                     ))}
                     <Modal
