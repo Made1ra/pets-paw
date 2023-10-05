@@ -4,7 +4,7 @@
 
 body {
     margin: 1rem 8.5rem 0 1rem;
-    font-family: Jost;
+    @apply font-jost;
 }
 
 #logo path {
@@ -17,4 +17,29 @@ body {
 
 [app-theme="dark"] {
     background: #1c1917;
+}
+
+.swiper,
+.swipper-wrapper,
+.swiper-slide {
+    @apply w-[40rem];
+}
+
+.swiper-pagination-horizontal {
+    @apply absolute flex items-center w-[5.625rem] h-[1.875rem] left-1/2 bg-white rounded-[1.25rem];
+}
+
+.swiper-pagination-bullet {
+    @apply w-2.5 h-2.5 left-[10px] top-[10px] bg-red-400 rounded-[10px];
+}
+
+.swiper-pagination-bullet-active {
+    @apply w-2.5 h-2.5 left-[10px] top-[10px] bg-rose-400 rounded-[10px];
+}
+
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+    @apply relative w-[5.625rem] left-[17rem] -top-4;
 }
