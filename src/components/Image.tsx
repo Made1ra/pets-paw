@@ -1,6 +1,6 @@
 type ImageProps = {
     src: string;
-    alt?: string;
+    alt: string;
 };
 
 function Image({ src, alt }: ImageProps) {
