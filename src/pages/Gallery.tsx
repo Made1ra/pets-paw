@@ -30,6 +30,7 @@ function Gallery({ isActive }: BreedsProps) {
     const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
     const dispatch = useDispatch();
 
+    const [shouldBeUpdated, setShouldBeUpdated] = useState(true);
     const [order, setOrder] = useState('Random');
     const [type, setType] = useState('Static');
     const [breedValue, setBreedValue] = useState('None');
@@ -111,10 +112,12 @@ function Gallery({ isActive }: BreedsProps) {
             const data = await response.json();
             setSearchedBreeds(data);
         };
-        if (allBreeds.length !== 0) {
+        
+        if (allBreeds.length !== 0 && shouldBeUpdated) {
             getBreeds();
+            setShouldBeUpdated(false);
         }
-    }, [API_KEY, allBreeds, order, type, breedValue, value]);
+    }, [API_KEY, allBreeds, order, type, breedValue, value, shouldBeUpdated]);
 
     return (
         <Container className={`${isModalOpen ? 'bg-stone-900 bg-opacity-60' : ''}`}>
@@ -191,15 +194,13 @@ function Gallery({ isActive }: BreedsProps) {
                                     <Option>20 items per page</Option>
                                 </Select>
                             </div>
-                            <UpdateButton onClick={() => undefined} />
+                            <UpdateButton onClick={() => setShouldBeUpdated(true)} />
                         </div>
                     </div>
                     {searchedBreeds.map((breed) => (
                         <PetImage
                             key={breed.url}
                             url={breed.url || ''}
-                        // name={breed.breeds[i]?.name}
-                        // id={breed.breeds[i]?.id}
                         >
                             <SmallFavouriteButton onClick={() => handleClick(breed.breeds[0].reference_image_id)} />
                         </PetImage>
