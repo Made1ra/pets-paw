@@ -19,6 +19,12 @@ body {
     background: #1c1917;
 }
 
+.swiper,
+.swipper-wrapper,
+.swiper-slide {
+    @apply w-[40rem];
+}
+
 .swiper-pagination-horizontal {
     @apply absolute flex items-center w-[5.625rem] h-[1.875rem] left-1/2 bg-white rounded-[1.25rem];
 }
