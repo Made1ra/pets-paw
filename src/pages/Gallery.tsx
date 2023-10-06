@@ -12,6 +12,7 @@ import ActionsContainer from '../components/ActionsContainer';
 import NavigationContainer from '../components/NavigationContainer';
 import SmallLink from '../components/SmallLink';
 import UploadButton from '../components/UploadButton';
+import Label from '../components/Label';
 import Select from '../components/Select';
 import Option from '../components/Option';
 import LargeTextButton from '../components/LargeTextButton';
@@ -133,11 +134,11 @@ function Gallery({ isActive }: BreedsProps) {
                         <LargeTextButton>GALLERY</LargeTextButton>
                         <UploadButton onClick={() => openModal()} />
                     </NavigationContainer>
-                    <div className="flex w-full h-fit bg-stone-50 rounded-[20px] p-4
+                    <div className="flex w-full h-fit bg-stone-50 rounded-[20px] p-4 flex-wrap
                     dark:bg-white dark:bg-opacity-5">
-                        <div className="flex flex-row">
-                            <div className="flex flex-col">
-                                <label className="w-28 ml-4 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">ORDER</label>
+                        <div className="flex w-full">
+                            <div className="flex flex-col w-1/2">
+                                <Label>ORDER</Label>
                                 <Select
                                     value={order}
                                     onChange={(e: ChangeEvent<HTMLSelectElement>) => setOrder(e.target.value)}
@@ -149,8 +150,8 @@ function Gallery({ isActive }: BreedsProps) {
                                     <Option>Asc</Option>
                                 </Select>
                             </div>
-                            <div className="flex flex-col">
-                                <label className="w-28 ml-4 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">TYPE</label>
+                            <div className="flex flex-col w-1/2">
+                                <Label>TYPE</Label>
                                 <Select
                                     value={type}
                                     onChange={(e: ChangeEvent<HTMLSelectElement>) => setType(e.target.value)}
@@ -163,9 +164,9 @@ function Gallery({ isActive }: BreedsProps) {
                                 </Select>
                             </div>
                         </div>
-                        <div className="flex flex-row items-end justify-end flex-1">
-                            <div className="flex flex-col">
-                                <label className="w-28 ml-4 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">BREED</label>
+                        <div className="flex items-end justify-start w-full mt-4">
+                            <div className="flex flex-col w-1/2">
+                                <Label>BREED</Label>
                                 <Select
                                     value={breedValue}
                                     onChange={(e) => setBreedValue(e.target.value)}
@@ -173,28 +174,28 @@ function Gallery({ isActive }: BreedsProps) {
                                     width="18.125rem"
                                 >
                                     <Option>None</Option>
-                                    {
-                                        allBreeds.map((breed) => (
-                                            <Option key={breed.name}>{breed.name}</Option>
-                                        ))
-                                    }
+                                    {allBreeds.map((breed) => (
+                                        <Option key={breed.name}>{breed.name}</Option>
+                                    ))}
                                 </Select>
                             </div>
-                            <div className="flex flex-col">
-                                <label className="w-28 ml-4 text-neutral-400 text-[10px] font-medium font-jost leading-[18px] uppercase">LIMIT</label>
-                                <Select
-                                    value={value}
-                                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value)}
-                                    className="bg-white dark:bg-stone-900 dark:text-white"
-                                    width="15rem"
-                                >
-                                    <Option>5 items per page</Option>
-                                    <Option>10 items per page</Option>
-                                    <Option>15 items per page</Option>
-                                    <Option>20 items per page</Option>
-                                </Select>
+                            <div className="flex items-end w-1/2">
+                                <div className="flex flex-col w-5/6">
+                                    <Label>LIMIT</Label>
+                                    <Select
+                                        value={value}
+                                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value)}
+                                        className="bg-white dark:bg-stone-900 dark:text-white"
+                                        width="15rem"
+                                    >
+                                        <Option>5 items per page</Option>
+                                        <Option>10 items per page</Option>
+                                        <Option>15 items per page</Option>
+                                        <Option>20 items per page</Option>
+                                    </Select>
+                                </div>
+                                <UpdateButton onClick={() => setShouldBeUpdated(true)} />
                             </div>
-                            <UpdateButton onClick={() => setShouldBeUpdated(true)} />
                         </div>
                     </div>
                     {searchedBreeds.map((breed) => (
