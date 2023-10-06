@@ -133,7 +133,7 @@ function Gallery({ isActive }: BreedsProps) {
                         <LargeTextButton>GALLERY</LargeTextButton>
                         <UploadButton onClick={() => openModal()} />
                     </NavigationContainer>
-                    <div className="flex w-full h-fit bg-stone-50 rounded-[20px]
+                    <div className="flex w-full h-fit bg-stone-50 rounded-[20px] p-4
                     dark:bg-white dark:bg-opacity-5">
                         <div className="flex flex-row">
                             <div className="flex flex-col">
@@ -142,7 +142,7 @@ function Gallery({ isActive }: BreedsProps) {
                                     value={order}
                                     onChange={(e: ChangeEvent<HTMLSelectElement>) => setOrder(e.target.value)}
                                     className="bg-white dark:bg-stone-900 dark:text-white"
-                                    width=""
+                                    width="18.125rem"
                                 >
                                     <Option>Random</Option>
                                     <Option>Desc</Option>
@@ -155,7 +155,7 @@ function Gallery({ isActive }: BreedsProps) {
                                     value={type}
                                     onChange={(e: ChangeEvent<HTMLSelectElement>) => setType(e.target.value)}
                                     className="bg-white dark:bg-stone-900 dark:text-white"
-                                    width=""
+                                    width="18.125rem"
                                 >
                                     <Option>All</Option>
                                     <Option>Static</Option>
@@ -170,7 +170,7 @@ function Gallery({ isActive }: BreedsProps) {
                                     value={breedValue}
                                     onChange={(e) => setBreedValue(e.target.value)}
                                     className="bg-white dark:bg-stone-900 dark:text-white"
-                                    width=""
+                                    width="18.125rem"
                                 >
                                     <Option>None</Option>
                                     {
@@ -186,7 +186,7 @@ function Gallery({ isActive }: BreedsProps) {
                                     value={value}
                                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value)}
                                     className="bg-white dark:bg-stone-900 dark:text-white"
-                                    width=""
+                                    width="15rem"
                                 >
                                     <Option>5 items per page</Option>
                                     <Option>10 items per page</Option>
