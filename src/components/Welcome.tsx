@@ -42,11 +42,16 @@ function Welcome({ isActive }: WelcomeProps) {
             <div className="flex flex-col mt-8 md:flex-row">
                 {rectangles.map((rectangle, i) => (
                     <div key={rectangle.text}>
-                        <Rectangle
-                            backgroundColor={rectangle.backgroundColor}
-                            url={rectangle.url}
-                            isActive={isActive === i + 1}
-                        />
+                        <Link
+                            to={`/${rectangle.text.toLowerCase()}`}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <Rectangle
+                                backgroundColor={rectangle.backgroundColor}
+                                url={rectangle.url}
+                                isActive={isActive === i + 1}
+                            />
+                        </Link>
                         <Link
                             to={`/${rectangle.text.toLowerCase()}`}
                             style={{ textDecoration: 'none' }}

@@ -67,7 +67,7 @@ function Voting({ isActive }: VotingProps) {
                     <ImageContainer>
                         <Image
                             src={randomImage.length > 0 ? `${randomImage[0].url}` : ''}
-                            alt={randomImage[0].name}
+                            alt="Cat"
                         />
                         <ControlsContainer>
                             <Controls
