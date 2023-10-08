@@ -1,55 +1,3 @@
-import styled from 'styled-components';
-import close from '../assets/close-20.svg';
-
-const Overlay = styled.div`
-    width: 42.5rem;
-    height: 52.5rem;
-    flex-shrink: 0;
-    border-radius: 1.25rem;
-    background: #F8F8F7;
-    z-index: 10;
-`;
-
-const Content = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
-const Heading = styled.div`
-    color: #1D1D1D;
-    font-family: Jost;
-    font-size: 2.25rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-`;
-
-const Text = styled.div`
-    color: #8C8C8C;
-    font-family: Jost;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.875rem;
-`;
-
-const Link = styled.a`
-    color: #FF868E;
-    font-family: Jost;
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.875rem;
-    text-decoration: none;
-`;
-
-const CloseButton = styled.div`
-    width: 2.5rem;
-    height: 2.5rem;
-    flex-shrink: 0;
-    background: url(${close}) center no-repeat;
-`;
-
 type ModalProps = {
     isOpen: boolean;
     onClose: () => void;
@@ -62,14 +10,46 @@ function Modal({ isOpen, onClose, children }: ModalProps) {
     }
 
     return (
-        <Overlay>
-            <Content>
-                <Heading>Upload a .jpg or .png Cat Image</Heading>
-                <Text>Any uploads must comply with the <Link target="_blank" href="https://thecatapi.com/privacy">upload guidelines</Link> or face deletion.</Text>
+        <div className="flex flex-col w-[42.5rem] h-[52.5rem] bg-stone-50 rounded-[1.25rem] z-20">
+            <button
+                className="self-end m-4 w-10 h-10 rounded-[10px] bg-center bg-no-repeat bg-[url('../src/assets/close-20.svg')]"
+                onClick={() => onClose()}
+            />
+            <div className="flex flex-col text-center">
+                <div className="mt-8 text-stone-900 text-4xl font-medium font-jost">
+                    Upload a .jpg or .png Cat Image
+                </div>
+                <span className="mt-4 text-neutral-400 text-xl font-normal font-jost leading-[1.875rem]">
+                    Any uploads must comply with the
+                    <a
+                        className="text-rose-400 text-xl font-normal font-jost leading-[1.875rem]"
+                        target="_blank"
+                        href="https://thecatapi.com/privacy"
+                    >
+                        {` upload guidelines `}
+                    </a>
+                    or face deletion.
+                </span>
+                <div className="flex justify-center mt-8 w-[40rem] h-80 bg-white rounded-[1.25rem] border-2 border-red-100">
+                    <div className="flex flex-col items-center justify-center">
+                        <div className="text-stone-900 text-xl font-medium font-jost leading-[1.875rem]">
+                            Drag here
+                            <span className="text-neutral-400">
+                                {` your file or `}
+                            </span>
+                            {` Click here `}
+                            <span className="text-neutral-400">
+                                to upload
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-8 text-neutral-400 text-xl font-normal font-jost leading-[1.875rem]">
+                    No file selected
+                </div>
                 {children}
-                <CloseButton onClick={() => onClose()}></CloseButton>
-            </Content>
-        </Overlay>
+            </div>
+        </div>
     );
 }
 
