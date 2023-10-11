@@ -1,0 +1,101 @@
+import { useState } from 'react';
+import UploadBackground from './UploadBackground';
+import UploadPhotoButton from './UploadPhotoButton';
+
+type ModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+};
+
+function Modal({ isOpen, onClose }: ModalProps) {
+    const [selectedImage, setSelectedImage] = useState<File | null>(null);
+    const [imageUrl, setImageUrl] = useState('');
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setSelectedImage(file);
+            setImageUrl(URL.createObjectURL(file));
+        }
+    };
+
+    const uploadImage = () => {
+        setSelectedImage(null);
+    };
+
+    if (!isOpen) {
+        return null;
+    }
+
+    return (
+        <div className="flex flex-col w-[47.5rem] h-[57.5rem] bg-stone-50 rounded-[1.25rem] z-20 fixed top-5 right-24
+        dark:bg-stone-800">
+            <button
+                className="self-end m-4 w-10 h-10 rounded-[10px] bg-white bg-center bg-no-repeat bg-[url('../src/assets/close-20.svg')]
+                hover:bg-rose-400 hover:bg-[url('../src/assets/close-white-20.svg')]
+                dark:bg-opacity-5
+                dark:hover:bg-rose-400 dark:hover:bg-[url('../src/assets/close-white-20.svg')]"
+                onClick={() => onClose()}
+            />
+            <div className="flex flex-col text-center">
+                <div className="mt-8 text-stone-900 text-4xl font-medium font-jost
+                dark:text-white">
+                    Upload a .jpg or .png Cat Image
+                </div>
+                <span className="mt-4 text-neutral-400 text-xl font-normal font-jost leading-[1.875rem]">
+                    Any uploads must comply with the
+                    <a
+                        className="text-rose-400 text-xl font-normal font-jost leading-[1.875rem]"
+                        target="_blank"
+                        href="https://thecatapi.com/privacy"
+                    >
+                        {` upload guidelines `}
+                    </a>
+                    or face deletion.
+                </span>
+                <div className="flex justify-center self-center mt-8 w-[40rem] h-80 bg-white rounded-[1.25rem] border-2 border-red-100 border-dashed
+                    dark:bg-opacity-5 dark:border-rose-400 dark:border-opacity-20"
+                >
+                    <input
+                        className="fixed w-[40rem] h-80 opacity-0 z-30"
+                        type="file"
+                        accept="image/*,.jpeg,.jpg,.png"
+                        onChange={(e) => handleImageChange(e)}
+                    />
+                    <div className="flex flex-col items-center justify-center">
+                        {selectedImage ? (
+                            <img
+                                className="w-[34.88375rem] h-[17.5rem] rounded-[0.625rem]"
+                                src={imageUrl}
+                                alt={selectedImage.name}
+                            />
+                        ) : (
+                            <>
+                                <UploadBackground />
+                                <div className="text-stone-900 text-xl font-medium font-jost leading-[1.875rem] z-10
+                                dark:text-white">
+                                    Drag here
+                                    <span className="text-neutral-400">
+                                        {` your file or `}
+                                    </span>
+                                    {` Click here `}
+                                    <span className="text-neutral-400">
+                                        to upload
+                                    </span>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+                <div className="mt-8 text-neutral-400 text-xl font-normal font-jost leading-[1.875rem]">
+                    {selectedImage ? `Image File Name: ${selectedImage.name}` : 'No file selected'}
+                </div>
+                {selectedImage && (
+                    <UploadPhotoButton onClick={() => uploadImage()} />
+                )}
+            </div>
+        </div >
+    );
+}
+
+export default Modal;
