@@ -17,7 +17,7 @@ import Select from '../components/Select';
 import Option from '../components/Option';
 import LargeTextButton from '../components/LargeTextButton';
 import SmallFavouriteButton from '../components/SmallFavouriteButton';
-import Modal from '../components/Modal';
+import Modal from '../components/Modal/Modal';
 import UpdateButton from '../components/UpdateButton';
 import PetImage from '../components/PetImage';
 
@@ -42,10 +42,12 @@ function Gallery({ isActive }: BreedsProps) {
 
     const openModal = () => {
         setIsModalOpen(true);
+        document.body.style.overflow = 'hidden';
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
+        document.body.style.overflow = 'auto';
     };
 
     const handleClick = async (url: string) => {
@@ -216,8 +218,7 @@ function Gallery({ isActive }: BreedsProps) {
                         <Modal
                             isOpen={isModalOpen}
                             onClose={() => closeModal()}
-                        >
-                        </Modal>
+                        />
                     </ActionsContainer>
                 </RightSectionContainer>
             </Container>
