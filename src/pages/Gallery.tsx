@@ -121,102 +121,107 @@ function Gallery({ isActive }: BreedsProps) {
     }, [API_KEY, allBreeds, order, type, breedValue, value, shouldBeUpdated]);
 
     return (
-        <Container className={`${isModalOpen ? 'bg-stone-900 bg-opacity-60' : ''}`}>
-            <LeftSection isActive={isActive} />
-            <RightSectionContainer>
-                <LinkContainer>
-                    <SearchBar />
-                    <Smiles />
-                </LinkContainer>
-                <ActionsContainer>
-                    <NavigationContainer>
-                        <SmallLink />
-                        <LargeTextButton>GALLERY</LargeTextButton>
-                        <UploadButton onClick={() => openModal()} />
-                    </NavigationContainer>
-                    <div className="flex w-full h-fit bg-stone-50 rounded-[20px] p-4 flex-wrap
+        <>
+            {isModalOpen && (
+                <div className="absolute -left-5 top-0 w-screen h-screen z-20 bg-stone-900 bg-opacity-60" />
+            )}
+            <Container>
+                <LeftSection isActive={isActive} />
+                <RightSectionContainer>
+                    <LinkContainer>
+                        <SearchBar />
+                        <Smiles />
+                    </LinkContainer>
+                    <ActionsContainer>
+                        <NavigationContainer>
+                            <SmallLink />
+                            <LargeTextButton>GALLERY</LargeTextButton>
+                            <UploadButton onClick={() => openModal()} />
+                        </NavigationContainer>
+                        <div className="flex w-full h-fit bg-stone-50 rounded-[20px] p-4 flex-wrap
                     dark:bg-white dark:bg-opacity-5">
-                        <div className="flex w-full">
-                            <div className="flex flex-col w-1/2">
-                                <Label>ORDER</Label>
-                                <Select
-                                    value={order}
-                                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setOrder(e.target.value)}
-                                    className="bg-white dark:bg-stone-900 dark:text-white"
-                                    width="18.125rem"
-                                >
-                                    <Option>Random</Option>
-                                    <Option>Desc</Option>
-                                    <Option>Asc</Option>
-                                </Select>
-                            </div>
-                            <div className="flex flex-col w-1/2">
-                                <Label>TYPE</Label>
-                                <Select
-                                    value={type}
-                                    onChange={(e: ChangeEvent<HTMLSelectElement>) => setType(e.target.value)}
-                                    className="bg-white dark:bg-stone-900 dark:text-white"
-                                    width="18.125rem"
-                                >
-                                    <Option>All</Option>
-                                    <Option>Static</Option>
-                                    <Option>Animated</Option>
-                                </Select>
-                            </div>
-                        </div>
-                        <div className="flex items-end justify-start w-full mt-4">
-                            <div className="flex flex-col w-1/2">
-                                <Label>BREED</Label>
-                                <Select
-                                    value={breedValue}
-                                    onChange={(e) => setBreedValue(e.target.value)}
-                                    className="bg-white dark:bg-stone-900 dark:text-white"
-                                    width="18.125rem"
-                                >
-                                    <Option>None</Option>
-                                    {allBreeds.map((breed) => (
-                                        <Option key={breed.name}>{breed.name}</Option>
-                                    ))}
-                                </Select>
-                            </div>
-                            <div className="flex items-end w-1/2">
-                                <div className="flex flex-col w-5/6">
-                                    <Label>LIMIT</Label>
+                            <div className="flex w-full">
+                                <div className="flex flex-col w-1/2">
+                                    <Label>ORDER</Label>
                                     <Select
-                                        value={value}
-                                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value)}
+                                        value={order}
+                                        onChange={(e: ChangeEvent<HTMLSelectElement>) => setOrder(e.target.value)}
                                         className="bg-white dark:bg-stone-900 dark:text-white"
-                                        width="15rem"
+                                        width="18.125rem"
                                     >
-                                        <Option>5 items per page</Option>
-                                        <Option>10 items per page</Option>
-                                        <Option>15 items per page</Option>
-                                        <Option>20 items per page</Option>
+                                        <Option>Random</Option>
+                                        <Option>Desc</Option>
+                                        <Option>Asc</Option>
                                     </Select>
                                 </div>
-                                <UpdateButton onClick={() => setShouldBeUpdated(true)} />
+                                <div className="flex flex-col w-1/2">
+                                    <Label>TYPE</Label>
+                                    <Select
+                                        value={type}
+                                        onChange={(e: ChangeEvent<HTMLSelectElement>) => setType(e.target.value)}
+                                        className="bg-white dark:bg-stone-900 dark:text-white"
+                                        width="18.125rem"
+                                    >
+                                        <Option>All</Option>
+                                        <Option>Static</Option>
+                                        <Option>Animated</Option>
+                                    </Select>
+                                </div>
+                            </div>
+                            <div className="flex items-end justify-start w-full mt-4">
+                                <div className="flex flex-col w-1/2">
+                                    <Label>BREED</Label>
+                                    <Select
+                                        value={breedValue}
+                                        onChange={(e) => setBreedValue(e.target.value)}
+                                        className="bg-white dark:bg-stone-900 dark:text-white"
+                                        width="18.125rem"
+                                    >
+                                        <Option>None</Option>
+                                        {allBreeds.map((breed) => (
+                                            <Option key={breed.name}>{breed.name}</Option>
+                                        ))}
+                                    </Select>
+                                </div>
+                                <div className="flex items-end w-1/2">
+                                    <div className="flex flex-col w-5/6">
+                                        <Label>LIMIT</Label>
+                                        <Select
+                                            value={value}
+                                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setValue(e.target.value)}
+                                            className="bg-white dark:bg-stone-900 dark:text-white"
+                                            width="15rem"
+                                        >
+                                            <Option>5 items per page</Option>
+                                            <Option>10 items per page</Option>
+                                            <Option>15 items per page</Option>
+                                            <Option>20 items per page</Option>
+                                        </Select>
+                                    </div>
+                                    <UpdateButton onClick={() => setShouldBeUpdated(true)} />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {searchedBreeds.map((breed) => (
-                        <PetImage
-                            key={breed.url}
-                            url={breed.url}
+                        {searchedBreeds.map((breed) => (
+                            <PetImage
+                                key={breed.url}
+                                url={breed.url}
+                            >
+                                <SmallFavouriteButton
+                                    isFavourite={undefined !== breeds.find((b) => b.url === breed.url)}
+                                    onClick={() => handleClick(breed.url)}
+                                />
+                            </PetImage>
+                        ))}
+                        <Modal
+                            isOpen={isModalOpen}
+                            onClose={() => closeModal()}
                         >
-                            <SmallFavouriteButton
-                                isFavourite={undefined !== breeds.find((b) => b.url === breed.url)}
-                                onClick={() => handleClick(breed.url)}
-                            />
-                        </PetImage>
-                    ))}
-                    <Modal
-                        isOpen={isModalOpen}
-                        onClose={() => closeModal()}
-                    >
-                    </Modal>
-                </ActionsContainer>
-            </RightSectionContainer>
-        </Container>
+                        </Modal>
+                    </ActionsContainer>
+                </RightSectionContainer>
+            </Container>
+        </>
     );
 }
 

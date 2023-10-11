@@ -30,11 +30,11 @@ body {
 }
 
 .swiper-pagination-bullet {
-    @apply w-2.5 h-2.5 left-[10px] top-[10px] bg-red-400 rounded-[10px];
+    @apply w-2.5 h-2.5 left-2.5 top-2.5 bg-red-400 rounded-[0.625rem];
 }
 
 .swiper-pagination-bullet-active {
-    @apply w-2.5 h-2.5 left-[10px] top-[10px] bg-rose-400 rounded-[10px];
+    @apply w-2.5 h-2.5 left-2.5 top-2.5 bg-rose-400 rounded-[0.625rem];
 }
 
 .swiper-pagination-fraction,
