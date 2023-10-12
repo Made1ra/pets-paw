@@ -8,19 +8,49 @@ type ModalProps = {
 };
 
 function Modal({ isOpen, onClose }: ModalProps) {
+    const API_KEY = import.meta.env.VITE_API_KEY;
+
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [imageUrl, setImageUrl] = useState('');
+    const [isUploading, setIsUploading] = useState(false);
+    const [isResponseOk, setIsResponseOk] = useState<boolean | null>(null);
+
+    const handleClose = () => {
+        onClose();
+        setSelectedImage(null);
+        setIsResponseOk(null);
+    };
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             setSelectedImage(file);
+            setIsUploading(false);
+            setIsResponseOk(null);
             setImageUrl(URL.createObjectURL(file));
         }
     };
 
-    const uploadImage = () => {
-        setSelectedImage(null);
+    const uploadImage = async () => {
+        setIsUploading(true);
+
+        const formData = new FormData();
+        if (selectedImage) {
+            formData.append('file', selectedImage);
+        }
+
+        const response = await fetch('https://api.thecatapi.com/v1/images/upload', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'x-api-key': API_KEY
+            }
+        });
+
+        setIsResponseOk(response.ok);
+        if (response.ok) {
+            setSelectedImage(null);
+        }
     };
 
     if (!isOpen) {
@@ -35,7 +65,7 @@ function Modal({ isOpen, onClose }: ModalProps) {
                 hover:bg-rose-400 hover:bg-[url('../src/assets/close-white-20.svg')]
                 dark:bg-opacity-5
                 dark:hover:bg-rose-400 dark:hover:bg-[url('../src/assets/close-white-20.svg')]"
-                onClick={() => onClose()}
+                onClick={() => handleClose()}
             />
             <div className="flex flex-col text-center">
                 <div className="mt-8 text-stone-900 text-4xl font-medium font-jost
@@ -53,8 +83,8 @@ function Modal({ isOpen, onClose }: ModalProps) {
                     </a>
                     or face deletion.
                 </span>
-                <div className="flex justify-center self-center mt-8 w-[40rem] h-80 bg-white rounded-[1.25rem] border-2 border-red-100 border-dashed
-                    dark:bg-opacity-5 dark:border-rose-400 dark:border-opacity-20"
+                <div className={`flex justify-center self-center mt-8 w-[40rem] h-80 rounded-[1.25rem] border-2 border-dashed
+                    dark:bg-opacity-5 dark:border-rose-400 dark:border-opacity-20 ${(isResponseOk === false) ? 'bg-red-100 border-rose-400' : 'bg-white border-red-100'}`}
                 >
                     <input
                         className="fixed w-[40rem] h-80 opacity-0 z-30"
@@ -90,8 +120,29 @@ function Modal({ isOpen, onClose }: ModalProps) {
                 <div className="mt-8 text-neutral-400 text-xl font-normal font-jost leading-[1.875rem]">
                     {selectedImage ? `Image File Name: ${selectedImage.name}` : 'No file selected'}
                 </div>
-                {selectedImage && (
-                    <UploadPhotoButton onClick={() => uploadImage()} />
+                {isResponseOk === true && (
+                    <div className="flex items-center self-center w-[40rem] h-[3.75rem] mt-8 bg-white rounded-[0.625rem]
+                    dark:bg-opacity-5">
+                        <div className="w-5 h-5 ml-5 bg-center bg-no-repeat bg-[url('../src/assets/success-20.svg')]" />
+                        <div className="ml-2.5 text-neutral-400 text-base font-normal font-jost leading-normal">
+                            Thanks for the Upload - Cat found!
+                        </div>
+                    </div>
+                )}
+                {isResponseOk === false && (
+                    <div className="flex items-center self-center w-[40rem] h-[3.75rem] mt-8 bg-white rounded-[0.625rem]
+                    dark:bg-opacity-5">
+                        <div className="w-5 h-5 ml-5 bg-center bg-no-repeat bg-[url('../src/assets/error-20.svg')]" />
+                        <div className="ml-2.5 text-neutral-400 text-base font-normal font-jost leading-normal">
+                            No Cat found - try a different one
+                        </div>
+                    </div>
+                )}
+                {(selectedImage && isResponseOk === null) && (
+                    <UploadPhotoButton
+                        isUploading={isUploading}
+                        onClick={() => uploadImage()}
+                    />
                 )}
             </div>
         </div >
