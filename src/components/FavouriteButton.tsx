@@ -1,31 +1,15 @@
-import styled from 'styled-components';
-import fav from '../assets/fav-30.svg';
-import favWhite from '../assets/fav-white-30.svg';
-import favFullWhite from '../assets/fav-full-white-30.svg';
-
-const StyledFavouriteButton = styled.div`
-    width: 5rem;
-    height: 5rem;
-    background: url(${favWhite}) center no-repeat, #FF868E;
-    margin: 0 0.25rem;
-    cursor: pointer;
-    
-    &:hover {
-        background: url(${fav}) center no-repeat, #FF868E4D;
-    }
-
-    &:active {
-        background: url(${favFullWhite}) center no-repeat, #FF868E;
-    }
-`;
-
 type FavouriteButtonProps = {
     onClick: () => void;
 };
 
 function FavouriteButton({ onClick }: FavouriteButtonProps) {
     return (
-        <StyledFavouriteButton onClick={onClick} />
+        <div
+            className="w-20 h-20 cursor-pointer mx-1 bg-rose-400 bg-center bg-no-repeat bg-[url('../src/assets/fav-white-30.svg')]
+            hover:bg-opacity-30 hover:bg-[url('../src/assets/fav-30.svg')]
+            active:bg-[url('../src/assets/fav-full-white-30.svg')]"
+            onClick={onClick}
+        />
     );
 }
 

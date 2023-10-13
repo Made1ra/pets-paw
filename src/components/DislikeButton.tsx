@@ -1,26 +1,14 @@
-import styled from 'styled-components';
-import dislikeWhite from '../assets/dislike-white-30.svg';
-import dislikeColor from '../assets/dislike-color-30.svg';
-
-const StyledDislikeButton = styled.div`
-    width: 5rem;
-    height: 5rem;
-    background: url(${dislikeWhite}) center no-repeat, #FFD280;
-    border-radius: 0 1rem 1rem 0;
-    cursor: pointer;
-    
-    &:hover {
-        background: url(${dislikeColor}) center no-repeat, #FFD2804D;
-    }
-`;
-
 type DislikeButtonProps = {
     onClick: () => void;
 };
 
 function DislikeButton({ onClick }: DislikeButtonProps) {
     return (
-        <StyledDislikeButton onClick={onClick} />
+        <div
+            className="w-20 h-20 cursor-pointer bg-amber-200 rounded-tr-2xl rounded-br-2xl bg-center bg-no-repeat bg-[url('../src/assets/dislike-white-30.svg')]
+            hover:bg-opacity-30 hover:bg-[url('../src/assets/dislike-color-30.svg')]"
+            onClick={onClick}
+        />
     );
 }
 
