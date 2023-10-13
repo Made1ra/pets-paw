@@ -124,7 +124,7 @@ function Breeds({ isActive }: BreedsProps) {
                                 to={`/breed/${breed.breeds[0]?.id}`}
                                 style={{ textDecoration: 'none' }}
                             >
-                                <Button className="mt-20 z-20 absolute left-2 top-4 w-[180px] h-[34px] dark:bg-zinc-800">
+                                <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
                                     {breed.breeds[0]?.name}
                                 </Button>
                             </Link>

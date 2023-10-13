@@ -20,7 +20,7 @@ function PetImage({ url, children }: PetImageProps) {
         >
             {isHovered && (
                 <>
-                    <div className="w-full h-full bg-rose-400 bg-opacity-60 rounded-[20px] z-10" />
+                    <div className="w-full h-full bg-rose-400 bg-opacity-60 rounded-[0.625rem] z-10" />
                     {children}
                 </>
             )}

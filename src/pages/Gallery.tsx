@@ -140,8 +140,8 @@ function Gallery({ isActive }: BreedsProps) {
                             <LargeTextButton>GALLERY</LargeTextButton>
                             <UploadButton onClick={() => openModal()} />
                         </NavigationContainer>
-                        <div className="flex w-full h-fit bg-stone-50 rounded-[20px] p-4 flex-wrap
-                    dark:bg-white dark:bg-opacity-5">
+                        <div className="flex w-full h-fit bg-stone-50 rounded-[1.25rem] p-4 flex-wrap
+                        dark:bg-white dark:bg-opacity-5">
                             <div className="flex w-full">
                                 <div className="flex flex-col w-1/2">
                                     <Label>ORDER</Label>
