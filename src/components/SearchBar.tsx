@@ -22,7 +22,7 @@ function SearchBar({ onSearch }: SearchBarProps) {
             className="no-underline"
         >
             <div className="flex flex-row mr-4">
-                <div className="flex items-center justify-between w-[470px] h-[60px] my-4 mx-2 bg-white rounded-[20px]
+                <div className="flex items-center justify-between w-[29.375rem] h-[3.75rem] my-4 mx-2 bg-white rounded-[1.25rem]
                 dark:bg-stone-50 dark:bg-opacity-10 hover:border-2 hover:border-red-100 active:border-2 active:border-rose-400">
                     <TextInput
                         value={searchTerm}

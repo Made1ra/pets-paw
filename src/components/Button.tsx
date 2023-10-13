@@ -5,7 +5,10 @@ type ButtonProps = {
 
 function Button({ children, className }: ButtonProps) {
     return (
-        <button className={`w-[180px] h-[34px] bg-white text-rose-400 rounded-[10px] hover:bg-rose-400 dark:hover:bg-rose-400 hover:text-white ${className}`}>
+        <button className={`w-[11.25rem] h-[2.125rem] bg-white text-rose-400 rounded-[0.625rem] 
+        hover:bg-rose-400 hover:text-white 
+        dark:hover:bg-rose-400 
+        ${className}`}>
             {children}
         </button>
     );

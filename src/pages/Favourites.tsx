@@ -51,7 +51,7 @@ function Favourites() {
                             >
                                 <div
                                     onClick={() => handleClick(breed.reference_image_id)}
-                                    className="absolute w-10 h-10 bg-white rounded-[10px] z-10 bg-center bg-no-repeat bg-[url('../src/assets/fav-color-20.svg')]
+                                    className="absolute w-10 h-10 bg-white rounded-[0.625rem] z-10 bg-center bg-no-repeat bg-[url('../src/assets/fav-color-20.svg')]
                                     hover:bg-rose-400 hover:bg-[url('../src/assets/fav-full-white-20.svg')]"
                                 >
                                 </div>
