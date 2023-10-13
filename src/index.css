@@ -16,7 +16,7 @@ body {
 }
 
 [app-theme="dark"] {
-    background: #1c1917;
+    @apply bg-stone-900;
 }
 
 .swiper,
