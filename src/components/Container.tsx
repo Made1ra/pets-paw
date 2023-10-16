@@ -5,8 +5,11 @@ type ContainerProps = {
 
 function Container({ children, className }: ContainerProps) {
     return (
-        <div className={`w-full max-w-90rem h-auto flex items-center justify-between flex-col float-right bg-stone-50
-        dark:bg-stone-900 md:flex-row md:items-start ${className}`}>
+        <div className={`h-screen flex flex-col items-center justify-start self-center m-auto float-none bg-stone-50
+        dark:bg-stone-900
+        sm:mx-0 sm:w-full sm:flex-row sm:items-start sm:justify-center sm:float-right
+        lg:overscroll-x-none
+        ${className}`}>
             {children}
         </div >
     );

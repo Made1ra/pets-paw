@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 body {
-    margin: 1rem 8.5rem 0 1rem;
-    @apply font-jost;
+    @apply font-jost xl:mr-[8.5rem] xl:ml-4;
 }
 
 #logo path {
