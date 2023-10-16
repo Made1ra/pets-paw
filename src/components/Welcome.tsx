@@ -39,7 +39,7 @@ function Welcome({ isActive }: WelcomeProps) {
             <p className="text-stone-900 text-xl font-medium font-jost mt-16 dark:text-white">
                 Lets start using The Cat API
             </p>
-            <div className="flex flex-col mt-8 md:flex-row">
+            <div className="flex flex-col self-center mt-8 sm:flex-row sm:self-auto">
                 {rectangles.map((rectangle, i) => (
                     <div key={rectangle.text}>
                         <Link
