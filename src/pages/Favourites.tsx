@@ -27,7 +27,7 @@ function Favourites() {
         dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
         console.log(reference_image_id);
     };
-    console.log(filteredBreeds);
+    
     return (
         <Container>
             <LeftSection isActive={4} />
