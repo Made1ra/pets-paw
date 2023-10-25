@@ -1,5 +1,23 @@
 import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit';
 
+export const rectangles = [
+    {
+        backgroundColor: 'bg-indigo-300',
+        url: '../src/assets/vote-table.svg',
+        text: 'VOTING'
+    },
+    {
+        backgroundColor: 'bg-green-300',
+        url: '../src/assets/pet-breeds.svg',
+        text: 'BREEDS'
+    },
+    {
+        backgroundColor: 'bg-amber-200',
+        url: '../src/assets/images-search.svg',
+        text: 'GALLERY'
+    }
+];
+
 export type Category = 'Likes' | 'Favourites' | 'Dislikes';
 
 export type Breed = {

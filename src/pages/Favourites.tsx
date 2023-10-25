@@ -25,9 +25,8 @@ function Favourites() {
     const handleClick = (reference_image_id: string) => {
         dispatch(removeBreed({ reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites' }));
         dispatch(addLog({ reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
-        console.log(reference_image_id);
     };
-    
+
     return (
         <Container>
             <LeftSection isActive={4} />
@@ -60,15 +59,13 @@ function Favourites() {
                     )}
                     {
                         logs.length > 0 && logs.slice().reverse().map((log, i) => (
-                            i < 4 && (
-                                <ActionMessage
-                                    key={i}
-                                    reference_image_id={log.reference_image_id}
-                                    category={log.category}
-                                    dateOfEditing={log.dateOfEditing}
-                                    action={log.action}
-                                />
-                            )
+                            <ActionMessage
+                                key={i}
+                                reference_image_id={log.reference_image_id}
+                                category={log.category}
+                                dateOfEditing={log.dateOfEditing}
+                                action={log.action}
+                            />
                         ))
                     }
                 </ActionsContainer>

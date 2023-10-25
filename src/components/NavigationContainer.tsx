@@ -4,7 +4,7 @@ type NavigationContainerProps = {
 
 function NavigationContainer({ children }: NavigationContainerProps) {
     return (
-        <div className="flex flex-row items-center mb-6">
+        <div className="flex flex-row items-center mb-5">
             {children}
         </div>
     );

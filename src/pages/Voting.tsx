@@ -5,6 +5,7 @@ import Container from '../components/Container';
 import LeftSection from '../components/LeftSection';
 import RightSectionContainer from '../components/RightSectionContainer';
 import LinkContainer from '../components/LinkContainer';
+import Burger from '../components/Burger/Burger';
 import SearchBar from '../components/SearchBar';
 import Smiles from '../components/Smiles';
 import ActionsContainer from '../components/ActionsContainer';
@@ -56,6 +57,7 @@ function Voting({ isActive }: VotingProps) {
             <LeftSection isActive={isActive} />
             <RightSectionContainer>
                 <LinkContainer>
+                    <Burger isActive={isActive} />
                     <SearchBar />
                     <Smiles />
                 </LinkContainer>
@@ -79,15 +81,13 @@ function Voting({ isActive }: VotingProps) {
                     </ImageContainer>
                     {
                         logs.length > 0 && logs.slice().reverse().map((log, i) => (
-                            i < 4 && (
-                                <ActionMessage
-                                    key={i}
-                                    reference_image_id={log.reference_image_id}
-                                    category={log.category}
-                                    dateOfEditing={log.dateOfEditing}
-                                    action={log.action}
-                                />
-                            )
+                            <ActionMessage
+                                key={i}
+                                reference_image_id={log.reference_image_id}
+                                category={log.category}
+                                dateOfEditing={log.dateOfEditing}
+                                action={log.action}
+                            />
                         ))
                     }
                 </ActionsContainer>

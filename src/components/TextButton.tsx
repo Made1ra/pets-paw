@@ -12,7 +12,7 @@ function TextButton({ isActive, className, children }: TextProps) {
             hover:bg-red-100 
             active:bg-rose-400
             dark:hover:bg-red-100
-            dark:active:bg-rose-400 ${isActive ? 'bg-rose-400 dark:bg-rose-400 dark:bg-opacity-100' : 'bg-white dark:bg-stone-50'}
+            dark:active:bg-rose-400 ${isActive ? 'bg-rose-400 dark:bg-rose-400 dark:bg-opacity-100' : 'bg-white dark:bg-stone-50 dark:bg-opacity-5'}
             lg:mb-0
             ${className}`}
         >

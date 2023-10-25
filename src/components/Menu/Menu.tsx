@@ -1,30 +1,36 @@
 import { Link } from 'react-router-dom';
-import { rectangles } from '../store';
-import Rectangle from './Rectangle';
-import TextButton from './TextButton';
+import { rectangles } from '../../store';
+import Rectangle from '../Rectangle';
+import TextButton from '../TextButton';
+import CloseButton from '../Modal/CloseButton';
 
-type WelcomeProps = {
+type MenuProps = {
     isActive: number;
+    isOpen: boolean;
+    onClose: () => void;
 };
 
-function Welcome({ isActive }: WelcomeProps) {
+function Menu({ isActive, isOpen, onClose }: MenuProps) {
+    const handleClose = () => {
+        onClose();
+    };
+
+    if (!isOpen) {
+        return null;
+    }
+
     return (
-        <>
-            <p className="w-[11.375rem] text-stone-900 text-[2.75rem] font-medium leading-[3.625rem] mt-16 dark:text-white">
-                Hi!👋
-            </p>
-            <p className="text-neutral-400 text-xl font-normal mt-4">
-                Welcome to MacPaw Bootcamp 2023
-            </p>
-            <p className="text-stone-900 text-xl font-medium font-jost mt-16 dark:text-white">
-                Lets start using The Cat API
-            </p>
-            <div className="flex flex-col self-center mt-8 sm:flex-row sm:self-auto">
+        <div className="flex flex-col w-full h-full bg-stone-50 rounded-[1.25rem] z-20 fixed left-0 top-0
+        lg:hidden
+        dark:bg-stone-800">
+            <CloseButton onClick={() => handleClose()} />
+            <div className="flex flex-col justify-center self-center mt-4 sm:flex-row sm:self-auto">
                 {rectangles.map((rectangle, i) => (
                     <div key={rectangle.text}>
                         <Link
                             to={`/${rectangle.text.toLowerCase()}`}
                             style={{ textDecoration: 'none' }}
+                            onClick={() => handleClose()}
                         >
                             <Rectangle
                                 backgroundColor={rectangle.backgroundColor}
@@ -35,16 +41,20 @@ function Welcome({ isActive }: WelcomeProps) {
                         <Link
                             to={`/${rectangle.text.toLowerCase()}`}
                             style={{ textDecoration: 'none' }}
+                            onClick={() => handleClose()}
                         >
-                            <TextButton isActive={isActive === i + 1}>
+                            <TextButton
+                                className="mt-5"
+                                isActive={isActive === i + 1}
+                            >
                                 {rectangle.text}
                             </TextButton>
                         </Link>
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 }
 
-export default Welcome;
+export default Menu;
