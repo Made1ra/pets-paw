@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import CloseButton from './CloseButton';
 import UploadBackground from './UploadBackground';
 import UploadPhotoButton from './UploadPhotoButton';
 
-type ModalProps = {
+export type ModalProps = {
     isOpen: boolean;
     onClose: () => void;
 };
@@ -60,13 +61,7 @@ function Modal({ isOpen, onClose }: ModalProps) {
     return (
         <div className="flex flex-col w-[47.5rem] h-[57.5rem] bg-stone-50 rounded-[1.25rem] z-20 fixed top-5 right-24
         dark:bg-stone-800">
-            <button
-                className="self-end m-4 w-10 h-10 rounded-[0.625rem] bg-white bg-center bg-no-repeat bg-[url('../src/assets/close-20.svg')]
-                hover:bg-rose-400 hover:bg-[url('../src/assets/close-white-20.svg')]
-                dark:bg-opacity-5
-                dark:hover:bg-rose-400 dark:hover:bg-[url('../src/assets/close-white-20.svg')]"
-                onClick={() => handleClose()}
-            />
+            <CloseButton onClick={() => handleClose()} />
             <div className="flex flex-col text-center">
                 <div className="mt-8 text-stone-900 text-4xl font-medium font-jost
                 dark:text-white">
@@ -145,7 +140,7 @@ function Modal({ isOpen, onClose }: ModalProps) {
                     />
                 )}
             </div>
-        </div >
+        </div>
     );
 }
 

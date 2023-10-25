@@ -1,11 +1,9 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Breed, addBreed, addLog, removeBreed } from '../store';
-import { formatDate } from '../utilities/formatDate';
 import Container from '../components/Container';
 import LeftSection from '../components/LeftSection';
 import RightSectionContainer from '../components/RightSectionContainer';
 import LinkContainer from '../components/LinkContainer';
+import Burger from '../components/Burger/Burger';
 import SearchBar from '../components/SearchBar';
 import Smiles from '../components/Smiles';
 import ActionsContainer from '../components/ActionsContainer';
@@ -16,10 +14,9 @@ import Label from '../components/Label';
 import Select from '../components/Select';
 import Option from '../components/Option';
 import LargeTextButton from '../components/LargeTextButton';
-import SmallFavouriteButton from '../components/SmallFavouriteButton';
-import Modal from '../components/Modal/Modal';
 import UpdateButton from '../components/UpdateButton';
-import PetImage from '../components/PetImage';
+import Grid from '../components/Grid/Grid';
+import Modal from '../components/Modal/Modal';
 
 type BreedsProps = {
     isActive: number;
@@ -27,9 +24,6 @@ type BreedsProps = {
 
 function Gallery({ isActive }: BreedsProps) {
     const API_KEY = import.meta.env.VITE_API_KEY;
-
-    const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
-    const dispatch = useDispatch();
 
     const [shouldBeUpdated, setShouldBeUpdated] = useState(true);
     const [order, setOrder] = useState('Random');
@@ -48,23 +42,6 @@ function Gallery({ isActive }: BreedsProps) {
     const closeModal = () => {
         setIsModalOpen(false);
         document.body.style.overflow = 'auto';
-    };
-
-    const handleClick = async (url: string) => {
-        const match = url.match(/\/images\/([^/]+)\.\w+$/);
-        let id = '';
-        if (match) {
-            id = match[1];
-        }
-
-        const filteredBreeds = breeds.find((breed) => breed.url === url);
-        if (!filteredBreeds) {
-            dispatch(addBreed({ reference_image_id: id, dateOfEditing: formatDate(new Date()), category: 'Favourites', url }));
-            dispatch(addLog({ reference_image_id: id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'added to' }));
-        } else {
-            dispatch(removeBreed({ reference_image_id: filteredBreeds.reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites' }));
-            dispatch(addLog({ reference_image_id: filteredBreeds.reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
-        }
     };
 
     useEffect(() => {
@@ -131,6 +108,7 @@ function Gallery({ isActive }: BreedsProps) {
                 <LeftSection isActive={isActive} />
                 <RightSectionContainer>
                     <LinkContainer>
+                        <Burger isActive={isActive} />
                         <SearchBar />
                         <Smiles />
                     </LinkContainer>
@@ -141,7 +119,8 @@ function Gallery({ isActive }: BreedsProps) {
                             <UploadButton onClick={() => openModal()} />
                         </NavigationContainer>
                         <div className="flex w-full h-fit bg-stone-50 rounded-[1.25rem] p-4 flex-wrap
-                        dark:bg-white dark:bg-opacity-5">
+                        dark:bg-white dark:bg-opacity-5
+                        lg:w-fit">
                             <div className="flex w-full">
                                 <div className="flex flex-col w-1/2">
                                     <Label>ORDER</Label>
@@ -204,17 +183,11 @@ function Gallery({ isActive }: BreedsProps) {
                                 </div>
                             </div>
                         </div>
-                        {searchedBreeds.map((breed) => (
-                            <PetImage
-                                key={breed.url}
-                                url={breed.url}
-                            >
-                                <SmallFavouriteButton
-                                    isFavourite={undefined !== breeds.find((b) => b.url === breed.url)}
-                                    onClick={() => handleClick(breed.url)}
-                                />
-                            </PetImage>
-                        ))}
+                        <Grid
+                            type="Gallery"
+                            breedsImages={[]}
+                            galleryImages={searchedBreeds}
+                        />
                         <Modal
                             isOpen={isModalOpen}
                             onClose={() => closeModal()}

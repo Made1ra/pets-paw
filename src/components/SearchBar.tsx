@@ -22,8 +22,12 @@ function SearchBar({ onSearch }: SearchBarProps) {
             className="no-underline"
         >
             <div className="flex flex-row mr-4">
-                <div className="flex items-center justify-between w-[29.375rem] h-[3.75rem] my-4 mx-2 bg-white rounded-[1.25rem]
-                dark:bg-stone-50 dark:bg-opacity-10 hover:border-2 hover:border-red-100 active:border-2 active:border-rose-400">
+                <div className="flex items-center justify-between w-[29.5rem] h-[3.75rem] my-4 mx-2 bg-white rounded-[1.25rem]
+                max-sm:order-1
+                lg:w-[29.25rem] lg:ml-4
+                dark:bg-opacity-5
+                hover:border-2 hover:border-red-100
+                active:border-2 active:border-rose-400">
                     <TextInput
                         value={searchTerm}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}

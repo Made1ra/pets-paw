@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Container from '../components/Container';
 import LeftSection from '../components/LeftSection';
 import RightSectionContainer from '../components/RightSectionContainer';
 import LinkContainer from '../components/LinkContainer';
+import Burger from '../components/Burger/Burger';
 import SearchBar from '../components/SearchBar';
 import Smiles from '../components/Smiles';
 import ActionsContainer from '../components/ActionsContainer';
@@ -14,8 +14,7 @@ import Select from '../components/Select';
 import Option from '../components/Option';
 import SortRevertButton from '../components/SortRevertButton';
 import SortButton from '../components/SortButton';
-import PetImage from '../components/PetImage';
-import Button from '../components/Button';
+import Grid from '../components/Grid/Grid';
 
 type BreedsProps = {
     isActive: number;
@@ -79,6 +78,7 @@ function Breeds({ isActive }: BreedsProps) {
             <LeftSection isActive={isActive} />
             <RightSectionContainer>
                 <LinkContainer>
+                    <Burger isActive={isActive} />
                     <SearchBar />
                     <Smiles />
                 </LinkContainer>
@@ -115,21 +115,11 @@ function Breeds({ isActive }: BreedsProps) {
                         <SortButton onClick={() => setSearchedBreeds(sortBreedsReverseAlphabetically(searchedBreeds))}
                         />
                     </NavigationContainer>
-                    {searchedBreeds.map((breed) => (
-                        <PetImage
-                            key={breed.id}
-                            url={breed.url || ''}
-                        >
-                            <Link
-                                to={`/breed/${breed.breeds[0]?.id}`}
-                                style={{ textDecoration: 'none' }}
-                            >
-                                <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
-                                    {breed.breeds[0]?.name}
-                                </Button>
-                            </Link>
-                        </PetImage>
-                    ))}
+                    <Grid
+                        type="Breeds"
+                        breedsImages={searchedBreeds}
+                        galleryImages={[]}
+                    />
                 </ActionsContainer>
             </RightSectionContainer>
         </Container>
