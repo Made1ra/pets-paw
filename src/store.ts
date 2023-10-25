@@ -1,19 +1,22 @@
 import { createSlice, combineReducers, configureStore } from '@reduxjs/toolkit';
+import voteTable from './assets/vote-table.svg';
+import petBreeds from './assets/pet-breeds.svg';
+import imagesSearch from './assets/images-search.svg';
 
 export const rectangles = [
     {
         backgroundColor: 'bg-indigo-300',
-        url: '../src/assets/vote-table.svg',
+        url: voteTable,
         text: 'VOTING'
     },
     {
         backgroundColor: 'bg-green-300',
-        url: '../src/assets/pet-breeds.svg',
+        url: petBreeds,
         text: 'BREEDS'
     },
     {
         backgroundColor: 'bg-amber-200',
-        url: '../src/assets/images-search.svg',
+        url: imagesSearch,
         text: 'GALLERY'
     }
 ];
