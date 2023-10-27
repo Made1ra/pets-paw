@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
 import { Breed, addBreed, removeBreed, addLog } from '../../store';
 import { formatDate } from '../../utilities/formatDate';
-import { getUniqueKey } from '../../utilities/getUniqueKey';
 import PetImage from '../PetImage';
 import SmallFavouriteButton from '../SmallFavouriteButton';
 import Button from '../Button';
 
 type GridProps = {
-    type: 'Breeds' | 'Gallery';
+    type: 'Breeds' | 'Gallery' | 'Saved' | 'Favourites';
     breedsImages: {
         id: string;
         url: string;
+        reference_image_id: string;
         breeds: {
             name?: string;
             id: string;
@@ -19,20 +20,26 @@ type GridProps = {
     }[];
     galleryImages: {
         url: string;
+        reference_image_id: string;
         breeds: [{
             reference_image_id: string;
             id: string;
             name?: string;
         }];
     }[];
+    savedImages: {
+        breeds: Breed[];
+    }[];
 };
 
-function Grid({ type, breedsImages, galleryImages }: GridProps) {
+function Grid({ type, breedsImages, galleryImages, savedImages }: GridProps) {
     let images = [];
     if (type === 'Breeds') {
         images = breedsImages;
-    } else {
+    } else if (type === 'Gallery') {
         images = galleryImages;
+    } else {
+        images = savedImages;
     }
 
     const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
@@ -69,7 +76,7 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                     i % 2 === 0 ? (
                         <div
                             className="w-[40rem] h-[28.75rem] relative"
-                            key={getUniqueKey()}
+                            key={nanoid()}
                         >
                             <PetImage
                                 className="w-[12.5rem] h-[18.75rem] left-0 top-0 absolute bg-stone-300 rounded-3xl"
@@ -89,6 +96,13 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                     <SmallFavouriteButton
                                         isFavourite={undefined !== breeds.find((b) => b.url === gridPattern[i][0].url)}
                                         onClick={() => handleClick(gridPattern[i][0].url)}
+                                    />
+                                )}
+                                {type === 'Favourites' && (
+                                    <div
+                                        onClick={() => handleClick(gridPattern[i][0].reference_image_id)}
+                                        className="absolute w-10 h-10 bg-white rounded-[0.625rem] z-10 bg-center bg-no-repeat bg-[url('../src/assets/fav-color-20.svg')]
+                                        hover:bg-rose-400 hover:bg-[url('../src/assets/fav-full-white-20.svg')]"
                                     />
                                 )}
                             </PetImage>
