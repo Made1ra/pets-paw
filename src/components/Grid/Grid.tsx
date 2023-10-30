@@ -28,15 +28,15 @@ type GridProps = {
 };
 
 function Grid({ type, breedsImages, galleryImages }: GridProps) {
+    const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
+    const dispatch = useDispatch();
+
     let images = [];
     if (type === 'Breeds') {
         images = breedsImages;
     } else {
         images = galleryImages;
     }
-
-    const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
-    const dispatch = useDispatch();
 
     const gridPattern: Array<typeof images> = [];
     const gridSize = 5;
@@ -53,11 +53,30 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
 
         const filteredBreeds = breeds.find((breed) => breed.url === url);
         if (!filteredBreeds) {
-            dispatch(addBreed({ reference_image_id: id, dateOfEditing: formatDate(new Date()), category: 'Favourites', url }));
-            dispatch(addLog({ reference_image_id: id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'added to' }));
+            dispatch(addBreed({
+                reference_image_id: id,
+                dateOfEditing: formatDate(new Date()),
+                category: 'Favourites',
+                url
+            }));
+            dispatch(addLog({
+                reference_image_id: id,
+                dateOfEditing: formatDate(new Date()),
+                category: 'Favourites',
+                action: 'added to'
+            }));
         } else {
-            dispatch(removeBreed({ reference_image_id: filteredBreeds.reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites' }));
-            dispatch(addLog({ reference_image_id: filteredBreeds.reference_image_id, dateOfEditing: formatDate(new Date()), category: 'Favourites', action: 'removed from' }));
+            dispatch(removeBreed({
+                reference_image_id: filteredBreeds.reference_image_id,
+                dateOfEditing: formatDate(new Date()),
+                category: 'Favourites'
+            }));
+            dispatch(addLog({
+                reference_image_id: filteredBreeds.reference_image_id,
+                dateOfEditing: formatDate(new Date()),
+                category: 'Favourites',
+                action: 'removed from'
+            }));
         }
     };
 
@@ -80,7 +99,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][0].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-2 top-44 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-2 top-44 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][0].breeds[0].name || ''}
                                         </Button>
                                     </Link>
@@ -101,7 +121,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][1].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-28 top-44 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-28 top-44 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][1].breeds[0]?.name}
                                         </Button>
                                     </Link>
@@ -122,7 +143,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][2].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][2].breeds[0]?.name}
                                         </Button>
                                     </Link>
@@ -143,7 +165,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][3].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][3].breeds[0]?.name}
                                         </Button>
                                     </Link>
@@ -164,7 +187,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][4].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][4].breeds[0]?.name}
                                         </Button>
                                     </Link>
@@ -188,7 +212,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][0].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-2 top-44 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-2 top-44 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][0].breeds[0]?.name}
                                         </Button>
                                     </Link>
@@ -209,7 +234,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][1].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-28 top-44 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-28 top-44 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][1].breeds[0]?.name}
                                         </Button>
                                     </Link>
@@ -230,7 +256,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][2].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][2].breeds[0]?.name}
                                         </Button>
                                     </Link>
@@ -251,7 +278,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][3].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][3].breeds[0]?.name}
                                         </Button>
                                     </Link>
@@ -272,7 +300,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                                         to={`/breed/${gridPattern[i][4].breeds[0]?.id}`}
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                        <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                        dark:bg-zinc-800">
                                             {gridPattern[i][4].breeds[0]?.name}
                                         </Button>
                                     </Link>

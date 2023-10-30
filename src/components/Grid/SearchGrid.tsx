@@ -39,7 +39,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][0]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-2 top-44 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-2 top-44 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][0]?.name}
                                     </Button>
                                 </Link>
@@ -53,7 +54,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][1]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][1]?.name}
                                     </Button>
                                 </Link>
@@ -67,7 +69,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][2]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][2]?.name}
                                     </Button>
                                 </Link>
@@ -81,7 +84,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][3]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-28 top-44 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-28 top-44 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][3]?.name}
                                     </Button>
                                 </Link>
@@ -95,7 +99,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][4]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][4]?.name}
                                     </Button>
                                 </Link>
@@ -112,7 +117,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][0]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][0]?.name}
                                     </Button>
                                 </Link>
@@ -126,7 +132,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][1]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][1]?.name}
                                     </Button>
                                 </Link>
@@ -140,7 +147,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][2]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-2 top-44 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-2 top-44 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][2]?.name}
                                     </Button>
                                 </Link>
@@ -154,7 +162,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][3]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-28 top-44 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-28 top-44 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][3]?.name}
                                     </Button>
                                 </Link>
@@ -168,7 +177,8 @@ function SearchGrid({ images }: SearchGridProps) {
                                     to={`/breed/${gridPattern[i][4]?.id}`}
                                     style={{ textDecoration: 'none' }}
                                 >
-                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem] dark:bg-zinc-800">
+                                    <Button className="mt-20 z-20 absolute left-2 top-4 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
                                         {gridPattern[i][4]?.name}
                                     </Button>
                                 </Link>
