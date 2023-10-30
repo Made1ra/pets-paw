@@ -11,7 +11,7 @@ import NavigationContainer from '../components/NavigationContainer';
 import SmallLink from '../components/SmallLink';
 import LargeTextButton from '../components/LargeTextButton';
 import TextSpan from '../components/TextSpan';
-import PetImage from '../components/PetImage';
+import VotedGrid from '../components/Grid/VotedGrid';
 
 function Likes() {
     const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
@@ -33,12 +33,10 @@ function Likes() {
                     {filteredBreeds.length === 0 ? (
                         <TextSpan>No item found</TextSpan>
                     ) : (
-                        filteredBreeds.map((breed) => (
-                            <PetImage
-                                key={breed.url}
-                                url={breed.url || ''}
-                            />
-                        ))
+                        <VotedGrid
+                            type="Likes"
+                            images={filteredBreeds}
+                        />
                     )}
                 </ActionsContainer>
             </RightSectionContainer>

@@ -8,11 +8,10 @@ import SmallFavouriteButton from '../SmallFavouriteButton';
 import Button from '../Button';
 
 type GridProps = {
-    type: 'Breeds' | 'Gallery' | 'Saved' | 'Favourites';
+    type: 'Breeds' | 'Gallery';
     breedsImages: {
         id: string;
         url: string;
-        reference_image_id: string;
         breeds: {
             name?: string;
             id: string;
@@ -20,26 +19,20 @@ type GridProps = {
     }[];
     galleryImages: {
         url: string;
-        reference_image_id: string;
         breeds: [{
             reference_image_id: string;
             id: string;
             name?: string;
         }];
     }[];
-    savedImages: {
-        breeds: Breed[];
-    }[];
 };
 
-function Grid({ type, breedsImages, galleryImages, savedImages }: GridProps) {
+function Grid({ type, breedsImages, galleryImages }: GridProps) {
     let images = [];
     if (type === 'Breeds') {
         images = breedsImages;
-    } else if (type === 'Gallery') {
-        images = galleryImages;
     } else {
-        images = savedImages;
+        images = galleryImages;
     }
 
     const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
@@ -96,13 +89,6 @@ function Grid({ type, breedsImages, galleryImages, savedImages }: GridProps) {
                                     <SmallFavouriteButton
                                         isFavourite={undefined !== breeds.find((b) => b.url === gridPattern[i][0].url)}
                                         onClick={() => handleClick(gridPattern[i][0].url)}
-                                    />
-                                )}
-                                {type === 'Favourites' && (
-                                    <div
-                                        onClick={() => handleClick(gridPattern[i][0].reference_image_id)}
-                                        className="absolute w-10 h-10 bg-white rounded-[0.625rem] z-10 bg-center bg-no-repeat bg-[url('../src/assets/fav-color-20.svg')]
-                                        hover:bg-rose-400 hover:bg-[url('../src/assets/fav-full-white-20.svg')]"
                                     />
                                 )}
                             </PetImage>
