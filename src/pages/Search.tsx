@@ -11,12 +11,13 @@ import ActionsContainer from '../components/ActionsContainer';
 import NavigationContainer from '../components/NavigationContainer';
 import SmallLink from '../components/SmallLink';
 import LargeTextButton from '../components/LargeTextButton';
-import Image from '../components/Image';
+import SearchGrid from '../components/Grid/SearchGrid';
 
 function Search() {
     const API_KEY = import.meta.env.VITE_API_KEY;
 
-    const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, reference_image_id: string }[]>([]);
+    const [searchedBreeds, setSearchedBreeds] = useState<{ name: string, image: { url: string }, id: string }[]>([]);
+    const [term, setTerm] = useState('');
 
     const searchBreeds = async (searchTerm: string) => {
         const response = await fetch(`https://api.thecatapi.com/v1/breeds/search?q=${searchTerm}`, {
@@ -26,9 +27,10 @@ function Search() {
         });
 
         const data = await response.json();
+        setTerm(searchTerm);
         setSearchedBreeds(data);
     };
-
+    
     return (
         <Container>
             <LeftContent isActive={4} />
@@ -44,18 +46,10 @@ function Search() {
                     </NavigationContainer>
                     {searchedBreeds.length > 0 && (
                         <TextSpan className="mb-2">
-                            Search results for: <BoldText>{searchedBreeds[0].name}</BoldText>
+                            Search results for: <BoldText>{term}</BoldText>
                         </TextSpan>
                     )}
-                    {
-                        searchedBreeds.map((breed) => (
-                            <Image
-                                key={breed.reference_image_id}
-                                src={breed.image.url || ''}
-                                alt={breed.name}
-                            />
-                        ))
-                    }
+                    <SearchGrid images={searchedBreeds} />
                 </ActionsContainer>
             </RightSectionContainer>
         </Container>

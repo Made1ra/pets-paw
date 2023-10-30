@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
 import { Breed, addBreed, removeBreed, addLog } from '../../store';
 import { formatDate } from '../../utilities/formatDate';
-import { getUniqueKey } from '../../utilities/getUniqueKey';
 import PetImage from '../PetImage';
 import SmallFavouriteButton from '../SmallFavouriteButton';
 import Button from '../Button';
@@ -69,7 +69,7 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                     i % 2 === 0 ? (
                         <div
                             className="w-[40rem] h-[28.75rem] relative"
-                            key={getUniqueKey()}
+                            key={nanoid()}
                         >
                             <PetImage
                                 className="w-[12.5rem] h-[18.75rem] left-0 top-0 absolute bg-stone-300 rounded-3xl"
