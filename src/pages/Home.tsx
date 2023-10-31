@@ -1,12 +1,12 @@
 import Container from '../components/Container';
-import LeftSection from '../components/LeftSection';
+import LeftContent from '../components/LeftContent';
 import RightContent from '../components/RightContent';
 import GirlAndPet from '../components/GirlAndPet'
 
 function Home() {
     return (
         <Container>
-            <LeftSection isActive={4} />
+            <LeftContent isActive={4} />
             <RightContent>
                 <GirlAndPet />
             </RightContent>

@@ -2,13 +2,13 @@ import Logo from './Logo';
 import ThemeSwitcher from './ThemeSwitcher/ThemeSwitcher';
 import Welcome from './Welcome';
 
-type LeftSectionProps = {
+type LeftContentProps = {
     isActive: number;
 };
 
-function LeftSection({ isActive }: LeftSectionProps) {
+function LeftContent({ isActive }: LeftContentProps) {
     return (
-        <div className="hidden mt-4 top-4 z-10 flex-col items-start
+        <div className="mt-4 top-4 z-10 flex-col items-start
             lg:flex lg:sticky lg:ml-6
             xl:ml-32
             2xl:ml-80"
@@ -22,4 +22,4 @@ function LeftSection({ isActive }: LeftSectionProps) {
     );
 }
 
-export default LeftSection;
+export default LeftContent;
