@@ -44,7 +44,7 @@ function Menu({ isActive, isOpen, onClose }: MenuProps) {
                             onClick={() => handleClose()}
                         >
                             <TextButton
-                                className="mt-5"
+                                className="ml-0 mt-5"
                                 isActive={isActive === i + 1}
                             >
                                 {rectangle.text}
