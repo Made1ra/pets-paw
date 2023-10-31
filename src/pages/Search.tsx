@@ -5,6 +5,7 @@ import RightSectionContainer from '../components/RightSectionContainer';
 import LinkContainer from '../components/LinkContainer';
 import TextSpan from '../components/TextSpan';
 import BoldText from '../components/BoldText';
+import Burger from '../components/Burger/Burger';
 import SearchBar from '../components/SearchBar';
 import Smiles from '../components/Smiles';
 import ActionsContainer from '../components/ActionsContainer';
@@ -30,12 +31,13 @@ function Search() {
         setTerm(searchTerm);
         setSearchedBreeds(data);
     };
-    
+
     return (
         <Container>
             <LeftContent isActive={4} />
             <RightSectionContainer>
                 <LinkContainer>
+                    <Burger isActive={4} />
                     <SearchBar onSearch={searchBreeds} />
                     <Smiles />
                 </LinkContainer>
