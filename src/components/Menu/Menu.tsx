@@ -24,7 +24,7 @@ function Menu({ isActive, isOpen, onClose }: MenuProps) {
         lg:hidden
         dark:bg-stone-800">
             <CloseButton onClick={() => handleClose()} />
-            <div className="flex flex-col justify-center self-center mt-4 sm:flex-row sm:self-auto">
+            <div className="flex flex-col justify-center self-center max-sm:-ml-24 mt-4 sm:flex-row sm:self-auto">
                 {rectangles.map((rectangle, i) => (
                     <div key={rectangle.text}>
                         <Link
