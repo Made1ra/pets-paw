@@ -60,10 +60,12 @@ function Modal({ isOpen, onClose }: ModalProps) {
 
     return (
         <div className="flex flex-col w-[47.5rem] h-[57.5rem] bg-stone-50 rounded-[1.25rem] z-20 fixed top-5 right-24
+        max-sm:w-screen max-sm:top-0 max-sm:right-0 max-sm:rounded-none
         dark:bg-stone-800">
             <CloseButton onClick={() => handleClose()} />
             <div className="flex flex-col text-center">
                 <div className="mt-8 text-stone-900 text-4xl font-medium font-jost
+                max-sm:text-xl
                 dark:text-white">
                     Upload a .jpg or .png Cat Image
                 </div>
@@ -79,7 +81,8 @@ function Modal({ isOpen, onClose }: ModalProps) {
                     or face deletion.
                 </span>
                 <div className={`flex justify-center self-center mt-8 w-[40rem] h-80 rounded-[1.25rem] border-2 border-dashed
-                    dark:bg-opacity-5 dark:border-rose-400 dark:border-opacity-20 ${(isResponseOk === false) ? 'bg-red-100 border-rose-400' : 'bg-white border-red-100'}`}
+                max-sm:w-[20.9375rem] max-sm:h-[10.46875rem]
+                dark:bg-opacity-5 dark:border-rose-400 dark:border-opacity-20 ${(isResponseOk === false) ? 'bg-red-100 border-rose-400' : 'bg-white border-red-100'}`}
                 >
                     <input
                         className="fixed w-[40rem] h-80 opacity-0 z-30"
@@ -90,7 +93,8 @@ function Modal({ isOpen, onClose }: ModalProps) {
                     <div className="flex flex-col items-center justify-center">
                         {selectedImage ? (
                             <img
-                                className="w-[34.88375rem] h-[17.5rem] rounded-[0.625rem]"
+                                className="w-[34.88375rem] h-[17.5rem] rounded-[0.625rem]
+                                max-sm:w-[18.4375rem] max-sm:h-[9.2495rem]"
                                 src={imageUrl}
                                 alt={selectedImage.name}
                             />

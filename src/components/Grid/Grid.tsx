@@ -82,7 +82,8 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
 
     return (
         <div className="w-[42.5rem] h-fit bg-white rounded-[1.25rem] inline-flex flex-col items-start gap-5 mt-2 mb-8
-        dark:bg-stone-900 dark:bg-opacity-5">
+        dark:bg-stone-900 dark:bg-opacity-5
+        max-sm:hidden">
             {
                 gridPattern.map((_, i) => (
                     i % 2 === 0 ? (
@@ -202,7 +203,10 @@ function Grid({ type, breedsImages, galleryImages }: GridProps) {
                             </PetImage>
                         </div>
                     ) : (
-                        <div className="origin-top-left rotate-180 w-[40rem] h-[28.75rem] relative">
+                        <div
+                            className="origin-top-left rotate-180 w-[40rem] h-[28.75rem] relative"
+                            key={nanoid()}
+                        >
                             <PetImage
                                 className="w-[12.5rem] h-[18.75rem] left-[-29.5rem] -top-8 absolute origin-top-left rotate-180 bg-stone-300 rounded-3xl"
                                 url={gridPattern[i][0].url}

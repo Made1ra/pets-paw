@@ -36,7 +36,8 @@ function Controls({ reference_image_id, url, onLikeDislikeClick }: ControlsProps
     };
 
     return (
-        <div className="flex flex-shrink-0 items-center justify-center w-64 h-20 m-4">
+        <div className="flex flex-shrink-0 items-center justify-center w-[11.125rem] h-11 m-4
+        sm:w-64 sm:h-20">
             <LikeButton onClick={() => handleClick('Likes', reference_image_id)} />
             <FavouriteButton onClick={() => handleClick('Favourites', reference_image_id)} />
             <DislikeButton onClick={() => handleClick('Dislikes', reference_image_id)} />

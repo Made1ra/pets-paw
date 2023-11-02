@@ -21,7 +21,7 @@ body {
 .swiper,
 .swipper-wrapper,
 .swiper-slide {
-    @apply w-[40rem];
+    @apply w-[40rem] lg:ml-0;
 }
 
 .swiper-pagination-horizontal {
@@ -40,5 +40,5 @@ body {
 .swiper-pagination-custom,
 .swiper-horizontal>.swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal {
-    @apply relative w-[5.625rem] left-[17rem] -top-4;
+    @apply relative w-[5.625rem] left-[17rem] -top-4 max-sm:left-[6.5rem] max-sm:top-[-2.8rem];
 }

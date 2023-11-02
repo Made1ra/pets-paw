@@ -4,7 +4,9 @@ type TextProps = {
 
 function LargeTextButton({ children }: TextProps) {
     return (
-        <div className="flex items-center justify-center w-[9.75rem] h-10 ml-2 bg-rose-400 rounded-[0.625rem] cursor-pointer
+        <div className="flex items-center justify-center w-[9.125rem] h-10 ml-2 bg-rose-400 rounded-[0.625rem] cursor-pointer
+        sm:w-[9.75rem]
+        lg:ml-4
         hover:bg-red-100
         active:bg-rose-400"
         >

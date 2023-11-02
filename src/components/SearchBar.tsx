@@ -19,10 +19,12 @@ function SearchBar({ onSearch }: SearchBarProps) {
     return (
         <Link
             to="/search"
-            className="no-underline"
+            className="flex no-underline 
+            max-sm:order-last max-sm:w-full max-sm:my-4"
         >
             <div className="flex flex-row mr-4">
-                <div className="flex items-center justify-between w-[29.5rem] h-[3.75rem] my-4 mx-2 bg-white rounded-[1.25rem]
+                <div className="flex items-center justify-between w-[20.9375rem] h-[3.75rem] mb-4 bg-white rounded-[1.25rem]
+                sm:w-[29.5rem] sm:my-4 sm:mx-2
                 lg:w-[29.25rem] lg:ml-4
                 dark:bg-opacity-5
                 hover:border-2 hover:border-red-100
