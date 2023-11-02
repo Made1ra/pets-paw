@@ -11,6 +11,7 @@ function UploadPhotoButton({ isUploading, onClick }: UploadPhotoButton) {
     return (
         <button
             className={`flex items-center justify-center self-center text-center w-[10.75rem] h-10 mt-8 rounded-[0.625rem]
+            max-sm:w-[20.9375rem]
             ${isHovered ? 'bg-red-100' : 'bg-rose-400'}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

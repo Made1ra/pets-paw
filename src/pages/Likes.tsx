@@ -12,6 +12,7 @@ import NavigationContainer from '../components/NavigationContainer';
 import SmallLink from '../components/SmallLink';
 import LargeTextButton from '../components/LargeTextButton';
 import TextSpan from '../components/TextSpan';
+import PetImage from '../components/PetImage';
 import VotedGrid from '../components/Grid/VotedGrid';
 
 function Likes() {
@@ -35,10 +36,21 @@ function Likes() {
                     {filteredBreeds.length === 0 ? (
                         <TextSpan>No item found</TextSpan>
                     ) : (
-                        <VotedGrid
-                            type="Likes"
-                            images={filteredBreeds}
-                        />
+                        <>
+                            <div className="flex flex-col self-center -ml-5
+                        sm:hidden">
+                                {filteredBreeds.map((breed) => (
+                                    <PetImage
+                                        key={breed.url}
+                                        url={breed.url}
+                                    />
+                                ))}
+                            </div>
+                            <VotedGrid
+                                type="Likes"
+                                images={filteredBreeds}
+                            />
+                        </>
                     )}
                 </ActionsContainer>
             </RightSectionContainer>

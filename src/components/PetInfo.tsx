@@ -10,6 +10,9 @@ type PetInfoProps = {
 function PetInfo({ name, description, temperament, origin, weight, lifeSpan }: PetInfoProps) {
     return (
         <div className="w-[40rem] h-fit rounded-[1.25rem] border-2 border-red-100 mt-6 p-2
+        max-sm:w-[18.4375rem]
+        sm:ml-14
+        lg:ml-0
         dark:border-rose-400 dark:border-opacity-20">
             <div className="flex justify-center">
                 <div className="w-fit text-stone-900 text-center text-4xl font-medium font-jost -mt-8 bg-white z-20
@@ -20,7 +23,8 @@ function PetInfo({ name, description, temperament, origin, weight, lifeSpan }: P
             <div className="text-neutral-400 text-center text-xl font-medium font-jost">
                 {description}
             </div>
-            <div className="flex mt-4">
+            <div className="flex mt-4
+            max-sm:flex-col">
                 <div className="w-[16.875rem]">
                     <span className="text-stone-900 text-base font-medium font-jost dark:text-white">
                         Temperament:<br />
@@ -29,7 +33,8 @@ function PetInfo({ name, description, temperament, origin, weight, lifeSpan }: P
                         {temperament}
                     </span>
                 </div>
-                <div className="flex-1 ml-4">
+                <div className="flex-1
+                sm:ml-4">
                     <div className="w-[16.33063rem]">
                         <span className="text-stone-900 text-base font-medium font-jost dark:text-white">
                             Origin:

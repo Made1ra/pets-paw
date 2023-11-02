@@ -1,4 +1,7 @@
 import { useState, useEffect, ChangeEvent } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Breed, addBreed, addLog, removeBreed } from '../store';
+import { formatDate } from '../utilities/formatDate';
 import Container from '../components/Container';
 import LeftSection from '../components/LeftSection';
 import RightSectionContainer from '../components/RightSectionContainer';
@@ -15,6 +18,8 @@ import Select from '../components/Select';
 import Option from '../components/Option';
 import LargeTextButton from '../components/LargeTextButton';
 import UpdateButton from '../components/UpdateButton';
+import PetImage from '../components/PetImage';
+import SmallFavouriteButton from '../components/SmallFavouriteButton';
 import Grid from '../components/Grid/Grid';
 import Modal from '../components/Modal/Modal';
 
@@ -24,6 +29,9 @@ type BreedsProps = {
 
 function Gallery({ isActive }: BreedsProps) {
     const API_KEY = import.meta.env.VITE_API_KEY;
+
+    const breeds = useSelector((state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds);
+    const dispatch = useDispatch();
 
     const [shouldBeUpdated, setShouldBeUpdated] = useState(true);
     const [order, setOrder] = useState('Random');
@@ -42,6 +50,41 @@ function Gallery({ isActive }: BreedsProps) {
     const closeModal = () => {
         setIsModalOpen(false);
         document.body.style.overflow = 'auto';
+    };
+
+    const handleClick = async (url: string) => {
+        const match = url.match(/\/images\/([^/]+)\.\w+$/);
+        let id = '';
+        if (match) {
+            id = match[1];
+        }
+        const filteredBreeds = breeds.find((breed) => breed.url === url);
+        if (!filteredBreeds) {
+            dispatch(addBreed({
+                reference_image_id: id,
+                dateOfEditing: formatDate(new Date()),
+                category: 'Favourites',
+                url
+            }));
+            dispatch(addLog({
+                reference_image_id: id,
+                dateOfEditing: formatDate(new Date()),
+                category: 'Favourites',
+                action: 'added to'
+            }));
+        } else {
+            dispatch(removeBreed({
+                reference_image_id: filteredBreeds.reference_image_id,
+                dateOfEditing: formatDate(new Date()),
+                category: 'Favourites'
+            }));
+            dispatch(addLog({
+                reference_image_id: filteredBreeds.reference_image_id,
+                dateOfEditing: formatDate(new Date()),
+                category: 'Favourites',
+                action: 'removed from'
+            }));
+        }
     };
 
     useEffect(() => {
@@ -98,7 +141,7 @@ function Gallery({ isActive }: BreedsProps) {
             setShouldBeUpdated(false);
         }
     }, [API_KEY, allBreeds, order, type, breedValue, value, shouldBeUpdated]);
-
+    
     return (
         <>
             {isModalOpen && (
@@ -191,6 +234,20 @@ function Gallery({ isActive }: BreedsProps) {
                                     <UpdateButton onClick={() => setShouldBeUpdated(true)} />
                                 </div>
                             </div>
+                        </div>
+                        <div className="flex flex-col self-center -ml-5
+                        sm:hidden">
+                            {searchedBreeds.map((breed) => (
+                                <PetImage
+                                    key={breed.url}
+                                    url={breed.url}
+                                >
+                                    <SmallFavouriteButton
+                                        isFavourite={undefined !== breeds.find((b) => b.url === breed.url)}
+                                        onClick={() => handleClick(breed.url)}
+                                    />
+                                </PetImage>
+                            ))}
                         </div>
                         <Grid
                             type="Gallery"

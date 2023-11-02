@@ -12,6 +12,7 @@ function PetImage({ url, className, children }: PetImageProps) {
     return (
         <div
             className={`w-52 h-36 cursor-pointer m-4 relative flex items-center justify-center flex-shrink-0 rounded-3xl bg-center bg-no-repeat bg-cover
+            max-sm:w-[18.4375rem] max-sm:h-[12.90625rem]
             ${className}`}
             style={{
                 backgroundImage: `url(${url})`,

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Container from '../components/Container';
 import LeftContent from '../components/LeftSection';
 import RightSectionContainer from '../components/RightSectionContainer';
@@ -12,6 +13,8 @@ import ActionsContainer from '../components/ActionsContainer';
 import NavigationContainer from '../components/NavigationContainer';
 import SmallLink from '../components/SmallLink';
 import LargeTextButton from '../components/LargeTextButton';
+import PetImage from '../components/PetImage';
+import Button from '../components/Button';
 import SearchGrid from '../components/Grid/SearchGrid';
 
 function Search() {
@@ -51,6 +54,25 @@ function Search() {
                             Search results for: <BoldText>{term}</BoldText>
                         </TextSpan>
                     )}
+                    <div className="flex flex-col self-center -ml-5
+                    sm:hidden">
+                        {searchedBreeds.map((breed) => (
+                            <PetImage
+                                key={breed.image.url}
+                                url={breed.image.url}
+                            >
+                                <Link
+                                    to={`/breed/${breed.id}`}
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    <Button className="mt-20 z-20 absolute left-14 top-20 w-[11.25rem] h-[2.125rem]
+                                    dark:bg-zinc-800">
+                                        {breed.name}
+                                    </Button>
+                                </Link>
+                            </PetImage>
+                        ))}
+                    </div>
                     <SearchGrid images={searchedBreeds} />
                 </ActionsContainer>
             </RightSectionContainer>

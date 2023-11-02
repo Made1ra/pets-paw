@@ -20,7 +20,7 @@ function Menu({ isActive, isOpen, onClose }: MenuProps) {
     }
 
     return (
-        <div className="flex flex-col w-full h-full bg-stone-50 rounded-[1.25rem] z-20 fixed left-0 top-0
+        <div className="flex flex-col w-full h-full bg-stone-50 rounded-[1.25rem] z-30 fixed left-0 top-0
         lg:hidden
         dark:bg-stone-800">
             <CloseButton onClick={() => handleClose()} />
