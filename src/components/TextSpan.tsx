@@ -5,7 +5,7 @@ type TextSpanProps = {
 
 function TextSpan({ children, className }: TextSpanProps) {
     return (
-        <div className={`flex items-center w-[40rem] h-[3.75rem] rounded-[0.625rem] mb-4
+        <div className={`flex items-center w-[18.5rem] h-[3.75rem] rounded-[0.625rem] mb-4
         sm:w-[47rem]
         lg:w-[42.25rem]
         dark:bg-white dark:bg-opacity-5 ${className}`}>

@@ -118,12 +118,15 @@ function Gallery({ isActive }: BreedsProps) {
                             <LargeTextButton>GALLERY</LargeTextButton>
                             <UploadButton onClick={() => openModal()} />
                         </NavigationContainer>
-                        <div className="flex w-full h-fit bg-stone-50 rounded-[1.25rem] py-4 pr-4 flex-wrap
+                        <div className="flex w-[18.4375rem] h-fit bg-stone-50 rounded-[1.25rem] py-4 pr-4 flex-wrap
                         dark:bg-white dark:bg-opacity-5
+                        max-sm:w-[18.5rem]
                         sm:w-[47rem]
                         lg:w-[42.5rem]">
-                            <div className="flex w-full">
-                                <div className="flex flex-col w-1/2">
+                            <div className="flex w-full
+                            max-sm:flex-col max-sm:items-center max-sm:justify-center">
+                                <div className="flex flex-col w-1/2
+                                max-sm:w-[17.1875rem]">
                                     <Label>ORDER</Label>
                                     <Select
                                         value={order}
@@ -136,7 +139,8 @@ function Gallery({ isActive }: BreedsProps) {
                                         <Option>Asc</Option>
                                     </Select>
                                 </div>
-                                <div className="flex flex-col w-1/2">
+                                <div className="flex flex-col w-1/2
+                                max-sm:w-[17.1875rem] max-sm:mt-4">
                                     <Label>TYPE</Label>
                                     <Select
                                         value={type}
@@ -150,8 +154,10 @@ function Gallery({ isActive }: BreedsProps) {
                                     </Select>
                                 </div>
                             </div>
-                            <div className="flex items-end justify-start w-full mt-4">
-                                <div className="flex flex-col w-1/2">
+                            <div className="flex items-end justify-start w-full mt-4
+                            max-sm:flex-col max-sm:items-center max-sm:justify-center">
+                                <div className="flex flex-col w-1/2
+                                max-sm:w-[17.1875rem]">
                                     <Label>BREED</Label>
                                     <Select
                                         value={breedValue}
@@ -165,8 +171,10 @@ function Gallery({ isActive }: BreedsProps) {
                                         ))}
                                     </Select>
                                 </div>
-                                <div className="flex items-end w-1/2">
-                                    <div className="flex flex-col w-5/6">
+                                <div className="flex items-end w-1/2
+                                max-sm:flex-col max-sm:w-[17.1875rem] max-sm:mt-4">
+                                    <div className="flex flex-col w-5/6
+                                    max-sm:w-full">
                                         <Label>LIMIT</Label>
                                         <Select
                                             value={value}
