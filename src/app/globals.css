@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-jost xl:mr-[8.5rem] xl:ml-4;
+}
+
+#logo path {
+  @apply dark:fill-slate-100;
+}
+
+[app-theme="light"] {
+  background: #F8F8F7;
+}
+
+[app-theme="dark"] {
+  @apply bg-stone-900;
+}
+
+.swiper,
+.swipper-wrapper,
+.swiper-slide {
+  @apply w-[40rem] lg:ml-0;
+}
+
+.swiper-pagination-horizontal {
+  @apply absolute flex items-center w-[5.625rem] h-[1.875rem] left-1/2 bg-white rounded-[1.25rem] dark:bg-zinc-800;
+}
+
+.swiper-pagination-bullet {
+  @apply w-2.5 h-2.5 left-2.5 top-2.5 bg-red-400 rounded-[0.625rem];
+}
+
+.swiper-pagination-bullet-active {
+  @apply w-2.5 h-2.5 left-2.5 top-2.5 bg-rose-400 rounded-[0.625rem];
+}
+
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  @apply relative w-[5.625rem] left-[17rem] -top-4 max-sm:left-[6.5rem] max-sm:top-[-2.8rem];
+}
