@@ -149,10 +149,10 @@ export default function Gallery() {
                 <div className="absolute -left-5 top-0 w-screen h-screen z-20 bg-stone-900 bg-opacity-60" />
             )}
             <Container>
-                <LeftSection isActive={pathname === '/breeds' ? 3 : 4} />
+                <LeftSection isActive={pathname === '/gallery' ? 3 : 4} />
                 <RightSectionContainer>
                     <LinkContainer>
-                        <Burger isActive={pathname === '/breeds' ? 3 : 4} />
+                        <Burger isActive={pathname === '/gallery' ? 3 : 4} />
                         <SearchBar />
                         <Smiles />
                     </LinkContainer>
