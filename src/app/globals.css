@@ -11,7 +11,7 @@ body {
 }
 
 [app-theme="light"] {
-  background: #F8F8F7;
+  @apply bg-stone-50;
 }
 
 [app-theme="dark"] {
@@ -19,9 +19,12 @@ body {
 }
 
 .swiper,
-.swipper-wrapper,
+.swiper-wrapper {
+  @apply rounded-[1.25rem] w-[18.4375rem] sm:w-[41.75rem] lg:w-[40rem] lg:ml-0;
+}
+
 .swiper-slide {
-  @apply w-[40rem] lg:ml-0;
+  @apply relative w-[18.4375rem] h-[10.38306rem] rounded-[1.25rem] sm:w-[41.75rem] sm:h-[23.5115rem] lg:w-[40rem] lg:h-[22.5rem];
 }
 
 .swiper-pagination-horizontal {
