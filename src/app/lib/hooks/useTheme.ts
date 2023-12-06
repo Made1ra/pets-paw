@@ -6,9 +6,9 @@ export function useTheme() {
     const isLocalStorageAvailable = typeof window !== 'undefined' && window.localStorage;
 
     const localTheme = isLocalStorageAvailable
-        ? localStorage.getItem('app-theme') === 'light'
+        ? localStorage.getItem('app-theme') === 'dark'
             ? true
-            : localStorage.getItem('app-theme') === 'dark'
+            : localStorage.getItem('app-theme') === 'light'
                 ? false
                 : true
         : true;
@@ -17,8 +17,8 @@ export function useTheme() {
 
     useEffect(() => {
         if (isLocalStorageAvailable) {
-            document.documentElement.setAttribute('app-theme', theme ? 'light' : 'dark');
-            localStorage.setItem('app-theme', theme ? 'light' : 'dark');
+            document.documentElement.setAttribute('app-theme', theme ? 'dark' : 'light');
+            localStorage.setItem('app-theme', theme ? 'dark' : 'light');
         }
     }, [theme, isLocalStorageAvailable]);
 

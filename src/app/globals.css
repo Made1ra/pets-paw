@@ -10,12 +10,12 @@ body {
   @apply dark:fill-slate-100;
 }
 
-[app-theme="light"] {
-  @apply bg-stone-50;
-}
-
 [app-theme="dark"] {
   @apply bg-stone-900;
+}
+
+[app-theme="light"] {
+  @apply bg-stone-50;
 }
 
 .swiper,

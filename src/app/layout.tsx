@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <Providers>
-      <html lang="en" app-theme="light">
+      <html lang="en" app-theme="dark">
         <body className={`${jost.className} antialiased`}>{children}</body>
       </html>
     </Providers>
