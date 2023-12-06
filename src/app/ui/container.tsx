@@ -6,7 +6,7 @@ export default function Container({
     className?: string
 }) {
     return (
-        <div className={`h-screen flex flex-col items-center justify-start self-center m-auto float-none bg-stone-50
+        <div className={`min-h-screen flex flex-col items-center justify-start self-center m-auto float-none bg-stone-50
         dark:bg-stone-900
         sm:mx-0 sm:w-full sm:flex-row sm:items-start sm:justify-center sm:float-right
         lg:overscroll-x-none
