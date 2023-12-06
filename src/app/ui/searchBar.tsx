@@ -5,7 +5,7 @@ import Link from 'next/link';
 import TextInput from '@/app/ui/textInput';
 import SearchButton from '@/app/ui/searchButton';
 
-function SearchBar({
+export default function SearchBar({
     onSearch
 }: {
     onSearch?: (searchTerm: string) => void
@@ -21,8 +21,7 @@ function SearchBar({
     return (
         <Link
             href="/search"
-            className="flex no-underline 
-            max-sm:order-last max-sm:w-full max-sm:my-4"
+            className="flex max-sm:order-last max-sm:w-full max-sm:my-4"
         >
             <div className="flex flex-row mr-4">
                 <div className="flex items-center justify-between w-[20.9375rem] h-[3.75rem] mb-4 bg-white rounded-[1.25rem]
@@ -42,5 +41,3 @@ function SearchBar({
         </Link >
     );
 }
-
-export default SearchBar;
