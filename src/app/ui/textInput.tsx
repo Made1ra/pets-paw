@@ -13,7 +13,7 @@ export default function TextInput({
             value={value}
             onChange={onChange}
             onKeyDown={onKeyDown}
-            className="text-neutral-400 pl-4 outline-0 text-xl font-normal leading-[1.875rem] font-jost
+            className="text-neutral-400 pl-4 outline-0 text-xl font-normal leading-[1.875rem] font-jost w-full
             dark:bg-neutral-700 dark:bg-opacity-5
             active:text-stone-900"
         />
