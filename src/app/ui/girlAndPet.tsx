@@ -8,9 +8,9 @@ export default function GirlAndPet() {
             <Image
                 className="flex-shrink-0 z-20"
                 src="/girl-and-pet.svg"
+                alt="Girl and pet"
                 width={775}
                 height={900}
-                alt="Girl and pet"
                 priority={true}
             />
         </div>

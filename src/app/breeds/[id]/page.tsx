@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import Container from '@/app/ui/container';
@@ -15,10 +16,10 @@ import SmallLink from '@/app/ui/smallLink';
 import ActionsContainer from '@/app/ui/actionsContainer';
 import NavigationContainer from '@/app/ui/navigationContainer';
 import Loader from '@/app/ui/loader';
-import Img from '@/app/ui/img';
 import PetInfo from '@/app/ui/petInfo';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import '@/app/globals.css';
 
 export default function Breed() {
     const { id } = useParams();
@@ -92,9 +93,13 @@ export default function Breed() {
                             >
                                 {searchedBreeds.slice(0, 5).map((breed) => (
                                     <SwiperSlide key={breed.url}>
-                                        <Img
+                                        <Image
+                                            className="rounded-[1.25rem]"
                                             src={breed.url}
                                             alt={breed.breeds[0].name}
+                                            fill
+                                            sizes="100vw"
+                                            priority
                                         />
                                     </SwiperSlide>
                                 ))}
@@ -111,6 +116,6 @@ export default function Breed() {
                     )}
                 </ActionsContainer>
             </RightSectionContainer>
-        </Container >
+        </Container>
     );
 }

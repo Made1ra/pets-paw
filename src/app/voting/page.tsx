@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { Log } from '@/app/lib/store';
 import Container from '@/app/ui/container';
 import LeftSection from '@/app/ui/leftSection';
@@ -16,7 +17,6 @@ import NavigationContainer from '@/app/ui/navigationContainer';
 import SmallLink from '@/app/ui/smallLink';
 import LargeTextButton from '@/app/ui/largeTextButton';
 import ImageContainer from '@/app/ui/imageContainer';
-import Img from '@/app/ui/img';
 import ControlsContainer from '@/app/ui/controlsContainer';
 import Controls from '@/app/ui/controls';
 import ActionMessage from '@/app/ui/actionMessage';
@@ -26,7 +26,7 @@ export default function Voting() {
 
     const logs = useSelector((state: { logs: { logs: Log[] } }) => state.logs.logs);
 
-    const [randomImage, setRandomImage] = useState<{ name: string, url: string, id: string }[]>([]);
+    const [randomImage, setRandomImage] = useState<{ name: string, url: string, id: string } | null>(null);
 
     const pathname = usePathname();
 
@@ -37,7 +37,7 @@ export default function Voting() {
             headers: headers
         });
         const data = await response.json();
-        setRandomImage(data);
+        setRandomImage(data[0] || null);
     }
 
     useEffect(() => {
@@ -48,17 +48,17 @@ export default function Voting() {
                 headers: headers
             });
             const data = await response.json();
-            setRandomImage(data);
+            setRandomImage(data[0] || null);
         };
         getRandomImage();
     }, [API_KEY]);
 
     return (
         <Container>
-            <LeftSection isActive={pathname === '/breeds' ? 1 : 4} />
+            <LeftSection isActive={pathname === '/voting' ? 1 : 4} />
             <RightSectionContainer>
                 <LinkContainer>
-                    <Burger isActive={pathname === '/breeds' ? 1 : 4} />
+                    <Burger isActive={pathname === '/voting' ? 1 : 4} />
                     <SearchBar />
                     <Smiles />
                 </LinkContainer>
@@ -68,14 +68,24 @@ export default function Voting() {
                         <LargeTextButton>VOTING</LargeTextButton>
                     </NavigationContainer>
                     <ImageContainer>
-                        <Img
-                            src={randomImage.length > 0 ? `${randomImage[0].url}` : ''}
-                            alt="Cat"
-                        />
+                        {randomImage && (
+                            <div className="relative w-[18.4375rem] h-[10.38306rem] rounded-[1.25rem]
+                            sm:w-[41.75rem] sm:h-[23.5115rem]
+                            lg:w-[40rem] lg:h-[22.5rem]">
+                                <Image
+                                    className="rounded-[1.25rem]"
+                                    src={randomImage.url}
+                                    alt="Cat image"
+                                    fill
+                                    sizes="100vw"
+                                    priority
+                                />
+                            </div>
+                        )}
                         <ControlsContainer>
                             <Controls
-                                reference_image_id={randomImage.length > 0 ? randomImage[0].id : ''}
-                                url={randomImage.length > 0 ? randomImage[0].url : ''}
+                                reference_image_id={randomImage ? randomImage.id : ''}
+                                url={randomImage ? randomImage.url : ''}
                                 onLikeDislikeClick={() => handleLikeDislikeClick()}
                             />
                         </ControlsContainer>
@@ -93,6 +103,6 @@ export default function Voting() {
                     }
                 </ActionsContainer>
             </RightSectionContainer>
-        </Container >
+        </Container>
     );
 }

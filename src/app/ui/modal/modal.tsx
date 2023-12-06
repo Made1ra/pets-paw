@@ -94,13 +94,15 @@ export default function Modal({
                         accept="image/*,.jpeg,.jpg,.png"
                         onChange={(e) => handleImageChange(e)}
                     />
-                    <div className="flex flex-col items-center justify-center">
+                    <div className="relative flex flex-col items-center justify-center w-[34.88375rem] h-[17.5rem] rounded-[0.625rem] mt-4
+                    max-sm:w-[18.4375rem] max-sm:h-[9.2495rem]">
                         {selectedImage ? (
                             <Image
-                                className="w-[34.88375rem] h-[17.5rem] rounded-[0.625rem]
-                                max-sm:w-[18.4375rem] max-sm:h-[9.2495rem]"
+                                className="rounded-[0.625rem]"
                                 src={imageUrl}
                                 alt={selectedImage.name}
+                                fill
+                                sizes="100vw"
                             />
                         ) : (
                             <>

@@ -8,9 +8,9 @@ export default function Logo() {
                 <div>
                     <Image
                         src="/paw.svg"
+                        alt="Logo"
                         width={24}
                         height={24}
-                        alt="Logo"
                     />
                 </div>
                 <div>
