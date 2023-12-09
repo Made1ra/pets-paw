@@ -19,7 +19,7 @@ import Loader from '@/app/ui/loader';
 import PetInfo from '@/app/ui/petInfo';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import '@/app/globals.css';
+import '@/app/breeds/[id]/swiper.css';
 
 export default function Breed() {
     const { id } = useParams();
