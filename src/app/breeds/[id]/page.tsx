@@ -99,7 +99,7 @@ export default function Breed() {
                                             alt={breed.breeds[0].name}
                                             fill
                                             sizes="100vw"
-                                            priority
+                                            priority={true}
                                         />
                                     </SwiperSlide>
                                 ))}
