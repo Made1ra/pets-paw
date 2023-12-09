@@ -20,6 +20,7 @@ export default function Rectangle({
                         alt="Vote table"
                         width={100}
                         height={125}
+                        priority={true}
                     />
                 )}
                 {url === '/pet-breeds.svg' && (
@@ -28,6 +29,7 @@ export default function Rectangle({
                         alt="Pet breeds"
                         width={117}
                         height={163}
+                        priority={true}
                     />
                 )}
                 {url === '/images-search.svg' && (
@@ -36,6 +38,7 @@ export default function Rectangle({
                         alt="Images search"
                         width={112}
                         height={190}
+                        priority={true}
                     />
                 )}
             </div>
