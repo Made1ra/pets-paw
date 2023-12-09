@@ -11,6 +11,7 @@ export default function Logo() {
                         alt="Logo"
                         width={24}
                         height={24}
+                        priority={true}
                     />
                 </div>
                 <div>
