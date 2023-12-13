@@ -19,10 +19,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <Providers>
-      <html lang="en" app-theme="dark">
-        <body className={`${jost.className} antialiased`}>{children}</body>
-      </html>
-    </Providers>
+    <html lang="en" app-theme="dark">
+      <body className={`${jost.className} antialiased`}>
+        <Providers>
+          {children}
+        </Providers>
+      </body>
+    </html>
   );
 }
