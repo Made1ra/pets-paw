@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { rectangles } from '@/app/lib/store';
 import Rectangle from '@/app/ui/rectangle';
-import TextButton from '@/app/ui/textButton';
+import TextButton from '@/app/ui/text-button';
 
 export default function Welcome({
     isActive

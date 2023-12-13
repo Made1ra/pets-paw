@@ -1,8 +1,8 @@
 'use client';
 
-import { useTheme } from '@/app/lib/hooks/useTheme';
+import { useTheme } from '@/app/lib/hooks/use-theme';
 import Eye from '@/app/ui/eye';
-import ToggleButton from '@/app/ui/themeSwitcher/toggleButton';
+import ToggleButton from '@/app/ui/theme-switcher/toggle-button';
 
 export default function ThemeSwitcher() {
     const { theme, setTheme } = useTheme();

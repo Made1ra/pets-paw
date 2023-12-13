@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { Breed, Category, addLog, removeBreed } from '@/app/lib/store';
-import { formatDate } from '@/app/lib/utils/formatDate';
-import PetImage from '@/app/ui/petImage';
+import { formatDate } from '@/app/lib/utils/format-date';
+import PetImage from '@/app/ui/pet-image';
 
 export default function VotedGrid({
     type,
