@@ -1,7 +1,7 @@
 import Container from '@/app/ui/container';
-import LeftContent from '@/app/ui/leftContent';
-import RightContent from '@/app/ui/rightContent';
-import GirlAndPet from '@/app/ui/girlAndPet';
+import LeftContent from '@/app/ui/left-content';
+import RightContent from '@/app/ui/right-content';
+import GirlAndPet from '@/app/ui/girl-and-pet';
 
 export default function Home() {
   return (

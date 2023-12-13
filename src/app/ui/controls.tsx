@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Breed, addBreed, removeBreed, addLog } from '@/app/lib/store';
-import { formatDate } from '@/app/lib/utils/formatDate';
-import LikeButton from '@/app/ui/likeButton';
-import FavouriteButton from '@/app/ui/favouriteButton';
-import DislikeButton from '@/app/ui/dislikeButton';
+import { formatDate } from '@/app/lib/utils/format-date';
+import LikeButton from '@/app/ui/like-button';
+import FavouriteButton from '@/app/ui/favourite-button';
+import DislikeButton from '@/app/ui/dislike-button';
 
 function Controls({
     reference_image_id,

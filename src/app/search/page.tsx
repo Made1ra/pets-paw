@@ -3,21 +3,21 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Container from '@/app/ui/container';
-import LeftContent from '@/app/ui/leftSection';
-import RightSectionContainer from '@/app/ui/rightSectionContainer';
-import LinkContainer from '@/app/ui/linkContainer';
-import TextSpan from '@/app/ui/textSpan';
-import BoldText from '@/app/ui/boldText';
+import LeftContent from '@/app/ui/left-section';
+import RightSectionContainer from '@/app/ui/right-section-container';
+import LinkContainer from '@/app/ui/link-container';
+import TextSpan from '@/app/ui/text-span';
+import BoldText from '@/app/ui/bold-text';
 import Burger from '@/app/ui/burger/burger';
-import SearchBar from '@/app/ui/searchBar';
+import SearchBar from '@/app/ui/search-bar';
 import Smiles from '@/app/ui/smiles';
-import ActionsContainer from '@/app/ui/actionsContainer';
-import NavigationContainer from '@/app/ui/navigationContainer';
-import SmallLink from '@/app/ui/smallLink';
-import LargeTextButton from '@/app/ui/largeTextButton';
-import PetImage from '@/app/ui/petImage';
+import ActionsContainer from '@/app/ui/actions-container';
+import NavigationContainer from '@/app/ui/navigation-container';
+import SmallLink from '@/app/ui/small-link';
+import LargeTextButton from '@/app/ui/large-text-button';
+import PetImage from '@/app/ui/pet-image';
 import Button from '@/app/ui/button';
-import SearchGrid from '@/app/ui/grid/searchGrid';
+import SearchGrid from '@/app/ui/grid/search-grid';
 
 export default function Search() {
     const API_KEY = process.env.NEXT_PUBLIC_API_KEY;

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { nanoid } from 'nanoid';
-import PetImage from '@/app/ui/petImage';
+import PetImage from '@/app/ui/pet-image';
 import Button from '@/app/ui/button';
 
 export default function SearchGrid({

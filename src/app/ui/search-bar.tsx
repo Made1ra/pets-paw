@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import TextInput from '@/app/ui/textInput';
-import SearchButton from '@/app/ui/searchButton';
+import TextInput from '@/app/ui/text-input';
+import SearchButton from '@/app/ui/search-button';
 
 export default function SearchBar({
     onSearch

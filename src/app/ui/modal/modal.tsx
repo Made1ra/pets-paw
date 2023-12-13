@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import CloseButton from '@/app/ui/modal/closeButton';
-import UploadBackground from '@/app/ui/modal/uploadBackground';
-import UploadPhotoButton from '@/app/ui/modal/uploadPhotoButton';
+import CloseButton from '@/app/ui/modal/close-button';
+import UploadBackground from '@/app/ui/modal/upload-background';
+import UploadPhotoButton from '@/app/ui/modal/upload-photo-button';
 
 export default function Modal({
     isOpen,

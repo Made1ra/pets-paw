@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { Breed, addBreed, removeBreed, addLog } from '@/app/lib/store';
-import { formatDate } from '@/app/lib/utils/formatDate';
-import PetImage from '@/app/ui/petImage';
-import SmallFavouriteButton from '@/app/ui/smallFavouriteButton';
+import { formatDate } from '@/app/lib/utils/format-date';
+import PetImage from '@/app/ui/pet-image';
+import SmallFavouriteButton from '@/app/ui/small-favourite-button';
 import Button from '@/app/ui/button';
 
 export default function Grid({

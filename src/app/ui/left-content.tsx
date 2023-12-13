@@ -1,5 +1,5 @@
 import Logo from '@/app/ui/logo';
-import ThemeSwitcher from '@/app/ui/themeSwitcher/themeSwitcher';
+import ThemeSwitcher from '@/app/ui/theme-switcher/theme-switcher';
 import Welcome from '@/app/ui/welcome';
 
 export default function LeftContent({
