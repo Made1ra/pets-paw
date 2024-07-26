@@ -15,9 +15,7 @@ export default function PetImage({
 
   return (
     <div
-      className={`w-52 h-36 cursor-pointer m-4 relative flex items-center justify-center flex-shrink-0 rounded-3xl bg-center bg-no-repeat bg-cover
-            max-sm:w-[18.4375rem] max-sm:h-[12.90625rem]
-            ${className}`}
+      className={`relative m-4 flex h-36 w-52 flex-shrink-0 cursor-pointer items-center justify-center rounded-3xl bg-cover bg-center bg-no-repeat max-sm:h-[12.90625rem] max-sm:w-[18.4375rem] ${className}`}
       style={{
         backgroundImage: `url(${url})`,
         backgroundColor: "rgba(211, 211, 211, 0.5)",
@@ -27,7 +25,7 @@ export default function PetImage({
     >
       {isHovered && (
         <>
-          <div className="w-full h-full bg-rose-400 bg-opacity-60 rounded-3xl z-10" />
+          <div className="z-10 h-full w-full rounded-3xl bg-rose-400 bg-opacity-60" />
           {children}
         </>
       )}

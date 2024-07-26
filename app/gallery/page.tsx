@@ -30,7 +30,7 @@ export default function Gallery() {
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   const breeds = useSelector(
-    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds
+    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds,
   );
   const dispatch = useDispatch();
 
@@ -78,7 +78,7 @@ export default function Gallery() {
           dateOfEditing: formatDate(new Date()),
           category: "Favourites",
           url,
-        })
+        }),
       );
       dispatch(
         addLog({
@@ -86,7 +86,7 @@ export default function Gallery() {
           dateOfEditing: formatDate(new Date()),
           category: "Favourites",
           action: "added to",
-        })
+        }),
       );
     } else {
       dispatch(
@@ -94,7 +94,7 @@ export default function Gallery() {
           reference_image_id: filteredBreeds.reference_image_id,
           dateOfEditing: formatDate(new Date()),
           category: "Favourites",
-        })
+        }),
       );
       dispatch(
         addLog({
@@ -102,7 +102,7 @@ export default function Gallery() {
           dateOfEditing: formatDate(new Date()),
           category: "Favourites",
           action: "removed from",
-        })
+        }),
       );
     }
   }
@@ -123,7 +123,7 @@ export default function Gallery() {
   useEffect(() => {
     const getBreeds = async () => {
       const searchedBreed = allBreeds.filter(
-        (breed) => breed.name === breedValue
+        (breed) => breed.name === breedValue,
       );
       let breed_ids = "";
       if (searchedBreed.length !== 0) {
@@ -156,7 +156,7 @@ export default function Gallery() {
         `${baseUrl}breed_ids=${breed_ids}&order=${breedOrder}&mime_types=${mime_types}&limit=${limit}`,
         {
           headers: headers,
-        }
+        },
       );
       const data = await response.json();
       setSearchedBreeds(data);
@@ -171,7 +171,7 @@ export default function Gallery() {
   return (
     <>
       {isModalOpen && (
-        <div className="absolute -left-5 top-0 w-screen h-screen z-20 bg-stone-900 bg-opacity-60" />
+        <div className="absolute -left-5 top-0 z-20 h-screen w-screen bg-stone-900 bg-opacity-60" />
       )}
       <Container>
         <LeftSection isActive={pathname === "/gallery" ? 3 : 4} />
@@ -187,21 +187,9 @@ export default function Gallery() {
               <LargeTextButton>GALLERY</LargeTextButton>
               <UploadButton onClick={() => openModal()} />
             </NavigationContainer>
-            <div
-              className="flex w-[18.4375rem] h-fit bg-stone-50 rounded-[1.25rem] py-4 pr-4 flex-wrap
-                        dark:bg-white dark:bg-opacity-5
-                        max-sm:w-[18.5rem]
-                        sm:w-[47rem]
-                        lg:w-[42.5rem]"
-            >
-              <div
-                className="flex w-full
-                            max-sm:flex-col max-sm:items-center max-sm:justify-center"
-              >
-                <div
-                  className="flex flex-col w-1/2
-                                max-sm:w-[17.1875rem]"
-                >
+            <div className="flex h-fit w-[18.4375rem] flex-wrap rounded-[1.25rem] bg-stone-50 py-4 pr-4 dark:bg-white dark:bg-opacity-5 max-sm:w-[18.5rem] sm:w-[47rem] lg:w-[42.5rem]">
+              <div className="flex w-full max-sm:flex-col max-sm:items-center max-sm:justify-center">
+                <div className="flex w-1/2 flex-col max-sm:w-[17.1875rem]">
                   <Label>ORDER</Label>
                   <Select
                     value={order}
@@ -216,10 +204,7 @@ export default function Gallery() {
                     <Option>Asc</Option>
                   </Select>
                 </div>
-                <div
-                  className="flex flex-col w-1/2
-                                max-sm:w-[17.1875rem] max-sm:mt-4"
-                >
+                <div className="flex w-1/2 flex-col max-sm:mt-4 max-sm:w-[17.1875rem]">
                   <Label>TYPE</Label>
                   <Select
                     value={type}
@@ -235,14 +220,8 @@ export default function Gallery() {
                   </Select>
                 </div>
               </div>
-              <div
-                className="flex items-end justify-start w-full mt-4
-                            max-sm:flex-col max-sm:items-center max-sm:justify-center"
-              >
-                <div
-                  className="flex flex-col w-1/2
-                                max-sm:w-[17.1875rem]"
-                >
+              <div className="mt-4 flex w-full items-end justify-start max-sm:flex-col max-sm:items-center max-sm:justify-center">
+                <div className="flex w-1/2 flex-col max-sm:w-[17.1875rem]">
                   <Label>BREED</Label>
                   <Select
                     value={breedValue}
@@ -256,14 +235,8 @@ export default function Gallery() {
                     ))}
                   </Select>
                 </div>
-                <div
-                  className="flex items-end w-1/2
-                                max-sm:flex-col max-sm:w-[17.1875rem] max-sm:mt-4"
-                >
-                  <div
-                    className="flex flex-col w-5/6
-                                    max-sm:w-full"
-                  >
+                <div className="flex w-1/2 items-end max-sm:mt-4 max-sm:w-[17.1875rem] max-sm:flex-col">
+                  <div className="flex w-5/6 flex-col max-sm:w-full">
                     <Label>LIMIT</Label>
                     <Select
                       value={value}
@@ -283,10 +256,7 @@ export default function Gallery() {
                 </div>
               </div>
             </div>
-            <div
-              className="flex flex-col self-center -ml-5
-                        sm:hidden"
-            >
+            <div className="-ml-5 flex flex-col self-center sm:hidden">
               {searchedBreeds.map((breed) => (
                 <PetImage key={breed.url} url={breed.url}>
                   <SmallFavouriteButton

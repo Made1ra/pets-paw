@@ -1,6 +1,6 @@
 export default function Label({ children }: { children?: React.ReactNode }) {
   return (
-    <label className="w-28 ml-4 text-neutral-400 text-[0.625rem] font-medium font-jost leading-[1.125rem] uppercase">
+    <label className="ml-4 w-28 font-jost text-[0.625rem] font-medium uppercase leading-[1.125rem] text-neutral-400">
       {children}
     </label>
   );

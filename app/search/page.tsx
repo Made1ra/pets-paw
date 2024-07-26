@@ -34,7 +34,7 @@ export default function Search() {
       `https://api.thecatapi.com/v1/breeds/search?q=${searchTerm}`,
       {
         headers: headers,
-      }
+      },
     );
 
     const data = await response.json();
@@ -61,17 +61,11 @@ export default function Search() {
               Search results for: <BoldText>{term}</BoldText>
             </TextSpan>
           )}
-          <div
-            className="flex flex-col self-center -ml-5
-                    sm:hidden"
-          >
+          <div className="-ml-5 flex flex-col self-center sm:hidden">
             {searchedBreeds.map((breed) => (
               <PetImage key={breed.image.url} url={breed.image.url}>
                 <Link href={`/breeds/${breed.id}`}>
-                  <Button
-                    className="mt-20 z-20 absolute left-14 top-20 w-[11.25rem] h-[2.125rem]
-                                    dark:bg-zinc-800"
-                  >
+                  <Button className="absolute left-14 top-20 z-20 mt-20 h-[2.125rem] w-[11.25rem] dark:bg-zinc-800">
                     {breed.name}
                   </Button>
                 </Link>

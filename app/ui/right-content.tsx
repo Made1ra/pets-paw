@@ -4,7 +4,7 @@ export default function RightContent({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="hidden flex-1 flex-col items-end lg:flex lg:-mr-[8.5rem]">
+    <div className="hidden flex-1 flex-col items-end lg:-mr-[8.5rem] lg:flex">
       {children}
     </div>
   );

@@ -63,24 +63,16 @@ export default function Modal({
   }
 
   return (
-    <div
-      className="flex flex-col w-[47.5rem] h-[57.5rem] bg-stone-50 rounded-[1.25rem] z-20 fixed top-5 right-24
-        max-sm:w-screen max-sm:top-0 max-sm:right-0 max-sm:rounded-none
-        dark:bg-stone-800"
-    >
+    <div className="fixed right-24 top-5 z-20 flex h-[57.5rem] w-[47.5rem] flex-col rounded-[1.25rem] bg-stone-50 dark:bg-stone-800 max-sm:right-0 max-sm:top-0 max-sm:w-screen max-sm:rounded-none">
       <CloseButton onClick={() => handleClose()} />
       <div className="flex flex-col text-center">
-        <div
-          className="mt-8 text-stone-900 text-4xl font-medium font-jost
-                max-sm:text-xl
-                dark:text-white"
-        >
+        <div className="mt-8 font-jost text-4xl font-medium text-stone-900 dark:text-white max-sm:text-xl">
           Upload a .jpg or .png Cat Image
         </div>
-        <span className="mt-4 text-neutral-400 text-xl font-normal font-jost leading-[1.875rem]">
+        <span className="mt-4 font-jost text-xl font-normal leading-[1.875rem] text-neutral-400">
           Any uploads must comply with the
           <a
-            className="text-rose-400 text-xl font-normal font-jost leading-[1.875rem]"
+            className="font-jost text-xl font-normal leading-[1.875rem] text-rose-400"
             target="_blank"
             href="https://thecatapi.com/privacy"
           >
@@ -89,24 +81,19 @@ export default function Modal({
           or face deletion.
         </span>
         <div
-          className={`flex justify-center self-center mt-8 w-[40rem] h-80 rounded-[1.25rem] border-2 border-dashed
-                max-sm:w-[20.9375rem] max-sm:h-[10.46875rem]
-                dark:bg-opacity-5 dark:border-rose-400 dark:border-opacity-20 ${
-                  isResponseOk === false
-                    ? "bg-red-100 border-rose-400"
-                    : "bg-white border-red-100"
-                }`}
+          className={`mt-8 flex h-80 w-[40rem] justify-center self-center rounded-[1.25rem] border-2 border-dashed dark:border-rose-400 dark:border-opacity-20 dark:bg-opacity-5 max-sm:h-[10.46875rem] max-sm:w-[20.9375rem] ${
+            isResponseOk === false
+              ? "border-rose-400 bg-red-100"
+              : "border-red-100 bg-white"
+          }`}
         >
           <input
-            className="fixed w-[40rem] h-80 opacity-0 z-30"
+            className="fixed z-30 h-80 w-[40rem] opacity-0"
             type="file"
             accept="image/*,.jpeg,.jpg,.png"
             onChange={(e) => handleImageChange(e)}
           />
-          <div
-            className="relative flex flex-col items-center justify-center w-[34.88375rem] h-[17.5rem] rounded-[0.625rem] mt-4
-                    max-sm:w-[18.4375rem] max-sm:h-[9.2495rem]"
-          >
+          <div className="relative mt-4 flex h-[17.5rem] w-[34.88375rem] flex-col items-center justify-center rounded-[0.625rem] max-sm:h-[9.2495rem] max-sm:w-[18.4375rem]">
             {selectedImage ? (
               <Image
                 className="rounded-[0.625rem]"
@@ -119,10 +106,7 @@ export default function Modal({
             ) : (
               <>
                 <UploadBackground />
-                <div
-                  className="text-stone-900 text-xl font-medium font-jost leading-[1.875rem] z-10
-                                dark:text-white"
-                >
+                <div className="z-10 font-jost text-xl font-medium leading-[1.875rem] text-stone-900 dark:text-white">
                   Drag here
                   <span className="text-neutral-400">{` your file or `}</span>
                   {` Click here `}
@@ -132,29 +116,23 @@ export default function Modal({
             )}
           </div>
         </div>
-        <div className="mt-8 text-neutral-400 text-xl font-normal font-jost leading-[1.875rem]">
+        <div className="mt-8 font-jost text-xl font-normal leading-[1.875rem] text-neutral-400">
           {selectedImage
             ? `Image File Name: ${selectedImage.name}`
             : "No file selected"}
         </div>
         {isResponseOk === true && (
-          <div
-            className="flex items-center self-center w-[40rem] h-[3.75rem] mt-8 bg-white rounded-[0.625rem]
-                    dark:bg-opacity-5"
-          >
-            <div className="w-5 h-5 ml-5 bg-center bg-no-repeat bg-[url('/success-20.svg')]" />
-            <div className="ml-2.5 text-neutral-400 text-base font-normal font-jost leading-normal">
+          <div className="mt-8 flex h-[3.75rem] w-[40rem] items-center self-center rounded-[0.625rem] bg-white dark:bg-opacity-5">
+            <div className="ml-5 h-5 w-5 bg-[url('/success-20.svg')] bg-center bg-no-repeat" />
+            <div className="ml-2.5 font-jost text-base font-normal leading-normal text-neutral-400">
               Thanks for the Upload - Cat found!
             </div>
           </div>
         )}
         {isResponseOk === false && (
-          <div
-            className="flex items-center self-center w-[40rem] h-[3.75rem] mt-8 bg-white rounded-[0.625rem]
-                    dark:bg-opacity-5"
-          >
-            <div className="w-5 h-5 ml-5 bg-center bg-no-repeat bg-[url('/error-20.svg')]" />
-            <div className="ml-2.5 text-neutral-400 text-base font-normal font-jost leading-normal">
+          <div className="mt-8 flex h-[3.75rem] w-[40rem] items-center self-center rounded-[0.625rem] bg-white dark:bg-opacity-5">
+            <div className="ml-5 h-5 w-5 bg-[url('/error-20.svg')] bg-center bg-no-repeat" />
+            <div className="ml-2.5 font-jost text-base font-normal leading-normal text-neutral-400">
               No Cat found - try a different one
             </div>
           </div>

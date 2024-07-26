@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Logo() {
   return (
     <Link href="/">
-      <div className="w-[6.635rem] h-6 pr-[0.15rem] justify-center items-center gap-[0.493125rem] inline-flex">
+      <div className="inline-flex h-6 w-[6.635rem] items-center justify-center gap-[0.493125rem] pr-[0.15rem]">
         <div>
           <Image
             src="/paw.svg"

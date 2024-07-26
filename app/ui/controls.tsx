@@ -15,13 +15,13 @@ function Controls({
   onLikeDislikeClick: () => void;
 }) {
   const breeds = useSelector(
-    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds
+    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds,
   );
   const dispatch = useDispatch();
 
   function handleClick(category: string, reference_image_id: string) {
     const filteredBreeds = breeds.find(
-      (breed) => breed.reference_image_id === reference_image_id
+      (breed) => breed.reference_image_id === reference_image_id,
     );
     if (!filteredBreeds) {
       dispatch(
@@ -30,7 +30,7 @@ function Controls({
           dateOfEditing: formatDate(new Date()),
           category: category,
           url: url,
-        })
+        }),
       );
       dispatch(
         addLog({
@@ -38,7 +38,7 @@ function Controls({
           dateOfEditing: formatDate(new Date()),
           category: category,
           action: "added to",
-        })
+        }),
       );
     } else if (filteredBreeds && filteredBreeds.category !== category) {
       dispatch(
@@ -46,7 +46,7 @@ function Controls({
           reference_image_id,
           dateOfEditing: formatDate(new Date()),
           category,
-        })
+        }),
       );
       dispatch(
         addLog({
@@ -54,14 +54,14 @@ function Controls({
           dateOfEditing: formatDate(new Date()),
           category: filteredBreeds.category,
           action: "removed from",
-        })
+        }),
       );
       dispatch(
         addBreed({
           reference_image_id,
           dateOfEditing: formatDate(new Date()),
           category: category,
-        })
+        }),
       );
       dispatch(
         addLog({
@@ -69,7 +69,7 @@ function Controls({
           dateOfEditing: formatDate(new Date()),
           category: category,
           action: "added to",
-        })
+        }),
       );
     } else {
       dispatch(
@@ -77,7 +77,7 @@ function Controls({
           reference_image_id,
           dateOfEditing: formatDate(new Date()),
           category,
-        })
+        }),
       );
       dispatch(
         addLog({
@@ -85,7 +85,7 @@ function Controls({
           dateOfEditing: formatDate(new Date()),
           category: category,
           action: "removed from",
-        })
+        }),
       );
     }
 
@@ -95,10 +95,7 @@ function Controls({
   }
 
   return (
-    <div
-      className="flex flex-shrink-0 items-center justify-center w-[11.125rem] h-11 m-4
-        sm:w-64 sm:h-20"
-    >
+    <div className="m-4 flex h-11 w-[11.125rem] flex-shrink-0 items-center justify-center sm:h-20 sm:w-64">
       <LikeButton onClick={() => handleClick("Likes", reference_image_id)} />
       <FavouriteButton
         onClick={() => handleClick("Favourites", reference_image_id)}

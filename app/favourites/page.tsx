@@ -21,15 +21,15 @@ import ActionMessage from "@/app/ui/action-message";
 
 export default function Favourites() {
   const breeds = useSelector(
-    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds
+    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds,
   );
   const logs = useSelector(
-    (state: { logs: { logs: Log[] } }) => state.logs.logs
+    (state: { logs: { logs: Log[] } }) => state.logs.logs,
   );
   const dispatch = useDispatch();
 
   const filteredBreeds = breeds.filter(
-    (breed) => breed.category === "Favourites"
+    (breed) => breed.category === "Favourites",
   );
 
   function handleClick(reference_image_id: string) {
@@ -38,7 +38,7 @@ export default function Favourites() {
         reference_image_id,
         dateOfEditing: formatDate(new Date()),
         category: "Favourites",
-      })
+      }),
     );
     dispatch(
       addLog({
@@ -46,7 +46,7 @@ export default function Favourites() {
         dateOfEditing: formatDate(new Date()),
         category: "Favourites",
         action: "removed from",
-      })
+      }),
     );
   }
 
@@ -68,16 +68,12 @@ export default function Favourites() {
             <TextSpan>No item found</TextSpan>
           ) : (
             <>
-              <div
-                className="flex flex-col self-center -ml-5
-                            sm:hidden"
-              >
+              <div className="-ml-5 flex flex-col self-center sm:hidden">
                 {filteredBreeds.map((breed) => (
                   <PetImage key={breed.url} url={breed.url}>
                     <div
                       onClick={() => handleClick(breed.reference_image_id)}
-                      className="absolute w-10 h-10 bg-white rounded-[0.625rem] z-10 bg-center bg-no-repeat bg-[url('/fav-color-20.svg')]
-                                            hover:bg-rose-400 hover:bg-[url('/fav-full-white-20.svg')]"
+                      className="absolute z-10 h-10 w-10 rounded-[0.625rem] bg-white bg-[url('/fav-color-20.svg')] bg-center bg-no-repeat hover:bg-rose-400 hover:bg-[url('/fav-full-white-20.svg')]"
                     />
                   </PetImage>
                 ))}

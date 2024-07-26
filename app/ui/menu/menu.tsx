@@ -22,13 +22,9 @@ export default function Menu({
   }
 
   return (
-    <div
-      className="flex flex-col w-full h-full bg-stone-50 rounded-[1.25rem] z-30 fixed left-0 top-0
-        lg:hidden
-        dark:bg-stone-800"
-    >
+    <div className="fixed left-0 top-0 z-30 flex h-full w-full flex-col rounded-[1.25rem] bg-stone-50 dark:bg-stone-800 lg:hidden">
       <CloseButton onClick={() => handleClose()} />
-      <div className="flex flex-col justify-center self-center max-sm:-ml-24 mt-4 sm:flex-row sm:self-auto">
+      <div className="mt-4 flex flex-col justify-center self-center max-sm:-ml-24 sm:flex-row sm:self-auto">
         {rectangles.map((rectangle, i) => (
           <div key={rectangle.text}>
             <Link

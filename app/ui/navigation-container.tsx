@@ -4,6 +4,6 @@ export default function NavigationContainer({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-row flex-wrap items-center mb-5">{children}</div>
+    <div className="mb-5 flex flex-row flex-wrap items-center">{children}</div>
   );
 }

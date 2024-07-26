@@ -13,9 +13,7 @@ export default function TextInput({
       value={value}
       onChange={onChange}
       onKeyDown={onKeyDown}
-      className="text-neutral-400 pl-4 outline-0 text-xl font-normal leading-[1.875rem] font-jost w-full
-            dark:bg-neutral-700 dark:bg-opacity-5
-            active:text-stone-900"
+      className="w-full pl-4 font-jost text-xl font-normal leading-[1.875rem] text-neutral-400 outline-0 active:text-stone-900 dark:bg-neutral-700 dark:bg-opacity-5"
     />
   );
 }

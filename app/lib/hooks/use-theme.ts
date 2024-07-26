@@ -10,8 +10,8 @@ export function useTheme() {
     ? localStorage.getItem("app-theme") === "dark"
       ? true
       : localStorage.getItem("app-theme") === "light"
-      ? false
-      : true
+        ? false
+        : true
     : true;
 
   const [theme, setTheme] = useState(localTheme);
@@ -20,7 +20,7 @@ export function useTheme() {
     if (isLocalStorageAvailable) {
       document.documentElement.setAttribute(
         "app-theme",
-        theme ? "dark" : "light"
+        theme ? "dark" : "light",
       );
       localStorage.setItem("app-theme", theme ? "dark" : "light");
     }

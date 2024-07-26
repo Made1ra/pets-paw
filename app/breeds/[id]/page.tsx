@@ -52,7 +52,7 @@ export default function Breed() {
         `https://api.thecatapi.com/v1/images/search?has_breeds=1&breed_ids=${id}&limit=5`,
         {
           headers: headers,
-        }
+        },
       );
       const data = await response.json();
       setSearchedBreeds(data);
@@ -72,20 +72,11 @@ export default function Breed() {
         <ActionsContainer>
           <NavigationContainer>
             <SmallLink />
-            <div
-              className="flex items-center justify-center w-[8.9375rem] h-10 ml-2 bg-red-100 rounded-[0.625rem] 
-                        text-center text-rose-400 text-xl font-medium font-jost leading-[1.875rem] tracking-widest
-                        hover:bg-rose-400 hover:text-white
-                        dark:bg-rose-400 dark:text-rose-400 dark:bg-opacity-20
-                        dark:hover:bg-rose-400 dark:hover:text-white"
-            >
+            <div className="ml-2 flex h-10 w-[8.9375rem] items-center justify-center rounded-[0.625rem] bg-red-100 text-center font-jost text-xl font-medium leading-[1.875rem] tracking-widest text-rose-400 hover:bg-rose-400 hover:text-white dark:bg-rose-400 dark:bg-opacity-20 dark:text-rose-400 dark:hover:bg-rose-400 dark:hover:text-white">
               BREEDS
             </div>
-            <div
-              className="flex items-center justify-center text-center w-fit h-10 bg-rose-400 rounded-[0.625rem] p-4 ml-2 uppercase text-white
-                        hover:bg-red-100 hover:text-rose-400"
-            >
-              <div className="w-fit text-center text-xl font-medium font-jost leading-[1.875rem] tracking-widest">
+            <div className="ml-2 flex h-10 w-fit items-center justify-center rounded-[0.625rem] bg-rose-400 p-4 text-center uppercase text-white hover:bg-red-100 hover:text-rose-400">
+              <div className="w-fit text-center font-jost text-xl font-medium leading-[1.875rem] tracking-widest">
                 {id}
               </div>
             </div>

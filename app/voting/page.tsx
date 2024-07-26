@@ -25,7 +25,7 @@ export default function Voting() {
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   const logs = useSelector(
-    (state: { logs: { logs: Log[] } }) => state.logs.logs
+    (state: { logs: { logs: Log[] } }) => state.logs.logs,
   );
 
   const [randomImage, setRandomImage] = useState<{
@@ -43,7 +43,7 @@ export default function Voting() {
       `https://api.thecatapi.com/v1/images/search?has_breeds=1&limit=1`,
       {
         headers: headers,
-      }
+      },
     );
     const data = await response.json();
     setRandomImage(data[0] || null);
@@ -57,7 +57,7 @@ export default function Voting() {
         `https://api.thecatapi.com/v1/images/search?has_breeds=1&limit=1`,
         {
           headers: headers,
-        }
+        },
       );
       const data = await response.json();
       setRandomImage(data[0] || null);
@@ -81,11 +81,7 @@ export default function Voting() {
           </NavigationContainer>
           <ImageContainer>
             {randomImage && (
-              <div
-                className="relative w-[18.4375rem] h-[10.38306rem] rounded-[1.25rem]
-                            sm:w-[41.75rem] sm:h-[23.5115rem]
-                            lg:w-[40rem] lg:h-[22.5rem]"
-              >
+              <div className="relative h-[10.38306rem] w-[18.4375rem] rounded-[1.25rem] sm:h-[23.5115rem] sm:w-[41.75rem] lg:h-[22.5rem] lg:w-[40rem]">
                 <Image
                   className="rounded-[1.25rem]"
                   src={randomImage.url}

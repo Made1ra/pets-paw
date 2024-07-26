@@ -7,24 +7,20 @@ export default function UploadButton({ onClick }: { onClick: () => void }) {
 
   return (
     <div
-      className="flex items-center justify-center h-10 bg-red-100 rounded-[0.625rem] cursor-pointer
-            max-sm:w-[18.4375rem] max-sm:mt-4 max-sm:order-last
-            sm:ml-[25.25rem] sm:w-[8.9375rem]
-            lg:ml-[20.5rem]
-            dark:bg-rose-400 dark:bg-opacity-20 hover:bg-rose-400 dark:hover:bg-rose-400"
+      className="flex h-10 cursor-pointer items-center justify-center rounded-[0.625rem] bg-red-100 hover:bg-rose-400 dark:bg-rose-400 dark:bg-opacity-20 dark:hover:bg-rose-400 max-sm:order-last max-sm:mt-4 max-sm:w-[18.4375rem] sm:ml-[25.25rem] sm:w-[8.9375rem] lg:ml-[20.5rem]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
       <div
-        className={`w-4 h-4 mr-2 bg-no-repeat bg-center ${
+        className={`mr-2 h-4 w-4 bg-center bg-no-repeat ${
           isHovered
             ? 'bg-[url("/upload-white-16.svg")]'
             : 'bg-[url("/upload-16.svg")]'
         }`}
       />
       <div
-        className={`w-[3.5625rem] text-center text-rose-400 text-xs font-medium font-jost leading-none tracking-widest ${
+        className={`w-[3.5625rem] text-center font-jost text-xs font-medium leading-none tracking-widest text-rose-400 ${
           isHovered && "text-white"
         }`}
       >

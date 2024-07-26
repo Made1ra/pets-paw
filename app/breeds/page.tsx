@@ -27,7 +27,7 @@ export default function Breeds() {
 
   const [isSmallScreen, setIsSmallScreen] = useState(
     typeof window !== "undefined" &&
-      window.matchMedia("(max-width: 640px)").matches
+      window.matchMedia("(max-width: 640px)").matches,
   );
   const [breedValue, setBreedValue] = useState("All breeds");
   const [value, setValue] = useState("Limit: 10");
@@ -45,7 +45,7 @@ export default function Breeds() {
       id: string;
       url: string;
       breeds: { name: string; id: string }[];
-    }[]
+    }[],
   ) {
     return searchedBreeds.slice().sort(
       (
@@ -54,12 +54,12 @@ export default function Breeds() {
           url: string;
           breeds: { name: string; id: string }[];
         },
-        b
+        b,
       ) => {
         const nameA = a.breeds[0].name.toLowerCase();
         const nameB = b.breeds[0].name.toLowerCase();
         return nameA.localeCompare(nameB);
-      }
+      },
     );
   }
 
@@ -68,7 +68,7 @@ export default function Breeds() {
       id: string;
       url: string;
       breeds: { name: string; id: string }[];
-    }[]
+    }[],
   ) {
     return searchedBreeds.slice().sort(
       (
@@ -77,12 +77,12 @@ export default function Breeds() {
           url: string;
           breeds: { name: string; id: string }[];
         },
-        b
+        b,
       ) => {
         const nameA = a.breeds[0].name.toLowerCase();
         const nameB = b.breeds[0].name.toLowerCase();
         return nameB.localeCompare(nameA);
-      }
+      },
     );
   }
 
@@ -117,7 +117,7 @@ export default function Breeds() {
           id: string;
           name: string;
           image: { url: string; id: string };
-        }) => breed.name === breedValue
+        }) => breed.name === breedValue,
       );
       let breed_ids = "";
       if (searchedBreed.length !== 0) {
@@ -130,7 +130,7 @@ export default function Breeds() {
         `https://api.thecatapi.com/v1/images/search?has_breeds=1&breed_ids=${breed_ids}&limit=${limit}`,
         {
           headers: headers,
-        }
+        },
       );
       const imageData = await imageResponse.json();
       setSearchedBreeds(imageData);
@@ -158,23 +158,21 @@ export default function Breeds() {
                   value={breedValue}
                   onChange={(e) => setBreedValue(e.target.value)}
                   width="14.125rem"
-                  className="max-sm:w-[18.4375rem] max-sm:mt-4 max-sm:ml-0
-                                    dark:bg-opacity-10 dark:text-neutral-400"
+                  className="dark:bg-opacity-10 dark:text-neutral-400 max-sm:ml-0 max-sm:mt-4 max-sm:w-[18.4375rem]"
                 >
                   <Option>All breeds</Option>
                   {breeds.map((breed) => (
                     <Option key={breed.name}>{breed.name}</Option>
                   ))}
                 </Select>
-                <div className="max-sm:flex max-sm:items-center max-sm:mt-4">
+                <div className="max-sm:mt-4 max-sm:flex max-sm:items-center">
                   <Select
                     value={value}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                       setValue(e.target.value)
                     }
                     width="6.3125rem"
-                    className="max-sm:w-[12.1875rem] max-sm:ml-0
-                                        dark:bg-opacity-10 dark:text-neutral-400"
+                    className="dark:bg-opacity-10 dark:text-neutral-400 max-sm:ml-0 max-sm:w-[12.1875rem]"
                   >
                     <Option>Limit: 5</Option>
                     <Option>Limit: 10</Option>
@@ -184,14 +182,14 @@ export default function Breeds() {
                   <SortRevertButton
                     onClick={() =>
                       setSearchedBreeds(
-                        sortBreedsAlphabetically(searchedBreeds)
+                        sortBreedsAlphabetically(searchedBreeds),
                       )
                     }
                   />
                   <SortButton
                     onClick={() =>
                       setSearchedBreeds(
-                        sortBreedsReverseAlphabetically(searchedBreeds)
+                        sortBreedsReverseAlphabetically(searchedBreeds),
                       )
                     }
                   />
@@ -203,8 +201,7 @@ export default function Breeds() {
                   value={breedValue}
                   onChange={(e) => setBreedValue(e.target.value)}
                   width="14.125rem"
-                  className="max-sm:w-[18.4375rem] max-sm:mt-4 max-sm:ml-0
-                                    dark:bg-opacity-10 dark:text-neutral-400"
+                  className="dark:bg-opacity-10 dark:text-neutral-400 max-sm:ml-0 max-sm:mt-4 max-sm:w-[18.4375rem]"
                 >
                   <Option>All breeds</Option>
                   {breeds.map((breed) => (
@@ -217,8 +214,7 @@ export default function Breeds() {
                     setValue(e.target.value)
                   }
                   width="6.3125rem"
-                  className="max-sm:w-[12.1875rem] max-sm:ml-0
-                                        dark:bg-opacity-10 dark:text-neutral-400"
+                  className="dark:bg-opacity-10 dark:text-neutral-400 max-sm:ml-0 max-sm:w-[12.1875rem]"
                 >
                   <Option>Limit: 5</Option>
                   <Option>Limit: 10</Option>
@@ -233,24 +229,18 @@ export default function Breeds() {
                 <SortButton
                   onClick={() =>
                     setSearchedBreeds(
-                      sortBreedsReverseAlphabetically(searchedBreeds)
+                      sortBreedsReverseAlphabetically(searchedBreeds),
                     )
                   }
                 />
               </>
             )}
           </NavigationContainer>
-          <div
-            className="flex flex-col self-center -ml-5
-                    sm:hidden"
-          >
+          <div className="-ml-5 flex flex-col self-center sm:hidden">
             {searchedBreeds.map((breed) => (
               <PetImage key={breed.url} url={breed.url}>
                 <Link href={`/breeds/${breed.breeds[0].id}`}>
-                  <Button
-                    className="mt-20 z-20 absolute left-14 top-20 w-[11.25rem] h-[2.125rem]
-                                    dark:bg-zinc-800"
-                  >
+                  <Button className="absolute left-14 top-20 z-20 mt-20 h-[2.125rem] w-[11.25rem] dark:bg-zinc-800">
                     {breed.breeds[0].name}
                   </Button>
                 </Link>

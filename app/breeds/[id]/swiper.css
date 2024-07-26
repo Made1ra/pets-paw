@@ -1,27 +1,27 @@
 .swiper,
 .swiper-wrapper {
-  @apply rounded-[1.25rem] w-[18.4375rem] sm:w-[41.75rem] lg:w-[40rem] lg:ml-0;
+  @apply w-[18.4375rem] rounded-[1.25rem] sm:w-[41.75rem] lg:ml-0 lg:w-[40rem];
 }
 
 .swiper-slide {
-  @apply relative w-[18.4375rem] h-[10.38306rem] rounded-[1.25rem] sm:w-[41.75rem] sm:h-[23.5115rem] lg:w-[40rem] lg:h-[22.5rem];
+  @apply relative h-[10.38306rem] w-[18.4375rem] rounded-[1.25rem] sm:h-[23.5115rem] sm:w-[41.75rem] lg:h-[22.5rem] lg:w-[40rem];
 }
 
 .swiper-pagination-horizontal {
-  @apply absolute flex items-center w-[5.625rem] h-[1.875rem] left-1/2 bg-white rounded-[1.25rem] dark:bg-zinc-800;
+  @apply absolute left-1/2 flex h-[1.875rem] w-[5.625rem] items-center rounded-[1.25rem] bg-white dark:bg-zinc-800;
 }
 
 .swiper-pagination-bullet {
-  @apply w-2.5 h-2.5 left-2.5 top-2.5 bg-red-400 rounded-[0.625rem];
+  @apply left-2.5 top-2.5 h-2.5 w-2.5 rounded-[0.625rem] bg-red-400;
 }
 
 .swiper-pagination-bullet-active {
-  @apply w-2.5 h-2.5 left-2.5 top-2.5 bg-rose-400 rounded-[0.625rem];
+  @apply left-2.5 top-2.5 h-2.5 w-2.5 rounded-[0.625rem] bg-rose-400;
 }
 
 .swiper-pagination-fraction,
 .swiper-pagination-custom,
 .swiper-horizontal > .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal {
-  @apply relative w-[5.625rem] left-[17rem] -top-4 max-sm:left-[6.5rem] max-sm:top-[-2.8rem];
+  @apply relative -top-4 left-[17rem] w-[5.625rem] max-sm:left-[6.5rem] max-sm:top-[-2.8rem];
 }

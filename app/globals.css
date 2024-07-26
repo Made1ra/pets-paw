@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-jost xl:mr-[8.5rem] xl:ml-4;
+  @apply font-jost xl:ml-4 xl:mr-[8.5rem];
 }
 
 #logo path {

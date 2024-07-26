@@ -19,10 +19,10 @@ import VotedGrid from "@/app/ui/grid/voted-grid";
 
 export default function Dislikes() {
   const breeds = useSelector(
-    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds
+    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds,
   );
   const filteredBreeds = breeds.filter(
-    (breed) => breed.category === "Dislikes"
+    (breed) => breed.category === "Dislikes",
   );
 
   return (
@@ -43,10 +43,7 @@ export default function Dislikes() {
             <TextSpan>No item found</TextSpan>
           ) : (
             <>
-              <div
-                className="flex flex-col self-center -ml-5
-                            sm:hidden"
-              >
+              <div className="-ml-5 flex flex-col self-center sm:hidden">
                 {filteredBreeds.map((breed) => (
                   <PetImage key={breed.url} url={breed.url} />
                 ))}

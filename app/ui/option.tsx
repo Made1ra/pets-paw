@@ -5,7 +5,7 @@ export default function Option({
   value?: string;
 }) {
   return (
-    <option className="text-neutral-400 text-base font-normal leading-normal">
+    <option className="text-base font-normal leading-normal text-neutral-400">
       {children}
     </option>
   );

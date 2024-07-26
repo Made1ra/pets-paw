@@ -4,12 +4,7 @@ import Welcome from "@/app/ui/welcome";
 
 export default function LeftContent({ isActive }: { isActive: number }) {
   return (
-    <div
-      className="mt-4 top-4 z-10 flex-col items-start sticky
-            lg:flex lg:ml-6
-            xl:ml-32
-            2xl:ml-80"
-    >
+    <div className="sticky top-4 z-10 mt-4 flex-col items-start lg:ml-6 lg:flex xl:ml-32 2xl:ml-80">
       <div className="flex">
         <Logo />
         <ThemeSwitcher />

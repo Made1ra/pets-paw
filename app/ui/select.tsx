@@ -15,9 +15,7 @@ export default function Select({
     <select
       value={value}
       onChange={onChange}
-      className={`w-${width} h-10 bg-stone-50 ml-4 rounded-[0.625rem] cursor-pointer
-            hover:border hover:border-red-100
-            ${className}`}
+      className={`w-${width} ml-4 h-10 cursor-pointer rounded-[0.625rem] bg-stone-50 hover:border hover:border-red-100 ${className}`}
     >
       {children}
     </select>
