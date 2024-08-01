@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
-import { nanoid } from "nanoid";
 import { Breed, addBreed, removeBreed, addLog } from "@/app/lib/store";
 import { formatDate } from "@/app/lib/utils/format-date";
 import PetImage from "@/app/ui/pet-image";
@@ -98,7 +97,10 @@ export default function Grid({
     <div className="mb-8 mt-2 inline-flex h-fit w-[42.5rem] flex-col items-start gap-5 rounded-[1.25rem] bg-white dark:bg-stone-900 dark:bg-opacity-5 max-sm:hidden">
       {gridPattern.map((_, i) =>
         i % 2 === 0 ? (
-          <div className="relative h-[28.75rem] w-[40rem]" key={nanoid()}>
+          <div
+            className="relative h-[28.75rem] w-[40rem]"
+            key={crypto.randomUUID()}
+          >
             <PetImage
               className="absolute left-0 top-0 h-[18.75rem] w-[12.5rem] rounded-3xl bg-stone-300"
               url={gridPattern[i][0].url}
@@ -208,7 +210,7 @@ export default function Grid({
         ) : (
           <div
             className="relative h-[28.75rem] w-[40rem] origin-top-left rotate-180"
-            key={nanoid()}
+            key={crypto.randomUUID()}
           >
             <PetImage
               className="absolute -top-8 left-[-29.5rem] h-[18.75rem] w-[12.5rem] origin-top-left rotate-180 rounded-3xl bg-stone-300"

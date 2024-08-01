@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { nanoid } from "nanoid";
 import PetImage from "@/app/ui/pet-image";
 import Button from "@/app/ui/button";
 
@@ -24,7 +23,10 @@ export default function SearchGrid({
     <div className="mb-8 mt-2 inline-flex h-fit w-[42.5rem] flex-col items-start gap-5 rounded-[1.25rem] bg-white dark:bg-stone-900 dark:bg-opacity-5 max-sm:hidden">
       {gridPattern.map((_, i) =>
         i % 2 === 0 ? (
-          <div className="relative h-[28.75rem] w-[40rem]" key={nanoid()}>
+          <div
+            className="relative h-[28.75rem] w-[40rem]"
+            key={crypto.randomUUID()}
+          >
             <PetImage
               className={`absolute left-0 top-0 h-[18.75rem] w-[12.5rem] rounded-3xl bg-stone-300 ${!gridPattern[i][0] && "invisible"}`}
               url={gridPattern[i][0]?.image?.url}
@@ -79,7 +81,7 @@ export default function SearchGrid({
         ) : (
           <div
             className="relative h-[28.75rem] w-[40rem] origin-top-left rotate-180"
-            key={nanoid()}
+            key={crypto.randomUUID()}
           >
             <PetImage
               className={`absolute -left-5 -top-8 h-[8.75rem] w-[12.5rem] origin-top-left rotate-180 rounded-3xl bg-stone-300 ${!gridPattern[i][0] && "invisible"}`}
