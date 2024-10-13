@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Jost } from "next/font/google";
 import { Providers } from "@/app/lib/providers";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/app/globals.css";
 
 const jost = Jost({
@@ -22,10 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" app-theme="dark">
       <body className={`${jost.className} antialiased`}>
-        <Providers>
-          {children}
-          <SpeedInsights />
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
