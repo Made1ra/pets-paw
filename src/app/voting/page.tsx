@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-import { BASE_URL, API_KEY } from "@/lib/constants";
+import { BASE_URL, headers } from "@/lib/constants";
 import { useLogStore } from "@/lib/stores/log";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
@@ -34,8 +34,6 @@ export default function Voting() {
   const pathname = usePathname();
 
   const handleLikeDislikeClick = async () => {
-    const headers = new Headers();
-    headers.append("x-api-key", API_KEY || "");
     const response = await fetch(
       `${BASE_URL}/images/search?has_breeds=1&limit=1`,
       {
@@ -48,8 +46,6 @@ export default function Voting() {
 
   useEffect(() => {
     const getRandomImage = async () => {
-      const headers = new Headers();
-      headers.append("x-api-key", API_KEY || "");
       const response = await fetch(
         `${BASE_URL}/images/search?has_breeds=1&limit=1`,
         {

@@ -3,7 +3,7 @@
 import { useState, type ChangeEvent } from "react";
 import Image from "next/image";
 
-import { BASE_URL, API_KEY } from "@/lib/constants";
+import { BASE_URL, headers } from "@/lib/constants";
 import CloseButton from "@/components/modal/close-button";
 import UploadBackground from "@/components/modal/upload-background";
 import UploadPhotoButton from "@/components/modal/upload-photo-button";
@@ -44,8 +44,6 @@ export default function Modal({
       formData.append("file", selectedImage);
     }
 
-    const headers = new Headers();
-    headers.append("x-api-key", API_KEY || "");
     const response = await fetch(`${BASE_URL}/images/upload`, {
       method: "POST",
       body: formData,

@@ -3,7 +3,8 @@
 import { useState, useEffect, type ChangeEvent } from "react";
 import { usePathname } from "next/navigation";
 
-import { BASE_URL, API_KEY } from "@/lib/constants";
+import { BASE_URL, headers } from "@/lib/constants";
+import { Category, Action } from "@/lib/enums";
 import { formatDate } from "@/lib/utils/format-date";
 import { useBreedStore } from "@/lib/stores/breed";
 import { useLogStore } from "@/lib/stores/log";
@@ -99,15 +100,15 @@ export default function Gallery() {
       addBreed({
         reference_image_id: id,
         dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
+        category: Category.Favourites,
         url,
       });
 
       addLog({
         reference_image_id: id,
         dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
-        action: "added to",
+        category: Category.Favourites,
+        action: Action.AddedTo,
       });
     } else {
       removeBreed(filteredBreeds.reference_image_id);
@@ -115,16 +116,14 @@ export default function Gallery() {
       addLog({
         reference_image_id: filteredBreeds.reference_image_id,
         dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
-        action: "removed from",
+        category: Category.Favourites,
+        action: Action.RemovedFrom,
       });
     }
   };
 
   useEffect(() => {
     const getBreeds = async () => {
-      const headers = new Headers();
-      headers.append("x-api-key", API_KEY || "");
       const response = await fetch(`${BASE_URL}/breeds`, {
         headers,
       });
@@ -163,8 +162,6 @@ export default function Gallery() {
 
       const limit = value.match(/\d+/g);
 
-      const headers = new Headers();
-      headers.append("x-api-key", API_KEY || "");
       const response = await fetch(
         `${BASE_URL}/images/search?has_breeds=1&breed_ids=${breed_ids}&order=${breedOrder}&mime_types=${mime_types}&limit=${limit}`,
         {

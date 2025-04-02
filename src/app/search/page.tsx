@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import { BASE_URL, API_KEY } from "@/lib/constants";
+import { BASE_URL, headers } from "@/lib/constants";
 import Container from "@/components/container";
 import LeftContent from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -28,8 +28,6 @@ export default function Search() {
   const [term, setTerm] = useState("");
 
   const searchBreeds = async (searchTerm: string) => {
-    const headers = new Headers();
-    headers.append("x-api-key", API_KEY || "");
     const response = await fetch(`${BASE_URL}/breeds/search?q=${searchTerm}`, {
       headers,
     });

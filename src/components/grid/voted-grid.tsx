@@ -1,4 +1,5 @@
-import type { Breed, Category } from "@/lib/types";
+import { Category, Action } from "@/lib/enums";
+import type { Breed } from "@/lib/types";
 import { formatDate } from "@/lib/utils/format-date";
 import { useBreedStore } from "@/lib/stores/breed";
 import { useLogStore } from "@/lib/stores/log";
@@ -25,8 +26,8 @@ export default function VotedGrid({
     addLog({
       reference_image_id,
       dateOfEditing: formatDate(new Date()),
-      category: "Favourites",
-      action: "removed from",
+      category: Category.Favourites,
+      action: Action.RemovedFrom,
     });
   };
 
@@ -42,7 +43,7 @@ export default function VotedGrid({
               className={`absolute left-0 top-0 h-[18.75rem] w-[12.5rem] rounded-3xl bg-stone-300 ${!gridPattern[i][0] && "invisible"}`}
               url={gridPattern[i][0]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][0].reference_image_id)
@@ -55,7 +56,7 @@ export default function VotedGrid({
               className={`absolute -top-80 left-[13.75rem] h-[8.75rem] w-[12.5rem] rounded-3xl bg-stone-300 ${!gridPattern[i][1] && "invisible"}`}
               url={gridPattern[i][1]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][1].reference_image_id)
@@ -68,7 +69,7 @@ export default function VotedGrid({
               className={`absolute left-[27.5rem] top-[-29.75rem] h-[8.75rem] w-[12.5rem] rounded-3xl bg-stone-300 ${!gridPattern[i][2] && "invisible"}`}
               url={gridPattern[i][2]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][2].reference_image_id)
@@ -81,7 +82,7 @@ export default function VotedGrid({
               className={`absolute left-[13.75rem] top-[-29.5rem] h-[18.75rem] w-[26.25rem] rounded-3xl bg-stone-300 ${!gridPattern[i][3] && "invisible"}`}
               url={gridPattern[i][3]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][3].reference_image_id)
@@ -94,7 +95,7 @@ export default function VotedGrid({
               className={`absolute left-0 top-[-39rem] h-[8.75rem] w-[12.5rem] rounded-3xl bg-stone-300 ${!gridPattern[i][4] && "invisible"}`}
               url={gridPattern[i][4]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][4].reference_image_id)
@@ -113,7 +114,7 @@ export default function VotedGrid({
               className={`absolute -left-8 -top-8 h-[8.75rem] w-[12.5rem] origin-top-left rotate-180 rounded-3xl bg-stone-300 ${!gridPattern[i][0] && "invisible"}`}
               url={gridPattern[i][0]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][0].reference_image_id)
@@ -126,7 +127,7 @@ export default function VotedGrid({
               className={`absolute -left-64 top-[-11.75rem] h-[8.75rem] w-[12.5rem] origin-top-left rotate-180 rounded-3xl bg-stone-300 ${!gridPattern[i][1] && "invisible"}`}
               url={gridPattern[i][1]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][1].reference_image_id)
@@ -139,7 +140,7 @@ export default function VotedGrid({
               className={`absolute left-[-29.5rem] top-[-21.5rem] h-[18.75rem] w-[12.5rem] origin-top-left rotate-180 rounded-3xl bg-stone-300 ${!gridPattern[i][2] && "invisible"}`}
               url={gridPattern[i][2]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][2].reference_image_id)
@@ -152,7 +153,7 @@ export default function VotedGrid({
               className={`relative -left-8 top-[-51rem] h-[18.75rem] w-[26.25rem] origin-top-left rotate-180 rounded-3xl bg-stone-300 ${!gridPattern[i][3] && "invisible"}`}
               url={gridPattern[i][3]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][3].reference_image_id)
@@ -165,7 +166,7 @@ export default function VotedGrid({
               className={`absolute left-[-29.5rem] top-[-80.75rem] h-[8.75rem] w-[12.5rem] origin-top-left rotate-180 rounded-3xl bg-stone-300 ${!gridPattern[i][4] && "invisible"}`}
               url={gridPattern[i][4]?.url}
             >
-              {type === "Favourites" && (
+              {type === Category.Favourites && (
                 <div
                   onClick={() =>
                     handleClick(gridPattern[i][4].reference_image_id)

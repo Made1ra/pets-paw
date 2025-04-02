@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 
-import { BASE_URL, API_KEY } from "@/lib/constants";
+import { BASE_URL, headers } from "@/lib/constants";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -47,8 +47,6 @@ export default function Breed() {
 
   useEffect(() => {
     const getBreed = async () => {
-      const headers = new Headers();
-      headers.append("x-api-key", API_KEY || "");
       const response = await fetch(
         `${BASE_URL}/images/search?has_breeds=1&breed_ids=${id}&limit=5`,
         {

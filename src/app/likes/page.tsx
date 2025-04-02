@@ -1,5 +1,6 @@
 "use client";
 
+import { Category } from "@/lib/enums";
 import { useBreedStore } from "@/lib/stores/breed";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
@@ -19,7 +20,9 @@ import VotedGrid from "@/components/grid/voted-grid";
 export default function Likes() {
   const breeds = useBreedStore((state) => state.breeds);
 
-  const filteredBreeds = breeds.filter((breed) => breed.category === "Likes");
+  const filteredBreeds = breeds.filter(
+    (breed) => breed.category === Category.Likes,
+  );
 
   return (
     <Container>
@@ -44,7 +47,7 @@ export default function Likes() {
                   <PetImage key={breed.url} url={breed.url} />
                 ))}
               </div>
-              <VotedGrid type="Likes" images={filteredBreeds} />
+              <VotedGrid type={Category.Likes} images={filteredBreeds} />
             </>
           )}
         </ActionsContainer>

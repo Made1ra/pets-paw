@@ -1,3 +1,4 @@
+import { Category } from "@/lib/enums";
 import type { Log } from "@/lib/types";
 
 export default function ActionMessage({
@@ -26,13 +27,13 @@ export default function ActionMessage({
       </div>
       <div className="flex items-start justify-start">
         <>
-          {category === "Likes" && (
+          {category === Category.Likes && (
             <div className="h-5 w-5 flex-shrink-0 bg-[url('/like-color-20.svg')] bg-center bg-no-repeat" />
           )}
-          {category === "Favourites" && (
+          {category === Category.Favourites && (
             <div className="h-5 w-5 flex-shrink-0 bg-[url('/fav-color-20.svg')] bg-center bg-no-repeat" />
           )}
-          {category === "Dislikes" && (
+          {category === Category.Dislikes && (
             <div className="h-5 w-5 flex-shrink-0 bg-[url('/dislike-color-20.svg')] bg-center bg-no-repeat" />
           )}
         </>

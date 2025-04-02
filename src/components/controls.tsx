@@ -1,4 +1,4 @@
-import type { Category } from "@/lib/types";
+import { Category, Action } from "@/lib/enums";
 import { useBreedStore } from "@/lib/stores/breed";
 import { formatDate } from "@/lib/utils/format-date";
 import { useLogStore } from "@/lib/stores/log";
@@ -39,7 +39,7 @@ function Controls({
         reference_image_id,
         dateOfEditing: formatDate(new Date()),
         category,
-        action: "added to",
+        action: Action.AddedTo,
       });
     } else if (filteredBreeds && filteredBreeds.category !== category) {
       removeBreed(reference_image_id);
@@ -48,7 +48,7 @@ function Controls({
         reference_image_id,
         dateOfEditing: formatDate(new Date()),
         category,
-        action: "removed from",
+        action: Action.RemovedFrom,
       });
 
       addBreed({
@@ -62,7 +62,7 @@ function Controls({
         reference_image_id,
         dateOfEditing: formatDate(new Date()),
         category: category,
-        action: "added to",
+        action: Action.AddedTo,
       });
     } else {
       removeBreed(reference_image_id);
@@ -71,23 +71,25 @@ function Controls({
         reference_image_id,
         dateOfEditing: formatDate(new Date()),
         category: category,
-        action: "removed from",
+        action: Action.RemovedFrom,
       });
     }
 
-    if (category === "Likes" || category === "Dislikes") {
+    if (category === Category.Likes || category === Category.Dislikes) {
       onLikeDislikeClick();
     }
   };
 
   return (
     <div className="m-4 flex h-11 w-[11.125rem] flex-shrink-0 items-center justify-center sm:h-20 sm:w-64">
-      <LikeButton onClick={() => handleClick("Likes", reference_image_id)} />
+      <LikeButton
+        onClick={() => handleClick(Category.Likes, reference_image_id)}
+      />
       <FavouriteButton
-        onClick={() => handleClick("Favourites", reference_image_id)}
+        onClick={() => handleClick(Category.Favourites, reference_image_id)}
       />
       <DislikeButton
-        onClick={() => handleClick("Dislikes", reference_image_id)}
+        onClick={() => handleClick(Category.Dislikes, reference_image_id)}
       />
     </div>
   );

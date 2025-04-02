@@ -1,4 +1,4 @@
-export type Category = "Likes" | "Favourites" | "Dislikes";
+import type { Category, Action } from "@/lib/enums";
 
 export type Breed = {
   reference_image_id: string;
@@ -6,8 +6,6 @@ export type Breed = {
   dateOfEditing?: string;
   category?: Category;
 };
-
-export type Action = "added to" | "removed from";
 
 export type Log = {
   reference_image_id: string;

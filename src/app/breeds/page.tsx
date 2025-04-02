@@ -4,7 +4,7 @@ import { useState, useEffect, type ChangeEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { BASE_URL, API_KEY } from "@/lib/constants";
+import { BASE_URL, headers } from "@/lib/constants";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -112,8 +112,6 @@ export default function Breeds() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const headers = new Headers();
-      headers.append("x-api-key", API_KEY || "");
       const breedResponse = await fetch(`${BASE_URL}/breeds`, {
         headers,
       });

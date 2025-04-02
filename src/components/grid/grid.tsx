@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Category, Action } from "@/lib/enums";
 import { useBreedStore } from "@/lib/stores/breed";
 import { useLogStore } from "@/lib/stores/log";
 import { formatDate } from "@/lib/utils/format-date";
@@ -65,15 +66,15 @@ export default function Grid({
       addBreed({
         reference_image_id: id,
         dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
+        category: Category.Favourites,
         url,
       });
 
       addLog({
         reference_image_id: id,
         dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
-        action: "added to",
+        category: Category.Favourites,
+        action: Action.AddedTo,
       });
     } else {
       removeBreed(filteredBreeds.reference_image_id);
@@ -81,8 +82,8 @@ export default function Grid({
       addLog({
         reference_image_id: filteredBreeds.reference_image_id,
         dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
-        action: "removed from",
+        category: Category.Favourites,
+        action: Action.RemovedFrom,
       });
     }
   };

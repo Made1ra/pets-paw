@@ -1,5 +1,6 @@
 "use client";
 
+import { Category, Action } from "@/lib/enums";
 import { formatDate } from "@/lib/utils/format-date";
 import { useBreedStore } from "@/lib/stores/breed";
 import { useLogStore } from "@/lib/stores/log";
@@ -29,7 +30,7 @@ export default function Favourites() {
   const addLog = useLogStore((state) => state.addLog);
 
   const filteredBreeds = breeds.filter(
-    (breed) => breed.category === "Favourites",
+    (breed) => breed.category === Category.Favourites,
   );
 
   const handleClick = (reference_image_id: string) => {
@@ -38,8 +39,8 @@ export default function Favourites() {
     addLog({
       reference_image_id,
       dateOfEditing: formatDate(new Date()),
-      category: "Favourites",
-      action: "removed from",
+      category: Category.Favourites,
+      action: Action.RemovedFrom,
     });
   };
 
@@ -71,7 +72,7 @@ export default function Favourites() {
                   </PetImage>
                 ))}
               </div>
-              <VotedGrid type="Favourites" images={filteredBreeds} />
+              <VotedGrid type={Category.Favourites} images={filteredBreeds} />
             </>
           )}
           {logs.length > 0 &&
