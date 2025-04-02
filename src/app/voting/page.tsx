@@ -95,7 +95,6 @@ export default function Voting() {
           </ImageContainer>
           {logs.length > 0 &&
             logs
-              .slice()
               .toReversed()
               .map((log, i) => (
                 <ActionMessage

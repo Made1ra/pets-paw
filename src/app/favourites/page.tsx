@@ -77,7 +77,6 @@ export default function Favourites() {
           )}
           {logs.length > 0 &&
             logs
-              .slice()
               .toReversed()
               .map((log, i) => (
                 <ActionMessage
