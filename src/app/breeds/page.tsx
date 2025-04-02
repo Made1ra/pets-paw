@@ -55,7 +55,7 @@ export default function Breeds() {
       breeds: { name: string; id: string }[];
     }[],
   ) => {
-    return searchedBreeds.slice().sort(
+    return searchedBreeds.slice().toSorted(
       (
         a: {
           id: string;
@@ -78,7 +78,7 @@ export default function Breeds() {
       breeds: { name: string; id: string }[];
     }[],
   ) => {
-    return searchedBreeds.slice().sort(
+    return searchedBreeds.slice().toSorted(
       (
         a: {
           id: string;
