@@ -1,6 +1,7 @@
-import { useDispatch } from "react-redux";
-import { Breed, Category, addLog, removeBreed } from "@/lib/store";
+import type { Breed, Category } from "@/lib/types";
 import { formatDate } from "@/lib/utils/format-date";
+import { useBreedStore } from "@/lib/stores/breed";
+import { useLogStore } from "@/lib/stores/log";
 import PetImage from "@/components/pet-image";
 
 export default function VotedGrid({
@@ -10,7 +11,8 @@ export default function VotedGrid({
   type: Category;
   images: Breed[];
 }) {
-  const dispatch = useDispatch();
+  const removeBreed = useBreedStore((state) => state.removeBreed);
+  const addLog = useLogStore((state) => state.addLog);
 
   const gridPattern: Array<typeof images> = [];
   const gridSize = 5;
@@ -18,23 +20,15 @@ export default function VotedGrid({
     gridPattern.push(images.slice(i, i + gridSize));
   }
 
-  function handleClick(reference_image_id: string) {
-    dispatch(
-      removeBreed({
-        reference_image_id,
-        dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
-      }),
-    );
-    dispatch(
-      addLog({
-        reference_image_id,
-        dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
-        action: "removed from",
-      }),
-    );
-  }
+  const handleClick = (reference_image_id: string) => {
+    removeBreed(reference_image_id);
+    addLog({
+      reference_image_id,
+      dateOfEditing: formatDate(new Date()),
+      category: "Favourites",
+      action: "removed from",
+    });
+  };
 
   return (
     <div className="mb-8 mt-2 inline-flex h-fit w-[42.5rem] flex-col items-start gap-5 rounded-[1.25rem] bg-white dark:bg-stone-900 dark:bg-opacity-5 max-sm:hidden">

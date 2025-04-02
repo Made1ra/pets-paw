@@ -1,8 +1,8 @@
 "use client";
 
-import { useSelector, useDispatch } from "react-redux";
-import { Breed, Log, addLog, removeBreed } from "@/lib/store";
 import { formatDate } from "@/lib/utils/format-date";
+import { useBreedStore } from "@/lib/stores/breed";
+import { useLogStore } from "@/lib/stores/log";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -20,35 +20,28 @@ import VotedGrid from "@/components/grid/voted-grid";
 import ActionMessage from "@/components/action-message";
 
 export default function Favourites() {
-  const breeds = useSelector(
-    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds,
-  );
-  const logs = useSelector(
-    (state: { logs: { logs: Log[] } }) => state.logs.logs,
-  );
-  const dispatch = useDispatch();
+  const breeds = useBreedStore((state) => state.breeds);
+
+  const logs = useLogStore((state) => state.logs);
+
+  const removeBreed = useBreedStore((state) => state.removeBreed);
+
+  const addLog = useLogStore((state) => state.addLog);
 
   const filteredBreeds = breeds.filter(
     (breed) => breed.category === "Favourites",
   );
 
-  function handleClick(reference_image_id: string) {
-    dispatch(
-      removeBreed({
-        reference_image_id,
-        dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
-      }),
-    );
-    dispatch(
-      addLog({
-        reference_image_id,
-        dateOfEditing: formatDate(new Date()),
-        category: "Favourites",
-        action: "removed from",
-      }),
-    );
-  }
+  const handleClick = (reference_image_id: string) => {
+    removeBreed(reference_image_id);
+
+    addLog({
+      reference_image_id,
+      dateOfEditing: formatDate(new Date()),
+      category: "Favourites",
+      action: "removed from",
+    });
+  };
 
   return (
     <Container>
@@ -64,7 +57,7 @@ export default function Favourites() {
             <SmallLink />
             <LargeTextButton>FAVOURITES</LargeTextButton>
           </NavigationContainer>
-          {filteredBreeds.length === 0 ? (
+          {!!filteredBreeds.length ? (
             <TextSpan>No item found</TextSpan>
           ) : (
             <>
@@ -84,7 +77,7 @@ export default function Favourites() {
           {logs.length > 0 &&
             logs
               .slice()
-              .reverse()
+              .toReversed()
               .map((log, i) => (
                 <ActionMessage
                   key={i}

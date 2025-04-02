@@ -1,6 +1,7 @@
-import { useSelector, useDispatch } from "react-redux";
-import { Breed, addBreed, removeBreed, addLog } from "@/lib/store";
+import type { Category } from "@/lib/types";
+import { useBreedStore } from "@/lib/stores/breed";
 import { formatDate } from "@/lib/utils/format-date";
+import { useLogStore } from "@/lib/stores/log";
 import LikeButton from "@/components/like-button";
 import FavouriteButton from "@/components/favourite-button";
 import DislikeButton from "@/components/dislike-button";
@@ -14,85 +15,70 @@ function Controls({
   url: string;
   onLikeDislikeClick: () => void;
 }) {
-  const breeds = useSelector(
-    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds,
-  );
-  const dispatch = useDispatch();
+  const breeds = useBreedStore((state) => state.breeds);
 
-  function handleClick(category: string, reference_image_id: string) {
+  const addBreed = useBreedStore((state) => state.addBreed);
+
+  const removeBreed = useBreedStore((state) => state.removeBreed);
+
+  const addLog = useLogStore((state) => state.addLog);
+
+  const handleClick = (category: Category, reference_image_id: string) => {
     const filteredBreeds = breeds.find(
       (breed) => breed.reference_image_id === reference_image_id,
     );
     if (!filteredBreeds) {
-      dispatch(
-        addBreed({
-          reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: category,
-          url: url,
-        }),
-      );
-      dispatch(
-        addLog({
-          reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: category,
-          action: "added to",
-        }),
-      );
+      addBreed({
+        reference_image_id,
+        dateOfEditing: formatDate(new Date()),
+        category,
+        url,
+      });
+
+      addLog({
+        reference_image_id,
+        dateOfEditing: formatDate(new Date()),
+        category,
+        action: "added to",
+      });
     } else if (filteredBreeds && filteredBreeds.category !== category) {
-      dispatch(
-        removeBreed({
-          reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category,
-        }),
-      );
-      dispatch(
-        addLog({
-          reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: filteredBreeds.category,
-          action: "removed from",
-        }),
-      );
-      dispatch(
-        addBreed({
-          reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: category,
-        }),
-      );
-      dispatch(
-        addLog({
-          reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: category,
-          action: "added to",
-        }),
-      );
+      removeBreed(reference_image_id);
+
+      addLog({
+        reference_image_id,
+        dateOfEditing: formatDate(new Date()),
+        category,
+        action: "removed from",
+      });
+
+      addBreed({
+        reference_image_id,
+        dateOfEditing: formatDate(new Date()),
+        category,
+        url,
+      });
+
+      addLog({
+        reference_image_id,
+        dateOfEditing: formatDate(new Date()),
+        category: category,
+        action: "added to",
+      });
     } else {
-      dispatch(
-        removeBreed({
-          reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category,
-        }),
-      );
-      dispatch(
-        addLog({
-          reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: category,
-          action: "removed from",
-        }),
-      );
+      removeBreed(reference_image_id);
+
+      addLog({
+        reference_image_id,
+        dateOfEditing: formatDate(new Date()),
+        category: category,
+        action: "removed from",
+      });
     }
 
     if (category === "Likes" || category === "Dislikes") {
       onLikeDislikeClick();
     }
-  }
+  };
 
   return (
     <div className="m-4 flex h-11 w-[11.125rem] flex-shrink-0 items-center justify-center sm:h-20 sm:w-64">

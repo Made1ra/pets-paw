@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import Link from "next/link";
 import TextInput from "@/components/text-input";
 import SearchButton from "@/components/search-button";
@@ -12,11 +12,11 @@ export default function SearchBar({
 }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  function handleSearch() {
+  const handleSearch = () => {
     if (onSearch) {
       onSearch(searchTerm);
     }
-  }
+  };
 
   return (
     <Link
@@ -27,12 +27,12 @@ export default function SearchBar({
         <div className="mb-4 flex h-[3.75rem] w-[20.9375rem] items-center justify-between rounded-[1.25rem] bg-white hover:border-2 hover:border-red-100 active:border-2 active:border-rose-400 dark:bg-opacity-5 sm:mx-2 sm:my-4 sm:w-[29.5rem] lg:ml-4 lg:w-[29.25rem]">
           <TextInput
             value={searchTerm}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchTerm(e.target.value)
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setSearchTerm(event.target.value)
             }
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            onKeyDown={(event) => event.key === "Enter" && handleSearch()}
           />
-          <SearchButton onClick={() => handleSearch()} />
+          <SearchButton onClick={() => handleSearch} />
         </div>
       </div>
     </Link>

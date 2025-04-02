@@ -5,11 +5,19 @@ import { useState } from "react";
 export default function UploadButton({ onClick }: { onClick: () => void }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <div
       className="flex h-10 cursor-pointer items-center justify-center rounded-[0.625rem] bg-red-100 hover:bg-rose-400 dark:bg-rose-400 dark:bg-opacity-20 dark:hover:bg-rose-400 max-sm:order-last max-sm:mt-4 max-sm:w-[18.4375rem] sm:ml-[25.25rem] sm:w-[8.9375rem] lg:ml-[20.5rem]"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={onClick}
     >
       <div

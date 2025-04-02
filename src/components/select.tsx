@@ -6,7 +6,7 @@ export default function Select({
   width,
 }: {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   children?: React.ReactNode;
   width: string;
   className?: string;

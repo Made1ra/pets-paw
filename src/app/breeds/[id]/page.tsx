@@ -5,6 +5,8 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+
+import { BASE_URL, API_KEY } from "@/lib/constants";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -17,14 +19,13 @@ import ActionsContainer from "@/components/actions-container";
 import NavigationContainer from "@/components/navigation-container";
 import Loader from "@/components/loader";
 import PetInfo from "@/components/pet-info";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "@/app/breeds/[id]/swiper.css";
 
 export default function Breed() {
   const { id } = useParams();
-
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
   const [searchedBreeds, setSearchedBreeds] = useState<
     {
@@ -49,16 +50,17 @@ export default function Breed() {
       const headers = new Headers();
       headers.append("x-api-key", API_KEY || "");
       const response = await fetch(
-        `https://api.thecatapi.com/v1/images/search?has_breeds=1&breed_ids=${id}&limit=5`,
+        `${BASE_URL}/images/search?has_breeds=1&breed_ids=${id}&limit=5`,
         {
-          headers: headers,
+          headers,
         },
       );
       const data = await response.json();
       setSearchedBreeds(data);
     };
+
     getBreed();
-  }, [API_KEY, id]);
+  }, [id]);
 
   return (
     <Container>

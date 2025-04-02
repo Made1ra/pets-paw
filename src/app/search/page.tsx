@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+
+import { BASE_URL, API_KEY } from "@/lib/constants";
 import Container from "@/components/container";
 import LeftContent from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -20,27 +22,22 @@ import Button from "@/components/button";
 import SearchGrid from "@/components/grid/search-grid";
 
 export default function Search() {
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-
   const [searchedBreeds, setSearchedBreeds] = useState<
     { name: string; image: { url: string }; id: string }[]
   >([]);
   const [term, setTerm] = useState("");
 
-  async function searchBreeds(searchTerm: string) {
+  const searchBreeds = async (searchTerm: string) => {
     const headers = new Headers();
     headers.append("x-api-key", API_KEY || "");
-    const response = await fetch(
-      `https://api.thecatapi.com/v1/breeds/search?q=${searchTerm}`,
-      {
-        headers: headers,
-      },
-    );
+    const response = await fetch(`${BASE_URL}/breeds/search?q=${searchTerm}`, {
+      headers,
+    });
 
     const data = await response.json();
     setTerm(searchTerm);
     setSearchedBreeds(data);
-  }
+  };
 
   return (
     <Container>

@@ -1,7 +1,6 @@
 "use client";
 
-import { useSelector } from "react-redux";
-import { Breed } from "@/lib/store";
+import { useBreedStore } from "@/lib/stores/breed";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -18,9 +17,8 @@ import PetImage from "@/components/pet-image";
 import VotedGrid from "@/components/grid/voted-grid";
 
 export default function Likes() {
-  const breeds = useSelector(
-    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds,
-  );
+  const breeds = useBreedStore((state) => state.breeds);
+
   const filteredBreeds = breeds.filter((breed) => breed.category === "Likes");
 
   return (

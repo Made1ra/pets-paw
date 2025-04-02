@@ -11,11 +11,19 @@ export default function UploadPhotoButton({
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <button
       className={`mt-8 flex h-10 w-[10.75rem] items-center justify-center self-center rounded-[0.625rem] text-center max-sm:w-[20.9375rem] ${isHovered ? "bg-red-100" : "bg-rose-400"}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={onClick}
     >
       {isUploading && (

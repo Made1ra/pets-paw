@@ -1,4 +1,4 @@
-import { Log } from "@/lib/store";
+import type { Log } from "@/lib/types";
 
 export default function ActionMessage({
   dateOfEditing,

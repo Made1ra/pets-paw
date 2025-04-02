@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import Image from "next/image";
+
+import { BASE_URL, API_KEY } from "@/lib/constants";
 import CloseButton from "@/components/modal/close-button";
 import UploadBackground from "@/components/modal/upload-background";
 import UploadPhotoButton from "@/components/modal/upload-photo-button";
@@ -13,30 +15,28 @@ export default function Modal({
   isOpen: boolean;
   onClose: () => void;
 }) {
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [isResponseOk, setIsResponseOk] = useState<boolean | null>(null);
 
-  function handleClose() {
+  const handleClose = () => {
     onClose();
     setSelectedImage(null);
     setIsResponseOk(null);
-  }
+  };
 
-  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (file) {
       setSelectedImage(file);
       setIsUploading(false);
       setIsResponseOk(null);
       setImageUrl(URL.createObjectURL(file));
     }
-  }
+  };
 
-  async function uploadImage() {
+  const uploadImage = async () => {
     setIsUploading(true);
 
     const formData = new FormData();
@@ -46,17 +46,17 @@ export default function Modal({
 
     const headers = new Headers();
     headers.append("x-api-key", API_KEY || "");
-    const response = await fetch("https://api.thecatapi.com/v1/images/upload", {
+    const response = await fetch(`${BASE_URL}/images/upload`, {
       method: "POST",
       body: formData,
-      headers: headers,
+      headers,
     });
 
     setIsResponseOk(response.ok);
     if (response.ok) {
       setSelectedImage(null);
     }
-  }
+  };
 
   if (!isOpen) {
     return null;
@@ -64,7 +64,7 @@ export default function Modal({
 
   return (
     <div className="fixed right-24 top-5 z-20 flex h-[57.5rem] w-[47.5rem] flex-col rounded-[1.25rem] bg-stone-50 dark:bg-stone-800 max-sm:right-0 max-sm:top-0 max-sm:w-screen max-sm:rounded-none">
-      <CloseButton onClick={() => handleClose()} />
+      <CloseButton onClick={handleClose} />
       <div className="flex flex-col text-center">
         <div className="mt-8 font-jost text-4xl font-medium text-stone-900 dark:text-white max-sm:text-xl">
           Upload a .jpg or .png Cat Image
@@ -91,7 +91,7 @@ export default function Modal({
             className="fixed z-30 h-80 w-[40rem] opacity-0"
             type="file"
             accept="image/*,.jpeg,.jpg,.png"
-            onChange={(e) => handleImageChange(e)}
+            onChange={handleImageChange}
           />
           <div className="relative mt-4 flex h-[17.5rem] w-[34.88375rem] flex-col items-center justify-center rounded-[0.625rem] max-sm:h-[9.2495rem] max-sm:w-[18.4375rem]">
             {selectedImage ? (
@@ -138,10 +138,7 @@ export default function Modal({
           </div>
         )}
         {selectedImage && isResponseOk === null && (
-          <UploadPhotoButton
-            isUploading={isUploading}
-            onClick={() => uploadImage()}
-          />
+          <UploadPhotoButton isUploading={isUploading} onClick={uploadImage} />
         )}
       </div>
     </div>

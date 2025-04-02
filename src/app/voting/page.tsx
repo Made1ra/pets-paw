@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { Log } from "@/lib/store";
+
+import { BASE_URL, API_KEY } from "@/lib/constants";
+import { useLogStore } from "@/lib/stores/log";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -22,11 +23,7 @@ import Controls from "@/components/controls";
 import ActionMessage from "@/components/action-message";
 
 export default function Voting() {
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-
-  const logs = useSelector(
-    (state: { logs: { logs: Log[] } }) => state.logs.logs,
-  );
+  const logs = useLogStore((state) => state.logs);
 
   const [randomImage, setRandomImage] = useState<{
     name: string;
@@ -36,34 +33,34 @@ export default function Voting() {
 
   const pathname = usePathname();
 
-  async function handleLikeDislikeClick() {
+  const handleLikeDislikeClick = async () => {
     const headers = new Headers();
     headers.append("x-api-key", API_KEY || "");
     const response = await fetch(
-      `https://api.thecatapi.com/v1/images/search?has_breeds=1&limit=1`,
+      `${BASE_URL}/images/search?has_breeds=1&limit=1`,
       {
-        headers: headers,
+        headers,
       },
     );
     const data = await response.json();
     setRandomImage(data[0] || null);
-  }
+  };
 
   useEffect(() => {
     const getRandomImage = async () => {
       const headers = new Headers();
       headers.append("x-api-key", API_KEY || "");
       const response = await fetch(
-        `https://api.thecatapi.com/v1/images/search?has_breeds=1&limit=1`,
+        `${BASE_URL}/images/search?has_breeds=1&limit=1`,
         {
-          headers: headers,
+          headers,
         },
       );
       const data = await response.json();
       setRandomImage(data[0] || null);
     };
     getRandomImage();
-  }, [API_KEY]);
+  }, []);
 
   return (
     <Container>
@@ -96,14 +93,14 @@ export default function Voting() {
               <Controls
                 reference_image_id={randomImage ? randomImage.id : ""}
                 url={randomImage ? randomImage.url : ""}
-                onLikeDislikeClick={() => handleLikeDislikeClick()}
+                onLikeDislikeClick={handleLikeDislikeClick}
               />
             </ControlsContainer>
           </ImageContainer>
           {logs.length > 0 &&
             logs
               .slice()
-              .reverse()
+              .toReversed()
               .map((log, i) => (
                 <ActionMessage
                   key={i}

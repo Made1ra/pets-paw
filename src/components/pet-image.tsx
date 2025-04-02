@@ -13,6 +13,14 @@ export default function PetImage({
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <div
       className={`relative m-4 flex h-36 w-52 flex-shrink-0 cursor-pointer items-center justify-center rounded-3xl bg-cover bg-center bg-no-repeat max-sm:h-[12.90625rem] max-sm:w-[18.4375rem] ${className}`}
@@ -20,8 +28,8 @@ export default function PetImage({
         backgroundImage: `url(${url})`,
         backgroundColor: "rgba(211, 211, 211, 0.5)",
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {isHovered && (
         <>

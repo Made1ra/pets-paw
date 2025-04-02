@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { rectangles } from "@/lib/store";
+
+import { rectangles } from "@/lib/constants";
 import Rectangle from "@/components/rectangle";
 import TextButton from "@/components/text-button";
 

@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useEffect, ChangeEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect, type ChangeEvent } from "react";
 import { usePathname } from "next/navigation";
-import { Breed, addBreed, addLog, removeBreed } from "@/lib/store";
+
+import { BASE_URL, API_KEY } from "@/lib/constants";
 import { formatDate } from "@/lib/utils/format-date";
+import { useBreedStore } from "@/lib/stores/breed";
+import { useLogStore } from "@/lib/stores/log";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -27,12 +29,13 @@ import Grid from "@/components/grid/grid";
 import Modal from "@/components/modal/modal";
 
 export default function Gallery() {
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+  const breeds = useBreedStore((state) => state.breeds);
 
-  const breeds = useSelector(
-    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds,
-  );
-  const dispatch = useDispatch();
+  const addBreed = useBreedStore((state) => state.addBreed);
+
+  const removeBreed = useBreedStore((state) => state.removeBreed);
+
+  const addLog = useLogStore((state) => state.addLog);
 
   const [shouldBeUpdated, setShouldBeUpdated] = useState(true);
   const [order, setOrder] = useState("Random");
@@ -54,71 +57,83 @@ export default function Gallery() {
 
   const pathname = usePathname();
 
-  function openModal() {
+  const openModal = () => {
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
-  }
+  };
 
-  function closeModal() {
+  const closeModal = () => {
     setIsModalOpen(false);
     document.body.style.overflow = "auto";
-  }
+  };
 
-  async function handleClick(url: string) {
+  const handleUploadButtonClick = () => {
+    setShouldBeUpdated(true);
+  };
+
+  const handleBreedValueChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setBreedValue(event.target.value);
+  };
+
+  const handleOrderChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setOrder(event.target.value);
+  };
+
+  const handleTypeChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setType(event.target.value);
+  };
+
+  const handleValueChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    setValue(event.target.value);
+  };
+
+  const handleClick = (url: string) => {
     const match = url.match(/\/images\/([^/]+)\.\w+$/);
     let id = "";
     if (match) {
       id = match[1];
     }
+
     const filteredBreeds = breeds.find((breed) => breed.url === url);
     if (!filteredBreeds) {
-      dispatch(
-        addBreed({
-          reference_image_id: id,
-          dateOfEditing: formatDate(new Date()),
-          category: "Favourites",
-          url,
-        }),
-      );
-      dispatch(
-        addLog({
-          reference_image_id: id,
-          dateOfEditing: formatDate(new Date()),
-          category: "Favourites",
-          action: "added to",
-        }),
-      );
+      addBreed({
+        reference_image_id: id,
+        dateOfEditing: formatDate(new Date()),
+        category: "Favourites",
+        url,
+      });
+
+      addLog({
+        reference_image_id: id,
+        dateOfEditing: formatDate(new Date()),
+        category: "Favourites",
+        action: "added to",
+      });
     } else {
-      dispatch(
-        removeBreed({
-          reference_image_id: filteredBreeds.reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: "Favourites",
-        }),
-      );
-      dispatch(
-        addLog({
-          reference_image_id: filteredBreeds.reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: "Favourites",
-          action: "removed from",
-        }),
-      );
+      removeBreed(filteredBreeds.reference_image_id);
+
+      addLog({
+        reference_image_id: filteredBreeds.reference_image_id,
+        dateOfEditing: formatDate(new Date()),
+        category: "Favourites",
+        action: "removed from",
+      });
     }
-  }
+  };
 
   useEffect(() => {
     const getBreeds = async () => {
       const headers = new Headers();
       headers.append("x-api-key", API_KEY || "");
-      const response = await fetch(`https://api.thecatapi.com/v1/breeds`, {
-        headers: headers,
+      const response = await fetch(`${BASE_URL}/breeds`, {
+        headers,
       });
       const data = await response.json();
       setAllBreeds(data);
     };
+
     getBreeds();
-  }, [API_KEY]);
+  }, []);
 
   useEffect(() => {
     const getBreeds = async () => {
@@ -148,14 +163,12 @@ export default function Gallery() {
 
       const limit = value.match(/\d+/g);
 
-      const baseUrl =
-        "https://api.thecatapi.com/v1/images/search?has_breeds=1&";
       const headers = new Headers();
       headers.append("x-api-key", API_KEY || "");
       const response = await fetch(
-        `${baseUrl}breed_ids=${breed_ids}&order=${breedOrder}&mime_types=${mime_types}&limit=${limit}`,
+        `${BASE_URL}/images/search?has_breeds=1&breed_ids=${breed_ids}&order=${breedOrder}&mime_types=${mime_types}&limit=${limit}`,
         {
-          headers: headers,
+          headers,
         },
       );
       const data = await response.json();
@@ -166,7 +179,7 @@ export default function Gallery() {
       getBreeds();
       setShouldBeUpdated(false);
     }
-  }, [API_KEY, allBreeds, order, type, breedValue, value, shouldBeUpdated]);
+  }, [allBreeds, order, type, breedValue, value, shouldBeUpdated]);
 
   return (
     <>
@@ -185,7 +198,7 @@ export default function Gallery() {
             <NavigationContainer>
               <SmallLink />
               <LargeTextButton>GALLERY</LargeTextButton>
-              <UploadButton onClick={() => openModal()} />
+              <UploadButton onClick={openModal} />
             </NavigationContainer>
             <div className="flex h-fit w-[18.4375rem] flex-wrap rounded-[1.25rem] bg-stone-50 py-4 pr-4 dark:bg-white dark:bg-opacity-5 max-sm:w-[18.5rem] sm:w-[47rem] lg:w-[42.5rem]">
               <div className="flex w-full max-sm:flex-col max-sm:items-center max-sm:justify-center">
@@ -193,9 +206,7 @@ export default function Gallery() {
                   <Label>ORDER</Label>
                   <Select
                     value={order}
-                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                      setOrder(e.target.value)
-                    }
+                    onChange={handleOrderChange}
                     className="bg-white dark:bg-stone-900 dark:text-white"
                     width="18.125rem"
                   >
@@ -208,9 +219,7 @@ export default function Gallery() {
                   <Label>TYPE</Label>
                   <Select
                     value={type}
-                    onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                      setType(e.target.value)
-                    }
+                    onChange={handleTypeChange}
                     className="bg-white dark:bg-stone-900 dark:text-white"
                     width="18.125rem"
                   >
@@ -225,7 +234,7 @@ export default function Gallery() {
                   <Label>BREED</Label>
                   <Select
                     value={breedValue}
-                    onChange={(e) => setBreedValue(e.target.value)}
+                    onChange={handleBreedValueChange}
                     className="bg-white dark:bg-stone-900 dark:text-white"
                     width="18.125rem"
                   >
@@ -240,9 +249,7 @@ export default function Gallery() {
                     <Label>LIMIT</Label>
                     <Select
                       value={value}
-                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                        setValue(e.target.value)
-                      }
+                      onChange={handleValueChange}
                       className="bg-white dark:bg-stone-900 dark:text-white"
                       width="15rem"
                     >
@@ -252,7 +259,7 @@ export default function Gallery() {
                       <Option>20 items per page</Option>
                     </Select>
                   </div>
-                  <UpdateButton onClick={() => setShouldBeUpdated(true)} />
+                  <UpdateButton onClick={handleUploadButtonClick} />
                 </div>
               </div>
             </div>
@@ -273,7 +280,7 @@ export default function Gallery() {
               breedsImages={[]}
               galleryImages={searchedBreeds}
             />
-            <Modal isOpen={isModalOpen} onClose={() => closeModal()} />
+            <Modal isOpen={isModalOpen} onClose={closeModal} />
           </ActionsContainer>
         </RightSectionContainer>
       </Container>

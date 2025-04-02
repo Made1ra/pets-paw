@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
-import { Breed, addBreed, removeBreed, addLog } from "@/lib/store";
+
+import { useBreedStore } from "@/lib/stores/breed";
+import { useLogStore } from "@/lib/stores/log";
 import { formatDate } from "@/lib/utils/format-date";
 import PetImage from "@/components/pet-image";
 import SmallFavouriteButton from "@/components/small-favourite-button";
@@ -31,10 +32,13 @@ export default function Grid({
     ];
   }[];
 }) {
-  const breeds = useSelector(
-    (state: { breeds: { breeds: Breed[] } }) => state.breeds.breeds,
-  );
-  const dispatch = useDispatch();
+  const breeds = useBreedStore((state) => state.breeds);
+
+  const addBreed = useBreedStore((state) => state.addBreed);
+
+  const removeBreed = useBreedStore((state) => state.removeBreed);
+
+  const addLog = useLogStore((state) => state.addLog);
 
   let images = [];
   if (type === "Breeds") {
@@ -49,7 +53,7 @@ export default function Grid({
     gridPattern.push(images.slice(i, i + gridSize));
   }
 
-  async function handleClick(url: string) {
+  const handleClick = (url: string) => {
     const match = url.match(/\/images\/([^/]+)\.\w+$/);
     let id = "";
     if (match) {
@@ -58,40 +62,30 @@ export default function Grid({
 
     const filteredBreeds = breeds.find((breed) => breed.url === url);
     if (!filteredBreeds) {
-      dispatch(
-        addBreed({
-          reference_image_id: id,
-          dateOfEditing: formatDate(new Date()),
-          category: "Favourites",
-          url,
-        }),
-      );
-      dispatch(
-        addLog({
-          reference_image_id: id,
-          dateOfEditing: formatDate(new Date()),
-          category: "Favourites",
-          action: "added to",
-        }),
-      );
+      addBreed({
+        reference_image_id: id,
+        dateOfEditing: formatDate(new Date()),
+        category: "Favourites",
+        url,
+      });
+
+      addLog({
+        reference_image_id: id,
+        dateOfEditing: formatDate(new Date()),
+        category: "Favourites",
+        action: "added to",
+      });
     } else {
-      dispatch(
-        removeBreed({
-          reference_image_id: filteredBreeds.reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: "Favourites",
-        }),
-      );
-      dispatch(
-        addLog({
-          reference_image_id: filteredBreeds.reference_image_id,
-          dateOfEditing: formatDate(new Date()),
-          category: "Favourites",
-          action: "removed from",
-        }),
-      );
+      removeBreed(filteredBreeds.reference_image_id);
+
+      addLog({
+        reference_image_id: filteredBreeds.reference_image_id,
+        dateOfEditing: formatDate(new Date()),
+        category: "Favourites",
+        action: "removed from",
+      });
     }
-  }
+  };
 
   return (
     <div className="mb-8 mt-2 inline-flex h-fit w-[42.5rem] flex-col items-start gap-5 rounded-[1.25rem] bg-white dark:bg-stone-900 dark:bg-opacity-5 max-sm:hidden">
