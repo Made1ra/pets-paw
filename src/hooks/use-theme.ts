@@ -7,9 +7,7 @@ export function useTheme() {
     typeof window !== "undefined" && window.localStorage;
 
   const localTheme =
-    isLocalStorageAvailable && localStorage.getItem("app-theme") === "light"
-      ? false
-      : true;
+    isLocalStorageAvailable && localStorage.getItem("app-theme") !== "light";
 
   const [theme, setTheme] = useState(localTheme);
 
