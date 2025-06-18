@@ -6,13 +6,10 @@ export function useTheme() {
   const isLocalStorageAvailable =
     typeof window !== "undefined" && window.localStorage;
 
-  const localTheme = isLocalStorageAvailable
-    ? localStorage.getItem("app-theme") === "dark"
-      ? true
-      : localStorage.getItem("app-theme") === "light"
-        ? false
-        : true
-    : true;
+  const localTheme =
+    isLocalStorageAvailable && localStorage.getItem("app-theme") === "light"
+      ? false
+      : true;
 
   const [theme, setTheme] = useState(localTheme);
 
