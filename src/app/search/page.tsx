@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import { BASE_URL, headers } from "@/lib/constants";
+import { useBreedsBySearchTermQuery } from "@/hooks/query/use-breeds-by-search-term-query";
 import Container from "@/components/container";
 import LeftContent from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -22,19 +22,12 @@ import Button from "@/components/button";
 import SearchGrid from "@/components/grid/search-grid";
 
 export default function Search() {
-  const [searchedBreeds, setSearchedBreeds] = useState<
-    { name: string; image: { url: string }; id: string }[]
-  >([]);
   const [term, setTerm] = useState("");
 
-  const searchBreeds = async (searchTerm: string) => {
-    const response = await fetch(`${BASE_URL}/breeds/search?q=${searchTerm}`, {
-      headers,
-    });
+  const { searchedBreeds } = useBreedsBySearchTermQuery(term);
 
-    const data = await response.json();
+  const searchBreeds = (searchTerm: string) => {
     setTerm(searchTerm);
-    setSearchedBreeds(data);
   };
 
   return (
@@ -51,23 +44,27 @@ export default function Search() {
             <SmallLink />
             <LargeTextButton>SEARCH</LargeTextButton>
           </NavigationContainer>
-          {searchedBreeds.length > 0 && (
+          {searchedBreeds && searchedBreeds.length > 0 && (
             <TextSpan className="mb-2">
               Search results for: <BoldText>{term}</BoldText>
             </TextSpan>
           )}
           <div className="-ml-5 flex flex-col self-center sm:hidden">
-            {searchedBreeds.map((breed) => (
-              <PetImage key={breed.image.url} url={breed.image.url}>
-                <Link href={`/breeds/${breed.id}`}>
-                  <Button className="absolute left-14 top-20 z-20 mt-20 h-[2.125rem] w-[11.25rem] dark:bg-zinc-800">
-                    {breed.name}
-                  </Button>
-                </Link>
-              </PetImage>
-            ))}
+            {searchedBreeds &&
+              searchedBreeds.map(
+                (breed) =>
+                  breed.image?.url && (
+                    <PetImage key={breed.image.url} url={breed.image.url}>
+                      <Link href={`/breeds/${breed.id}`}>
+                        <Button className="absolute left-14 top-20 z-20 mt-20 h-[2.125rem] w-[11.25rem] dark:bg-zinc-800">
+                          {breed.name}
+                        </Button>
+                      </Link>
+                    </PetImage>
+                  ),
+              )}
           </div>
-          <SearchGrid images={searchedBreeds} />
+          <SearchGrid images={searchedBreeds ?? []} />
         </ActionsContainer>
       </RightSectionContainer>
     </Container>

@@ -3,7 +3,8 @@
 import { useState, type ChangeEvent } from "react";
 import Image from "next/image";
 
-import { BASE_URL, headers } from "@/lib/constants";
+import { PRIVACY_URL } from "@/lib/constants";
+import { useUploadImageMutation } from "@/hooks/mutation/use-upload-image-mutation";
 import CloseButton from "@/components/modal/close-button";
 import UploadBackground from "@/components/modal/upload-background";
 import UploadPhotoButton from "@/components/modal/upload-photo-button";
@@ -17,43 +18,30 @@ export default function Modal({
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
-  const [isUploading, setIsUploading] = useState(false);
-  const [isResponseOk, setIsResponseOk] = useState<boolean | null>(null);
+
+  const handleSuccess = () => {
+    setSelectedImage(null);
+  };
+
+  const { mutate, isPending, isError, isSuccess } = useUploadImageMutation({
+    onSuccess: handleSuccess,
+  });
 
   const handleClose = () => {
     onClose();
     setSelectedImage(null);
-    setIsResponseOk(null);
   };
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedImage(file);
-      setIsUploading(false);
-      setIsResponseOk(null);
       setImageUrl(URL.createObjectURL(file));
     }
   };
 
-  const uploadImage = async () => {
-    setIsUploading(true);
-
-    const formData = new FormData();
-    if (selectedImage) {
-      formData.append("file", selectedImage);
-    }
-
-    const response = await fetch(`${BASE_URL}/images/upload`, {
-      method: "POST",
-      body: formData,
-      headers,
-    });
-
-    setIsResponseOk(response.ok);
-    if (response.ok) {
-      setSelectedImage(null);
-    }
+  const uploadImage = () => {
+    mutate(selectedImage);
   };
 
   if (!isOpen) {
@@ -72,7 +60,7 @@ export default function Modal({
           <a
             className="font-jost text-xl font-normal leading-[1.875rem] text-rose-400"
             target="_blank"
-            href="https://thecatapi.com/privacy"
+            href={PRIVACY_URL}
           >
             {` upload guidelines `}
           </a>
@@ -80,9 +68,7 @@ export default function Modal({
         </span>
         <div
           className={`mt-8 flex h-80 w-[40rem] justify-center self-center rounded-[1.25rem] border-2 border-dashed dark:border-rose-400 dark:border-opacity-20 dark:bg-opacity-5 max-sm:h-[10.46875rem] max-sm:w-[20.9375rem] ${
-            isResponseOk === false
-              ? "border-rose-400 bg-red-100"
-              : "border-red-100 bg-white"
+            isError ? "border-rose-400 bg-red-100" : "border-red-100 bg-white"
           }`}
         >
           <input
@@ -118,7 +104,7 @@ export default function Modal({
             ? `Image File Name: ${selectedImage.name}`
             : "No file selected"}
         </div>
-        {isResponseOk === true && (
+        {isSuccess && (
           <div className="mt-8 flex h-[3.75rem] w-[40rem] items-center self-center rounded-[0.625rem] bg-white dark:bg-opacity-5">
             <div className="ml-5 h-5 w-5 bg-[url('/success-20.svg')] bg-center bg-no-repeat" />
             <div className="ml-2.5 font-jost text-base font-normal leading-normal text-neutral-400">
@@ -126,7 +112,7 @@ export default function Modal({
             </div>
           </div>
         )}
-        {isResponseOk === false && (
+        {isError && (
           <div className="mt-8 flex h-[3.75rem] w-[40rem] items-center self-center rounded-[0.625rem] bg-white dark:bg-opacity-5">
             <div className="ml-5 h-5 w-5 bg-[url('/error-20.svg')] bg-center bg-no-repeat" />
             <div className="ml-2.5 font-jost text-base font-normal leading-normal text-neutral-400">
@@ -134,8 +120,8 @@ export default function Modal({
             </div>
           </div>
         )}
-        {selectedImage && isResponseOk === null && (
-          <UploadPhotoButton isUploading={isUploading} onClick={uploadImage} />
+        {selectedImage && (
+          <UploadPhotoButton isUploading={isPending} onClick={uploadImage} />
         )}
       </div>
     </div>
