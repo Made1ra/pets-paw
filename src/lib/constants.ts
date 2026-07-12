@@ -18,12 +18,8 @@ export const rectangles = [
 
 export const BASE_URL = "https://api.thecatapi.com/v1";
 
-export const PRIVACY_URL = "https://thecatapi.com/privacy";
-
 export const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 export const headers = new Headers({
   "x-api-key": API_KEY ?? "",
 });
-
-export const ONE_MINUTE = 60 * 1000;

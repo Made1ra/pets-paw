@@ -4,7 +4,7 @@ import { useState, useEffect, type ChangeEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { useAllBreedsQuery } from "@/hooks/query/use-all-breeds-query";
+import { BASE_URL, headers } from "@/lib/constants";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -23,7 +23,6 @@ import SortButton from "@/components/sort-button";
 import PetImage from "@/components/pet-image";
 import Button from "@/components/button";
 import Grid from "@/components/grid/grid";
-import { useImagesSearchQuery } from "@/hooks/query/use-images-search-query";
 
 export default function Breeds() {
   const [isSmallScreen, setIsSmallScreen] = useState(
@@ -32,20 +31,12 @@ export default function Breeds() {
   );
   const [breedValue, setBreedValue] = useState("All breeds");
   const [value, setValue] = useState("Limit: 10");
+  const [breeds, setBreeds] = useState<
+    { id: string; name: string; image: { url: string; id: string } }[]
+  >([]);
   const [searchedBreeds, setSearchedBreeds] = useState<
     { id: string; url: string; breeds: { name: string; id: string }[] }[]
   >([]);
-  console.log(searchedBreeds);
-  const { allBreeds = [] } = useAllBreedsQuery();
-
-  const searchedBreed = allBreeds.filter((breed) => breed.name === breedValue);
-
-  const limit = Number(value.replace(/^\D+/g, ""));
-
-  const { searchedImages } = useImagesSearchQuery({
-    breed_ids: searchedBreed[0]?.id,
-    limit,
-  });
 
   const pathname = usePathname();
 
@@ -57,25 +48,49 @@ export default function Breeds() {
     setBreedValue(event.target.value);
   };
 
-  const sortBreedsAlphabetically = () => {
-    setSearchedBreeds(
-      searchedBreeds.toSorted((a, b) => {
+  const sortBreedsAlphabetically = (
+    searchedBreeds: {
+      id: string;
+      url: string;
+      breeds: { name: string; id: string }[];
+    }[],
+  ) => {
+    return searchedBreeds.toSorted(
+      (
+        a: {
+          id: string;
+          url: string;
+          breeds: { name: string; id: string }[];
+        },
+        b,
+      ) => {
         const nameA = a.breeds[0].name.toLowerCase();
         const nameB = b.breeds[0].name.toLowerCase();
-
         return nameA.localeCompare(nameB);
-      }),
+      },
     );
   };
 
-  const sortBreedsReverseAlphabetically = () => {
-    setSearchedBreeds(
-      searchedBreeds.toSorted((a, b) => {
+  const sortBreedsReverseAlphabetically = (
+    searchedBreeds: {
+      id: string;
+      url: string;
+      breeds: { name: string; id: string }[];
+    }[],
+  ) => {
+    return searchedBreeds.toSorted(
+      (
+        a: {
+          id: string;
+          url: string;
+          breeds: { name: string; id: string }[];
+        },
+        b,
+      ) => {
         const nameA = a.breeds[0].name.toLowerCase();
         const nameB = b.breeds[0].name.toLowerCase();
-
         return nameB.localeCompare(nameA);
-      }),
+      },
     );
   };
 
@@ -96,10 +111,39 @@ export default function Breeds() {
   }, []);
 
   useEffect(() => {
-    if (searchedImages) {
-      setSearchedBreeds(searchedImages);
-    }
-  }, [searchedImages]);
+    const fetchData = async () => {
+      const breedResponse = await fetch(`${BASE_URL}/breeds`, {
+        headers,
+      });
+      const breedData = await breedResponse.json();
+      setBreeds(breedData);
+
+      const searchedBreed = breedData.filter(
+        (breed: {
+          id: string;
+          name: string;
+          image: { url: string; id: string };
+        }) => breed.name === breedValue,
+      );
+      let breed_ids = "";
+      if (searchedBreed.length !== 0) {
+        breed_ids = searchedBreed[0].id;
+      }
+
+      const limit = value.replace(/^\D+/g, "");
+
+      const imageResponse = await fetch(
+        `${BASE_URL}/images/search?has_breeds=1&breed_ids=${breed_ids}&limit=${limit}`,
+        {
+          headers,
+        },
+      );
+      const imageData = await imageResponse.json();
+      setSearchedBreeds(imageData);
+    };
+
+    fetchData();
+  }, [value, breedValue]);
 
   return (
     <Container>
@@ -123,7 +167,7 @@ export default function Breeds() {
                   className="dark:bg-opacity-10 dark:text-neutral-400 max-sm:ml-0 max-sm:mt-4 max-sm:w-[18.4375rem]"
                 >
                   <Option>All breeds</Option>
-                  {allBreeds.map((breed) => (
+                  {breeds.map((breed) => (
                     <Option key={breed.name}>{breed.name}</Option>
                   ))}
                 </Select>
@@ -139,8 +183,20 @@ export default function Breeds() {
                     <Option>Limit: 15</Option>
                     <Option>Limit: 20</Option>
                   </Select>
-                  <SortRevertButton onClick={sortBreedsAlphabetically} />
-                  <SortButton onClick={sortBreedsReverseAlphabetically} />
+                  <SortRevertButton
+                    onClick={() =>
+                      setSearchedBreeds(
+                        sortBreedsAlphabetically(searchedBreeds),
+                      )
+                    }
+                  />
+                  <SortButton
+                    onClick={() =>
+                      setSearchedBreeds(
+                        sortBreedsReverseAlphabetically(searchedBreeds),
+                      )
+                    }
+                  />
                 </div>
               </div>
             ) : (
@@ -152,7 +208,7 @@ export default function Breeds() {
                   className="dark:bg-opacity-10 dark:text-neutral-400 max-sm:ml-0 max-sm:mt-4 max-sm:w-[18.4375rem]"
                 >
                   <Option>All breeds</Option>
-                  {allBreeds.map((breed) => (
+                  {breeds.map((breed) => (
                     <Option key={breed.name}>{breed.name}</Option>
                   ))}
                 </Select>
@@ -167,17 +223,25 @@ export default function Breeds() {
                   <Option>Limit: 15</Option>
                   <Option>Limit: 20</Option>
                 </Select>
-                <SortRevertButton onClick={sortBreedsAlphabetically} />
-                <SortButton onClick={sortBreedsReverseAlphabetically} />
+                <SortRevertButton
+                  onClick={() =>
+                    setSearchedBreeds(sortBreedsAlphabetically(searchedBreeds))
+                  }
+                />
+                <SortButton
+                  onClick={() =>
+                    setSearchedBreeds(
+                      sortBreedsReverseAlphabetically(searchedBreeds),
+                    )
+                  }
+                />
               </>
             )}
           </NavigationContainer>
           <div className="-ml-5 flex flex-col self-center sm:hidden">
             {searchedBreeds.map((breed) => (
               <PetImage key={breed.url} url={breed.url}>
-                <Link
-                  href={searchedBreeds ? `/breeds/${breed.breeds[0].id}` : ""}
-                >
+                <Link href={`/breeds/${breed.breeds[0].id}`}>
                   <Button className="absolute left-14 top-20 z-20 mt-20 h-[2.125rem] w-[11.25rem] dark:bg-zinc-800">
                     {breed.breeds[0].name}
                   </Button>

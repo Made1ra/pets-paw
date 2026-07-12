@@ -1,11 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 
-import { useImagesSearchQuery } from "@/hooks/query/use-images-search-query";
+import { BASE_URL, headers } from "@/lib/constants";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -26,11 +27,38 @@ import "@/app/breeds/[id]/swiper.css";
 export default function Breed() {
   const { id } = useParams();
 
-  const { isLoading, searchedImages = [] } = useImagesSearchQuery({
-    has_breeds: 1,
-    limit: 5,
-    breed_ids: id as string,
-  });
+  const [searchedBreeds, setSearchedBreeds] = useState<
+    {
+      id: string;
+      url: string;
+      breeds: {
+        id: string;
+        name: string;
+        description: string;
+        temperament: string;
+        origin: string;
+        weight: {
+          metric: string;
+        };
+        life_span: string;
+      }[];
+    }[]
+  >([]);
+
+  useEffect(() => {
+    const getBreed = async () => {
+      const response = await fetch(
+        `${BASE_URL}/images/search?has_breeds=1&breed_ids=${id}&limit=5`,
+        {
+          headers,
+        },
+      );
+      const data = await response.json();
+      setSearchedBreeds(data);
+    };
+
+    getBreed();
+  }, [id]);
 
   return (
     <Container>
@@ -53,7 +81,7 @@ export default function Breed() {
               </div>
             </div>
           </NavigationContainer>
-          {isLoading ? (
+          {!searchedBreeds.length ? (
             <Loader />
           ) : (
             <>
@@ -65,12 +93,12 @@ export default function Breed() {
                 grabCursor
                 modules={[Pagination]}
               >
-                {searchedImages.slice(0, 5).map((searchedImage) => (
-                  <SwiperSlide key={searchedImage.url}>
+                {searchedBreeds.slice(0, 5).map((breed) => (
+                  <SwiperSlide key={breed.url}>
                     <Image
                       className="rounded-[1.25rem]"
-                      src={searchedImage.url}
-                      alt={searchedImage.breeds[0].name}
+                      src={breed.url}
+                      alt={breed.breeds[0].name}
                       fill
                       sizes="100vw"
                     />
@@ -78,12 +106,12 @@ export default function Breed() {
                 ))}
               </Swiper>
               <PetInfo
-                name={searchedImages[0].breeds[0].name}
-                description={searchedImages[0].breeds[0].description}
-                temperament={searchedImages[0].breeds[0].temperament}
-                origin={searchedImages[0].breeds[0].origin}
-                weight={searchedImages[0].breeds[0].weight.metric}
-                lifeSpan={searchedImages[0].breeds[0].life_span}
+                name={searchedBreeds[0].breeds[0].name}
+                description={searchedBreeds[0].breeds[0].description}
+                temperament={searchedBreeds[0].breeds[0].temperament}
+                origin={searchedBreeds[0].breeds[0].origin}
+                weight={searchedBreeds[0].breeds[0].weight.metric}
+                lifeSpan={searchedBreeds[0].breeds[0].life_span}
               />
             </>
           )}

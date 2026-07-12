@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-import { useImagesSearchQuery } from "@/hooks/query/use-images-search-query";
+import { BASE_URL, headers } from "@/lib/constants";
 import { useLogStore } from "@/lib/stores/log";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
@@ -25,27 +25,45 @@ import ActionMessage from "@/components/action-message";
 export default function Voting() {
   const logs = useLogStore((state) => state.logs);
 
+  const [randomImage, setRandomImage] = useState<{
+    name: string;
+    url: string;
+    id: string;
+  } | null>(null);
+
   const pathname = usePathname();
 
-  const isVoting = pathname === "/voting";
-
-  const { searchedImages, refetch } = useImagesSearchQuery({
-    has_breeds: 1,
-    limit: 1,
-  });
-
-  const randomImage = searchedImages?.[0];
-
-  const handleLikeDislikeClick = () => {
-    refetch();
+  const handleLikeDislikeClick = async () => {
+    const response = await fetch(
+      `${BASE_URL}/images/search?has_breeds=1&limit=1`,
+      {
+        headers,
+      },
+    );
+    const data = await response.json();
+    setRandomImage(data[0] || null);
   };
+
+  useEffect(() => {
+    const getRandomImage = async () => {
+      const response = await fetch(
+        `${BASE_URL}/images/search?has_breeds=1&limit=1`,
+        {
+          headers,
+        },
+      );
+      const data = await response.json();
+      setRandomImage(data[0] || null);
+    };
+    getRandomImage();
+  }, []);
 
   return (
     <Container>
-      <LeftSection isActive={isVoting ? 1 : 4} />
+      <LeftSection isActive={pathname === "/voting" ? 1 : 4} />
       <RightSectionContainer>
         <LinkContainer>
-          <Burger isActive={isVoting ? 1 : 4} />
+          <Burger isActive={pathname === "/voting" ? 1 : 4} />
           <SearchBar />
           <Smiles />
         </LinkContainer>
@@ -77,9 +95,9 @@ export default function Voting() {
           {logs.length > 0 &&
             logs
               .toReversed()
-              .map((log, index) => (
+              .map((log, i) => (
                 <ActionMessage
-                  key={index}
+                  key={i}
                   reference_image_id={log.reference_image_id}
                   category={log.category}
                   dateOfEditing={log.dateOfEditing}
