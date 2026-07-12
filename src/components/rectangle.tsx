@@ -21,13 +21,7 @@ export default function Rectangle({
           <Image src={url} alt="Vote table" width={100} height={125} />
         )}
         {url === "/pet-breeds.svg" && (
-          <Image
-            src={url}
-            alt="Pet breeds"
-            width={117}
-            height={163}
-            priority={true}
-          />
+          <Image src={url} alt="Pet breeds" width={117} height={163} />
         )}
         {url === "/images-search.svg" && (
           <Image src={url} alt="Images search" width={112} height={190} />
