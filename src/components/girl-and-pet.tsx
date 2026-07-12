@@ -10,7 +10,6 @@ export default function GirlAndPet() {
         alt="Girl and pet"
         width={775}
         height={900}
-        priority={true}
       />
     </div>
   );

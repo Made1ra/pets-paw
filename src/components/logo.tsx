@@ -6,13 +6,7 @@ export default function Logo() {
     <Link href="/">
       <div className="inline-flex h-6 w-[6.635rem] items-center justify-center gap-[0.493125rem] pr-[0.15rem]">
         <div>
-          <Image
-            src="/paw.svg"
-            alt="Logo"
-            width={24}
-            height={24}
-            priority={true}
-          />
+          <Image src="/paw.svg" alt="Logo" width={24} height={24} />
         </div>
         <div>
           <svg

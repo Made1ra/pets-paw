@@ -99,7 +99,6 @@ export default function Modal({
                 alt={selectedImage.name}
                 fill
                 sizes="100vw"
-                priority={true}
               />
             ) : (
               <>

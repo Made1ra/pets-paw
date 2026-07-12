@@ -18,13 +18,7 @@ export default function Rectangle({
         style={{ backgroundColor }}
       >
         {url === "/vote-table.svg" && (
-          <Image
-            src={url}
-            alt="Vote table"
-            width={100}
-            height={125}
-            priority={true}
-          />
+          <Image src={url} alt="Vote table" width={100} height={125} />
         )}
         {url === "/pet-breeds.svg" && (
           <Image
@@ -36,13 +30,7 @@ export default function Rectangle({
           />
         )}
         {url === "/images-search.svg" && (
-          <Image
-            src={url}
-            alt="Images search"
-            width={112}
-            height={190}
-            priority={true}
-          />
+          <Image src={url} alt="Images search" width={112} height={190} />
         )}
       </div>
     </div>

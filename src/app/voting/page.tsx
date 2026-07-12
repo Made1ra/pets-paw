@@ -81,7 +81,6 @@ export default function Voting() {
                   alt="Cat image"
                   fill
                   sizes="100vw"
-                  priority={true}
                 />
               </div>
             )}
