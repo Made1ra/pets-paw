@@ -26,17 +26,15 @@ export default function ActionMessage({
         </span>
       </div>
       <div className="flex items-start justify-start">
-        <>
-          {category === Category.Likes && (
-            <div className="h-5 w-5 flex-shrink-0 bg-[url('/like-color-20.svg')] bg-center bg-no-repeat" />
-          )}
-          {category === Category.Favourites && (
-            <div className="h-5 w-5 flex-shrink-0 bg-[url('/fav-color-20.svg')] bg-center bg-no-repeat" />
-          )}
-          {category === Category.Dislikes && (
-            <div className="h-5 w-5 flex-shrink-0 bg-[url('/dislike-color-20.svg')] bg-center bg-no-repeat" />
-          )}
-        </>
+        {category === Category.Likes && (
+          <div className="h-5 w-5 flex-shrink-0 bg-[url('/like-color-20.svg')] bg-center bg-no-repeat" />
+        )}
+        {category === Category.Favourites && (
+          <div className="h-5 w-5 flex-shrink-0 bg-[url('/fav-color-20.svg')] bg-center bg-no-repeat" />
+        )}
+        {category === Category.Dislikes && (
+          <div className="h-5 w-5 flex-shrink-0 bg-[url('/dislike-color-20.svg')] bg-center bg-no-repeat" />
+        )}
       </div>
     </div>
   );
