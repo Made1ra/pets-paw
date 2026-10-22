@@ -37,7 +37,7 @@ export default function VotedGrid({
         i % 2 === 0 ? (
           <div
             className="relative h-[28.75rem] w-[40rem]"
-            key={crypto.randomUUID()}
+            key={gridPattern[i][0].reference_image_id}
           >
             <PetImage
               className={`absolute left-0 top-0 h-[18.75rem] w-[12.5rem] rounded-3xl bg-stone-300 ${!gridPattern[i][0] && "invisible"}`}
@@ -108,7 +108,7 @@ export default function VotedGrid({
         ) : (
           <div
             className="relative h-[28.75rem] w-[40rem] origin-top-left rotate-180"
-            key={crypto.randomUUID()}
+            key={gridPattern[i][0].reference_image_id}
           >
             <PetImage
               className={`absolute -left-8 -top-8 h-[8.75rem] w-[12.5rem] origin-top-left rotate-180 rounded-3xl bg-stone-300 ${!gridPattern[i][0] && "invisible"}`}

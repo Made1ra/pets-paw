@@ -5,7 +5,7 @@ import type { Log } from "@/lib/types";
 
 type LogState = {
   logs: Log[];
-  addLog: (log: Log) => void;
+  addLog: (log: Omit<Log, "id">) => void;
 };
 
 export const useLogStore = create<LogState>()(
@@ -15,7 +15,7 @@ export const useLogStore = create<LogState>()(
 
       addLog: (log) =>
         set((state) => ({
-          logs: [...state.logs, log],
+          logs: [...state.logs, { ...log, id: crypto.randomUUID() }],
         })),
     }),
     {

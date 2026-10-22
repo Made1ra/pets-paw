@@ -31,32 +31,49 @@ export default function Breed() {
     {
       id: string;
       url: string;
-      breeds: {
-        id: string;
-        name: string;
-        description: string;
-        temperament: string;
-        origin: string;
-        weight: {
-          metric: string;
-        };
-        life_span: string;
-      }[];
+      breeds: { id: string; name: string }[];
     }[]
   >([]);
+  const [breedInfo, setBreedInfo] = useState<{
+    name: string;
+    description: string;
+    temperament: string;
+    origin: string;
+    weight: { metric: string };
+    life_span: string;
+  } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getBreed = async () => {
-      const response = await fetch(
-        `${BASE_URL}/images/search?has_breeds=1&breed_ids=${id}&limit=5`,
-        {
-          headers,
-        },
-      );
-      const data = await response.json();
-      setSearchedBreeds(data);
+      try {
+        const [breedResponse, imageResponse] = await Promise.all([
+          fetch(`${BASE_URL}/breeds/${id}`, { headers }),
+          fetch(
+            `${BASE_URL}/images/search?has_breeds=1&breed_ids=${id}&limit=5`,
+            { headers },
+          ),
+        ]);
+        const [breedData, imageData] = await Promise.all([
+          breedResponse.ok ? breedResponse.json() : null,
+          imageResponse.ok ? imageResponse.json() : [],
+        ]);
+        setBreedInfo(breedData);
+        setSearchedBreeds(
+          Array.isArray(imageData)
+            ? imageData.filter((image) => image.breeds?.length)
+            : [],
+        );
+      } catch {
+        setBreedInfo(null);
+        setSearchedBreeds([]);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
+    setIsLoading(true);
+    setBreedInfo(null);
     getBreed();
   }, [id]);
 
@@ -81,8 +98,12 @@ export default function Breed() {
               </div>
             </div>
           </NavigationContainer>
-          {!searchedBreeds.length ? (
+          {isLoading ? (
             <Loader />
+          ) : !breedInfo || searchedBreeds.length === 0 ? (
+            <p className="font-jost text-base text-neutral-400">
+              Breed information is unavailable. Check your Cat API key.
+            </p>
           ) : (
             <>
               <Swiper
@@ -94,11 +115,11 @@ export default function Breed() {
                 modules={[Pagination]}
               >
                 {searchedBreeds.slice(0, 5).map((breed) => (
-                  <SwiperSlide key={breed.url}>
+                  <SwiperSlide key={breed.id}>
                     <Image
                       className="rounded-[1.25rem]"
                       src={breed.url}
-                      alt={breed.breeds[0].name}
+                      alt={breed.breeds[0]?.name ?? "Cat"}
                       fill
                       sizes="100vw"
                     />
@@ -106,12 +127,12 @@ export default function Breed() {
                 ))}
               </Swiper>
               <PetInfo
-                name={searchedBreeds[0].breeds[0].name}
-                description={searchedBreeds[0].breeds[0].description}
-                temperament={searchedBreeds[0].breeds[0].temperament}
-                origin={searchedBreeds[0].breeds[0].origin}
-                weight={searchedBreeds[0].breeds[0].weight.metric}
-                lifeSpan={searchedBreeds[0].breeds[0].life_span}
+                name={breedInfo.name}
+                description={breedInfo.description}
+                temperament={breedInfo.temperament}
+                origin={breedInfo.origin}
+                weight={breedInfo.weight.metric}
+                lifeSpan={breedInfo.life_span}
               />
             </>
           )}

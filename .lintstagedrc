@@ -1,4 +1,4 @@
 {
-  "*.{js,jsx,ts,tsx}": "pnpm lint",
+  "*.{js,jsx,ts,tsx}": "env ESLINT_USE_FLAT_CONFIG=false pnpm exec eslint",
   "*": "pnpm prettier"
 }

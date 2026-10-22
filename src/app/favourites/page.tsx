@@ -58,13 +58,13 @@ export default function Favourites() {
             <SmallLink />
             <LargeTextButton>FAVOURITES</LargeTextButton>
           </NavigationContainer>
-          {!!filteredBreeds.length ? (
+          {filteredBreeds.length === 0 ? (
             <TextSpan>No item found</TextSpan>
           ) : (
             <>
               <div className="-ml-5 flex flex-col self-center sm:hidden">
                 {filteredBreeds.map((breed) => (
-                  <PetImage key={breed.url} url={breed.url}>
+                  <PetImage key={breed.reference_image_id} url={breed.url}>
                     <div
                       onClick={() => handleClick(breed.reference_image_id)}
                       className="absolute z-10 h-10 w-10 rounded-[0.625rem] bg-white bg-[url('/fav-color-20.svg')] bg-center bg-no-repeat hover:bg-rose-400 hover:bg-[url('/fav-full-white-20.svg')]"
@@ -78,9 +78,10 @@ export default function Favourites() {
           {logs.length > 0 &&
             logs
               .toReversed()
-              .map((log, i) => (
+              .map((log) => (
                 <ActionMessage
-                  key={i}
+                  id={log.id}
+                  key={log.id}
                   reference_image_id={log.reference_image_id}
                   category={log.category}
                   dateOfEditing={log.dateOfEditing}

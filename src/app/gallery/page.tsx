@@ -52,7 +52,11 @@ export default function Gallery() {
     }[]
   >([]);
   const [searchedBreeds, setSearchedBreeds] = useState<
-    { url: string; breeds: [{ reference_image_id: string; id: string }] }[]
+    {
+      id: string;
+      url: string;
+      breeds: { reference_image_id: string; id: string }[];
+    }[]
   >([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -88,13 +92,7 @@ export default function Gallery() {
     setValue(event.target.value);
   };
 
-  const handleClick = (url: string) => {
-    const match = url.match(/\/images\/([^/]+)\.\w+$/);
-    let id = "";
-    if (match) {
-      id = match[1];
-    }
-
+  const handleClick = (id: string, url: string) => {
     const filteredBreeds = breeds.find((breed) => breed.url === url);
     if (!filteredBreeds) {
       addBreed({
@@ -128,7 +126,7 @@ export default function Gallery() {
         headers,
       });
       const data = await response.json();
-      setAllBreeds(data);
+      setAllBreeds(Array.isArray(data) ? data : []);
     };
 
     getBreeds();
@@ -169,7 +167,11 @@ export default function Gallery() {
         },
       );
       const data = await response.json();
-      setSearchedBreeds(data);
+      setSearchedBreeds(
+        Array.isArray(data)
+          ? data.map((image) => ({ ...image, breeds: image.breeds ?? [] }))
+          : [],
+      );
     };
 
     if (allBreeds.length !== 0 && shouldBeUpdated) {
@@ -237,7 +239,7 @@ export default function Gallery() {
                   >
                     <Option>None</Option>
                     {allBreeds.map((breed) => (
-                      <Option key={breed.name}>{breed.name}</Option>
+                      <Option key={breed.id}>{breed.name}</Option>
                     ))}
                   </Select>
                 </div>
@@ -262,12 +264,12 @@ export default function Gallery() {
             </div>
             <div className="-ml-5 flex flex-col self-center sm:hidden">
               {searchedBreeds.map((breed) => (
-                <PetImage key={breed.url} url={breed.url}>
+                <PetImage key={breed.id} url={breed.url}>
                   <SmallFavouriteButton
                     isFavourite={
                       undefined !== breeds.find((b) => b.url === breed.url)
                     }
-                    onClick={() => handleClick(breed.url)}
+                    onClick={() => handleClick(breed.id, breed.url)}
                   />
                 </PetImage>
               ))}

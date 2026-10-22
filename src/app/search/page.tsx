@@ -34,7 +34,7 @@ export default function Search() {
 
     const data = await response.json();
     setTerm(searchTerm);
-    setSearchedBreeds(data);
+    setSearchedBreeds(Array.isArray(data) ? data : []);
   };
 
   return (
@@ -58,7 +58,7 @@ export default function Search() {
           )}
           <div className="-ml-5 flex flex-col self-center sm:hidden">
             {searchedBreeds.map((breed) => (
-              <PetImage key={breed.image.url} url={breed.image.url}>
+              <PetImage key={breed.id} url={breed.image.url}>
                 <Link href={`/breeds/${breed.id}`}>
                   <Button className="absolute left-14 top-20 z-20 mt-20 h-[2.125rem] w-[11.25rem] dark:bg-zinc-800">
                     {breed.name}

@@ -44,7 +44,7 @@ export default function Likes() {
             <>
               <div className="-ml-5 flex flex-col self-center sm:hidden">
                 {filteredBreeds.map((breed) => (
-                  <PetImage key={breed.url} url={breed.url} />
+                  <PetImage key={breed.reference_image_id} url={breed.url} />
                 ))}
               </div>
               <VotedGrid type={Category.Likes} images={filteredBreeds} />

@@ -8,6 +8,7 @@ export type Breed = {
 };
 
 export type Log = {
+  id: string;
   reference_image_id: string;
   dateOfEditing: string;
   category: Category;

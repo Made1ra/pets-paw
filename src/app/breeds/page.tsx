@@ -115,7 +115,8 @@ export default function Breeds() {
       const breedResponse = await fetch(`${BASE_URL}/breeds`, {
         headers,
       });
-      const breedData = await breedResponse.json();
+      const responseData = await breedResponse.json();
+      const breedData = Array.isArray(responseData) ? responseData : [];
       setBreeds(breedData);
 
       const searchedBreed = breedData.filter(
@@ -139,7 +140,11 @@ export default function Breeds() {
         },
       );
       const imageData = await imageResponse.json();
-      setSearchedBreeds(imageData);
+      setSearchedBreeds(
+        Array.isArray(imageData)
+          ? imageData.filter((image) => image.breeds?.length)
+          : [],
+      );
     };
 
     fetchData();
@@ -168,7 +173,7 @@ export default function Breeds() {
                 >
                   <Option>All breeds</Option>
                   {breeds.map((breed) => (
-                    <Option key={breed.name}>{breed.name}</Option>
+                    <Option key={breed.id}>{breed.name}</Option>
                   ))}
                 </Select>
                 <div className="max-sm:mt-4 max-sm:flex max-sm:items-center">
@@ -209,7 +214,7 @@ export default function Breeds() {
                 >
                   <Option>All breeds</Option>
                   {breeds.map((breed) => (
-                    <Option key={breed.name}>{breed.name}</Option>
+                    <Option key={breed.id}>{breed.name}</Option>
                   ))}
                 </Select>
                 <Select
@@ -240,10 +245,10 @@ export default function Breeds() {
           </NavigationContainer>
           <div className="-ml-5 flex flex-col self-center sm:hidden">
             {searchedBreeds.map((breed) => (
-              <PetImage key={breed.url} url={breed.url}>
-                <Link href={`/breeds/${breed.breeds[0].id}`}>
+              <PetImage key={breed.id} url={breed.url}>
+                <Link href={`/breeds/${breed.breeds[0]?.id}`}>
                   <Button className="absolute left-14 top-20 z-20 mt-20 h-[2.125rem] w-[11.25rem] dark:bg-zinc-800">
-                    {breed.breeds[0].name}
+                    {breed.breeds[0]?.name}
                   </Button>
                 </Link>
               </PetImage>

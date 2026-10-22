@@ -16,7 +16,10 @@ export const useBreedStore = create<BreedState>()(
 
       addBreed: (breed) =>
         set((state) => ({
-          breeds: state.breeds.includes(breed)
+          breeds: state.breeds.some(
+            (savedBreed) =>
+              savedBreed.reference_image_id === breed.reference_image_id,
+          )
             ? state.breeds
             : [...state.breeds, breed],
         })),

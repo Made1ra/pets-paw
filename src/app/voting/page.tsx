@@ -95,9 +95,10 @@ export default function Voting() {
           {logs.length > 0 &&
             logs
               .toReversed()
-              .map((log, i) => (
+              .map((log) => (
                 <ActionMessage
-                  key={i}
+                  id={log.id}
+                  key={log.id}
                   reference_image_id={log.reference_image_id}
                   category={log.category}
                   dateOfEditing={log.dateOfEditing}
