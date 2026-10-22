@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 
-import { BASE_URL, headers } from "@/lib/constants";
+import { fetcher } from "@/lib/fetcher";
 import Container from "@/components/container";
 import LeftContent from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -21,20 +22,32 @@ import PetImage from "@/components/pet-image";
 import Button from "@/components/button";
 import SearchGrid from "@/components/grid/search-grid";
 
+type BreedSearchResult = {
+  id: string;
+  name: string;
+  image?: { url: string };
+};
+
 export default function Search() {
-  const [searchedBreeds, setSearchedBreeds] = useState<
-    { name: string; image: { url: string }; id: string }[]
-  >([]);
   const [term, setTerm] = useState("");
 
-  const searchBreeds = async (searchTerm: string) => {
-    const response = await fetch(`${BASE_URL}/breeds/search?q=${searchTerm}`, {
-      headers,
-    });
+  const breedsQuery = useQuery({
+    queryKey: ["breed-search", term],
+    queryFn: ({ signal }) => {
+      const params = new URLSearchParams({ q: term });
+      return fetcher<BreedSearchResult[]>(`/breeds/search?${params}`, {
+        signal,
+      });
+    },
+    enabled: term.length > 0,
+  });
+  const searchedBreeds = (breedsQuery.data ?? []).filter(
+    (breed): breed is BreedSearchResult & { image: { url: string } } =>
+      Boolean(breed.image?.url),
+  );
 
-    const data = await response.json();
-    setTerm(searchTerm);
-    setSearchedBreeds(Array.isArray(data) ? data : []);
+  const searchBreeds = (searchTerm: string) => {
+    setTerm(searchTerm.trim());
   };
 
   return (

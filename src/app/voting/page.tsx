@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
 
-import { BASE_URL, headers } from "@/lib/constants";
+import { fetcher } from "@/lib/fetcher";
 import { useLogStore } from "@/lib/stores/log";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
@@ -22,41 +22,33 @@ import ControlsContainer from "@/components/controls-container";
 import Controls from "@/components/controls";
 import ActionMessage from "@/components/action-message";
 
+type VotingImage = {
+  id: string;
+  url: string;
+};
+
 export default function Voting() {
   const logs = useLogStore((state) => state.logs);
 
-  const [randomImage, setRandomImage] = useState<{
-    name: string;
-    url: string;
-    id: string;
-  } | null>(null);
-
   const pathname = usePathname();
 
-  const handleLikeDislikeClick = async () => {
-    const response = await fetch(
-      `${BASE_URL}/images/search?has_breeds=1&limit=1`,
-      {
-        headers,
-      },
-    );
-    const data = await response.json();
-    setRandomImage(data[0] || null);
-  };
+  const imageQuery = useQuery({
+    queryKey: ["voting-image"],
+    queryFn: async ({ signal }) => {
+      const params = new URLSearchParams({ has_breeds: "1", limit: "1" });
+      const images = await fetcher<VotingImage[]>(`/images/search?${params}`, {
+        signal,
+      });
 
-  useEffect(() => {
-    const getRandomImage = async () => {
-      const response = await fetch(
-        `${BASE_URL}/images/search?has_breeds=1&limit=1`,
-        {
-          headers,
-        },
-      );
-      const data = await response.json();
-      setRandomImage(data[0] || null);
-    };
-    getRandomImage();
-  }, []);
+      return images[0] ?? null;
+    },
+  });
+
+  const randomImage = imageQuery.data ?? null;
+
+  const handleLikeDislikeClick = () => {
+    void imageQuery.refetch();
+  };
 
   return (
     <Container>

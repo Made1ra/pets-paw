@@ -2,8 +2,9 @@
 
 import { useState, type ChangeEvent } from "react";
 import Image from "next/image";
+import { useMutation } from "@tanstack/react-query";
 
-import { BASE_URL, headers } from "@/lib/constants";
+import { fetcher } from "@/lib/fetcher";
 import CloseButton from "@/components/modal/close-button";
 import UploadBackground from "@/components/modal/upload-background";
 import UploadPhotoButton from "@/components/modal/upload-photo-button";
@@ -17,44 +18,45 @@ export default function Modal({
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
-  const [isUploading, setIsUploading] = useState(false);
-  const [isResponseOk, setIsResponseOk] = useState<boolean | null>(null);
+  const uploadMutation = useMutation({
+    mutationFn: (file: File) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      return fetcher<unknown>("/images/upload", {
+        method: "POST",
+        body: formData,
+      });
+    },
+    onSuccess: () => setSelectedImage(null),
+  });
 
   const handleClose = () => {
     onClose();
     setSelectedImage(null);
-    setIsResponseOk(null);
+    uploadMutation.reset();
   };
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedImage(file);
-      setIsUploading(false);
-      setIsResponseOk(null);
+      uploadMutation.reset();
       setImageUrl(URL.createObjectURL(file));
     }
   };
 
-  const uploadImage = async () => {
-    setIsUploading(true);
-
-    const formData = new FormData();
+  const uploadImage = () => {
     if (selectedImage) {
-      formData.append("file", selectedImage);
-    }
-
-    const response = await fetch(`${BASE_URL}/images/upload`, {
-      method: "POST",
-      body: formData,
-      headers,
-    });
-
-    setIsResponseOk(response.ok);
-    if (response.ok) {
-      setSelectedImage(null);
+      uploadMutation.mutate(selectedImage);
     }
   };
+
+  let isResponseOk: boolean | null = null;
+  if (uploadMutation.isSuccess) {
+    isResponseOk = true;
+  } else if (uploadMutation.isError) {
+    isResponseOk = false;
+  }
 
   if (!isOpen) {
     return null;
@@ -135,7 +137,10 @@ export default function Modal({
           </div>
         )}
         {selectedImage && isResponseOk === null && (
-          <UploadPhotoButton isUploading={isUploading} onClick={uploadImage} />
+          <UploadPhotoButton
+            isUploading={uploadMutation.isPending}
+            onClick={uploadImage}
+          />
         )}
       </div>
     </div>

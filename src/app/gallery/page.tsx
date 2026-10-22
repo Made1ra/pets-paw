@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { usePathname } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
-import { BASE_URL, headers } from "@/lib/constants";
+import { fetcher } from "@/lib/fetcher";
 import { Category, Action } from "@/lib/enums";
 import { formatDate } from "@/lib/utils/format-date";
 import { useBreedStore } from "@/lib/stores/breed";
@@ -29,6 +30,19 @@ import SmallFavouriteButton from "@/components/small-favourite-button";
 import Grid from "@/components/grid/grid";
 import Modal from "@/components/modal/modal";
 
+type GalleryFilters = {
+  order: string;
+  type: string;
+  breedValue: string;
+  value: string;
+};
+
+type GalleryImage = {
+  id: string;
+  url: string;
+  breeds?: { reference_image_id: string; id: string; name?: string }[];
+};
+
 export default function Gallery() {
   const breeds = useBreedStore((state) => state.breeds);
 
@@ -38,27 +52,55 @@ export default function Gallery() {
 
   const addLog = useLogStore((state) => state.addLog);
 
-  const [shouldBeUpdated, setShouldBeUpdated] = useState(true);
   const [order, setOrder] = useState("Random");
   const [type, setType] = useState("Static");
   const [breedValue, setBreedValue] = useState("None");
   const [value, setValue] = useState("5 items per page");
-  const [allBreeds, setAllBreeds] = useState<
-    {
-      id: string;
-      name: string;
-      reference_image_id: string;
-      image: { url: string; id: string };
-    }[]
-  >([]);
-  const [searchedBreeds, setSearchedBreeds] = useState<
-    {
-      id: string;
-      url: string;
-      breeds: { reference_image_id: string; id: string }[];
-    }[]
-  >([]);
+  const [appliedFilters, setAppliedFilters] = useState<GalleryFilters>({
+    order: "Random",
+    type: "Static",
+    breedValue: "None",
+    value: "5 items per page",
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const breedsQuery = useQuery({
+    queryKey: ["breeds"],
+    queryFn: ({ signal }) =>
+      fetcher<{ id: string; name: string }[]>("/breeds", { signal }),
+  });
+  const allBreeds = breedsQuery.data ?? [];
+  const selectedBreedId =
+    allBreeds.find((breed) => breed.name === appliedFilters.breedValue)?.id ??
+    "";
+  const imagesQuery = useQuery({
+    queryKey: ["gallery-images", appliedFilters, selectedBreedId],
+    queryFn: ({ signal }) => {
+      const breedOrder =
+        appliedFilters.order === "Random"
+          ? "RAND"
+          : appliedFilters.order.toUpperCase();
+      let mimeTypes = "";
+      if (appliedFilters.type === "Static") {
+        mimeTypes = "jpg,png";
+      } else if (appliedFilters.type === "Animated") {
+        mimeTypes = "gif";
+      }
+      const params = new URLSearchParams({
+        has_breeds: "1",
+        breed_ids: selectedBreedId,
+        order: breedOrder,
+        mime_types: mimeTypes,
+        limit: appliedFilters.value.match(/\d+/)?.[0] ?? "5",
+      });
+      return fetcher<GalleryImage[]>(`/images/search?${params}`, { signal });
+    },
+    enabled: breedsQuery.isSuccess,
+  });
+  const searchedBreeds = (imagesQuery.data ?? []).map((image) => ({
+    ...image,
+    breeds: image.breeds ?? [],
+  }));
 
   const pathname = usePathname();
 
@@ -73,7 +115,16 @@ export default function Gallery() {
   };
 
   const handleUploadButtonClick = () => {
-    setShouldBeUpdated(true);
+    const nextFilters = { order, type, breedValue, value };
+    const unchanged =
+      order === appliedFilters.order &&
+      type === appliedFilters.type &&
+      breedValue === appliedFilters.breedValue &&
+      value === appliedFilters.value;
+    setAppliedFilters(nextFilters);
+    if (unchanged) {
+      void imagesQuery.refetch();
+    }
   };
 
   const handleBreedValueChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -119,66 +170,6 @@ export default function Gallery() {
       });
     }
   };
-
-  useEffect(() => {
-    const getBreeds = async () => {
-      const response = await fetch(`${BASE_URL}/breeds`, {
-        headers,
-      });
-      const data = await response.json();
-      setAllBreeds(Array.isArray(data) ? data : []);
-    };
-
-    getBreeds();
-  }, []);
-
-  useEffect(() => {
-    const getBreeds = async () => {
-      const searchedBreed = allBreeds.filter(
-        (breed) => breed.name === breedValue,
-      );
-      let breed_ids = "";
-      if (searchedBreed.length !== 0) {
-        breed_ids = searchedBreed[0].id;
-      }
-
-      let breedOrder = "";
-      if (order === "Random") {
-        breedOrder = "RAND";
-      } else if (order === "Desc") {
-        breedOrder = "DESC";
-      } else if (order === "Asc") {
-        breedOrder = "ASC";
-      }
-
-      let mime_types = "";
-      if (type === "Static") {
-        mime_types = "jpg,png";
-      } else if (type === "Animated") {
-        mime_types = "gif";
-      }
-
-      const limit = value.match(/\d+/g);
-
-      const response = await fetch(
-        `${BASE_URL}/images/search?has_breeds=1&breed_ids=${breed_ids}&order=${breedOrder}&mime_types=${mime_types}&limit=${limit}`,
-        {
-          headers,
-        },
-      );
-      const data = await response.json();
-      setSearchedBreeds(
-        Array.isArray(data)
-          ? data.map((image) => ({ ...image, breeds: image.breeds ?? [] }))
-          : [],
-      );
-    };
-
-    if (allBreeds.length !== 0 && shouldBeUpdated) {
-      getBreeds();
-      setShouldBeUpdated(false);
-    }
-  }, [allBreeds, order, type, breedValue, value, shouldBeUpdated]);
 
   return (
     <>

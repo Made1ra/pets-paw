@@ -32,7 +32,7 @@ export default function SearchBar({
             }
             onKeyDown={(event) => event.key === "Enter" && handleSearch()}
           />
-          <SearchButton onClick={() => handleSearch} />
+          <SearchButton onClick={handleSearch} />
         </div>
       </div>
     </Link>

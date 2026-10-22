@@ -23,3 +23,5 @@ export const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 export const headers = new Headers({
   "x-api-key": API_KEY ?? "",
 });
+
+export const ONE_MINUTE = 60_000;
