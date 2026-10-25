@@ -3,9 +3,8 @@
 import { useState, useEffect, type ChangeEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 
-import { fetcher } from "@/lib/fetcher";
+import { useBreedImagesQuery, useBreedsQuery } from "@/hooks";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -25,7 +24,6 @@ import PetImage from "@/components/pet-image";
 import Button from "@/components/button";
 import Grid from "@/components/grid/grid";
 
-type BreedOption = { id: string; name: string };
 type BreedImage = {
   id: string;
   url: string;
@@ -43,25 +41,15 @@ export default function Breeds() {
     null,
   );
 
-  const breedsQuery = useQuery({
-    queryKey: ["breeds"],
-    queryFn: ({ signal }) => fetcher<BreedOption[]>("/breeds", { signal }),
-  });
+  const breedsQuery = useBreedsQuery();
   const breeds = breedsQuery.data ?? [];
   const selectedBreedId =
     breeds.find((breed) => breed.name === breedValue)?.id ?? "";
-  const imagesQuery = useQuery({
-    queryKey: ["breed-images", selectedBreedId, value],
-    queryFn: ({ signal }) => {
-      const params = new URLSearchParams({
-        has_breeds: "1",
-        breed_ids: selectedBreedId,
-        limit: value.replace(/^\D+/, ""),
-      });
-      return fetcher<BreedImage[]>(`/images/search?${params}`, { signal });
-    },
-    enabled: breedsQuery.isSuccess,
-  });
+  const imagesQuery = useBreedImagesQuery(
+    selectedBreedId,
+    value,
+    breedsQuery.isSuccess,
+  );
   const searchedBreeds = (imagesQuery.data ?? []).filter(
     (image): image is BreedImage & { breeds: { id: string; name: string }[] } =>
       Boolean(image.breeds?.length),

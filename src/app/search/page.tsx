@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
 
-import { fetcher } from "@/lib/fetcher";
+import { useBreedSearchQuery, type BreedSearchResult } from "@/hooks";
 import Container from "@/components/container";
 import LeftContent from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -22,25 +21,10 @@ import PetImage from "@/components/pet-image";
 import Button from "@/components/button";
 import SearchGrid from "@/components/grid/search-grid";
 
-type BreedSearchResult = {
-  id: string;
-  name: string;
-  image?: { url: string };
-};
-
 export default function Search() {
   const [term, setTerm] = useState("");
 
-  const breedsQuery = useQuery({
-    queryKey: ["breed-search", term],
-    queryFn: ({ signal }) => {
-      const params = new URLSearchParams({ q: term });
-      return fetcher<BreedSearchResult[]>(`/breeds/search?${params}`, {
-        signal,
-      });
-    },
-    enabled: term.length > 0,
-  });
+  const breedsQuery = useBreedSearchQuery(term);
   const searchedBreeds = (breedsQuery.data ?? []).filter(
     (breed): breed is BreedSearchResult & { image: { url: string } } =>
       Boolean(breed.image?.url),

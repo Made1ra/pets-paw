@@ -2,9 +2,12 @@
 
 import { useState, type ChangeEvent } from "react";
 import { usePathname } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 
-import { fetcher } from "@/lib/fetcher";
+import {
+  useBreedsQuery,
+  useGalleryImagesQuery,
+  type GalleryFilters,
+} from "@/hooks";
 import { Category, Action } from "@/lib/enums";
 import { formatDate } from "@/lib/utils/format-date";
 import { useBreedStore } from "@/lib/stores/breed";
@@ -29,13 +32,6 @@ import PetImage from "@/components/pet-image";
 import SmallFavouriteButton from "@/components/small-favourite-button";
 import Grid from "@/components/grid/grid";
 import Modal from "@/components/modal/modal";
-
-type GalleryFilters = {
-  order: string;
-  type: string;
-  breedValue: string;
-  value: string;
-};
 
 type GalleryImage = {
   id: string;
@@ -64,40 +60,16 @@ export default function Gallery() {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const breedsQuery = useQuery({
-    queryKey: ["breeds"],
-    queryFn: ({ signal }) =>
-      fetcher<{ id: string; name: string }[]>("/breeds", { signal }),
-  });
+  const breedsQuery = useBreedsQuery();
   const allBreeds = breedsQuery.data ?? [];
   const selectedBreedId =
     allBreeds.find((breed) => breed.name === appliedFilters.breedValue)?.id ??
     "";
-  const imagesQuery = useQuery({
-    queryKey: ["gallery-images", appliedFilters, selectedBreedId],
-    queryFn: ({ signal }) => {
-      const breedOrder =
-        appliedFilters.order === "Random"
-          ? "RAND"
-          : appliedFilters.order.toUpperCase();
-      let mimeTypes = "";
-      if (appliedFilters.type === "Static") {
-        mimeTypes = "jpg,png";
-      } else if (appliedFilters.type === "Animated") {
-        mimeTypes = "gif";
-      }
-
-      const params = new URLSearchParams({
-        has_breeds: "1",
-        breed_ids: selectedBreedId,
-        order: breedOrder,
-        mime_types: mimeTypes,
-        limit: appliedFilters.value.match(/\d+/)?.[0] ?? "5",
-      });
-      return fetcher<GalleryImage[]>(`/images/search?${params}`, { signal });
-    },
-    enabled: breedsQuery.isSuccess,
-  });
+  const imagesQuery = useGalleryImagesQuery(
+    appliedFilters,
+    selectedBreedId,
+    breedsQuery.isSuccess,
+  );
   const searchedBreeds = (imagesQuery.data ?? []).map((image) => ({
     ...image,
     breeds: image.breeds ?? [],

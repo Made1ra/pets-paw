@@ -2,9 +2,8 @@
 
 import { useState, type ChangeEvent } from "react";
 import Image from "next/image";
-import { useMutation } from "@tanstack/react-query";
 
-import { fetcher } from "@/lib/fetcher";
+import { useUploadImageMutation } from "@/hooks";
 import CloseButton from "@/components/modal/close-button";
 import UploadBackground from "@/components/modal/upload-background";
 import UploadPhotoButton from "@/components/modal/upload-photo-button";
@@ -18,17 +17,7 @@ export default function Modal({
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState("");
-  const uploadMutation = useMutation({
-    mutationFn: (file: File) => {
-      const formData = new FormData();
-      formData.append("file", file);
-      return fetcher<unknown>("/images/upload", {
-        method: "POST",
-        body: formData,
-      });
-    },
-    onSuccess: () => setSelectedImage(null),
-  });
+  const uploadMutation = useUploadImageMutation(() => setSelectedImage(null));
 
   const handleClose = () => {
     onClose();

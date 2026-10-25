@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "@/hooks/use-theme";
+import { useTheme } from "@/hooks";
 import Eye from "@/components/eye";
 import ToggleButton from "@/components/theme-switcher/toggle-button";
 

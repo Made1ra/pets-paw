@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "@/hooks/use-theme";
+import { useTheme } from "@/hooks";
 
 export default function UploadBackground() {
   const { theme } = useTheme();

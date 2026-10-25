@@ -4,9 +4,8 @@ import { useParams } from "next/navigation";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import { useQuery } from "@tanstack/react-query";
 
-import { fetcher } from "@/lib/fetcher";
+import { useBreedDetailImagesQuery, useBreedDetailQuery } from "@/hooks";
 import Container from "@/components/container";
 import LeftSection from "@/components/left-section";
 import RightSectionContainer from "@/components/right-section-container";
@@ -26,35 +25,8 @@ import "@/app/breeds/[id]/swiper.css";
 
 export default function Breed() {
   const { id } = useParams<{ id: string }>();
-  const breedQuery = useQuery({
-    queryKey: ["breed-detail", id],
-    queryFn: ({ signal }) =>
-      fetcher<{
-        name: string;
-        description: string;
-        temperament: string;
-        origin: string;
-        weight: { metric: string };
-        life_span: string;
-      }>(`/breeds/${encodeURIComponent(id)}`, { signal }),
-  });
-  const imagesQuery = useQuery({
-    queryKey: ["breed-detail-images", id],
-    queryFn: ({ signal }) => {
-      const params = new URLSearchParams({
-        has_breeds: "1",
-        breed_ids: id,
-        limit: "5",
-      });
-      return fetcher<
-        {
-          id: string;
-          url: string;
-          breeds?: { id: string; name: string }[];
-        }[]
-      >(`/images/search?${params}`, { signal });
-    },
-  });
+  const breedQuery = useBreedDetailQuery(id);
+  const imagesQuery = useBreedDetailImagesQuery(id);
   const searchedBreeds = imagesQuery.data ?? [];
   const breedInfo = breedQuery.data;
   const isLoading = breedQuery.isLoading || imagesQuery.isLoading;
