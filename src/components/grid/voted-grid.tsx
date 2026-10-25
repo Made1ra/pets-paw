@@ -1,8 +1,7 @@
 import { Category, Action } from "@/lib/enums";
 import type { Breed } from "@/lib/types";
 import { formatDate } from "@/lib/utils/format-date";
-import { useBreedStore } from "@/lib/stores/breed";
-import { useLogStore } from "@/lib/stores/log";
+import { useBreedStore, useLogStore } from "@/lib/stores";
 import { PetImage } from "@/components";
 
 export default function VotedGrid({

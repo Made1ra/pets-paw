@@ -10,8 +10,7 @@ import {
 } from "@/hooks";
 import { Category, Action } from "@/lib/enums";
 import { formatDate } from "@/lib/utils/format-date";
-import { useBreedStore } from "@/lib/stores/breed";
-import { useLogStore } from "@/lib/stores/log";
+import { useBreedStore, useLogStore } from "@/lib/stores";
 import {
   ActionsContainer,
   Burger,

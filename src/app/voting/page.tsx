@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 import { useVotingImageQuery } from "@/hooks";
-import { useLogStore } from "@/lib/stores/log";
+import { useLogStore } from "@/lib/stores";
 import {
   ActionMessage,
   ActionsContainer,

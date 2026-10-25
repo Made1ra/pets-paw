@@ -1,8 +1,7 @@
 import Link from "next/link";
 
 import { Category, Action } from "@/lib/enums";
-import { useBreedStore } from "@/lib/stores/breed";
-import { useLogStore } from "@/lib/stores/log";
+import { useBreedStore, useLogStore } from "@/lib/stores";
 import { formatDate } from "@/lib/utils/format-date";
 import { Button, PetImage, SmallFavouriteButton } from "@/components";
 

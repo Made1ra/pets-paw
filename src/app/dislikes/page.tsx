@@ -1,7 +1,7 @@
 "use client";
 
 import { Category } from "@/lib/enums";
-import { useBreedStore } from "@/lib/stores/breed";
+import { useBreedStore } from "@/lib/stores";
 import {
   ActionsContainer,
   Burger,
