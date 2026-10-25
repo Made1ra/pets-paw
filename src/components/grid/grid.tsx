@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Category, Action } from "@/lib/enums";
 import { useBreedStore, useLogStore } from "@/lib/stores";
-import { formatDate } from "@/lib/utils/format-date";
+import { formatDate } from "@/lib/utils";
 import { Button, PetImage, SmallFavouriteButton } from "@/components";
 
 export default function Grid({

@@ -1,6 +1,6 @@
 import { Category, Action } from "@/lib/enums";
 import type { Breed } from "@/lib/types";
-import { formatDate } from "@/lib/utils/format-date";
+import { formatDate } from "@/lib/utils";
 import { useBreedStore, useLogStore } from "@/lib/stores";
 import { PetImage } from "@/components";
 

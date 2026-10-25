@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { fetcher } from "@/lib/fetcher";
+import { fetcher } from "@/lib/utils";
 
 export function useUploadImageMutation(onSuccess: () => void) {
   return useMutation({

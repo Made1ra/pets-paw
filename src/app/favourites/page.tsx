@@ -1,7 +1,7 @@
 "use client";
 
 import { Category, Action } from "@/lib/enums";
-import { formatDate } from "@/lib/utils/format-date";
+import { formatDate } from "@/lib/utils";
 import { useBreedStore, useLogStore } from "@/lib/stores";
 import {
   ActionMessage,

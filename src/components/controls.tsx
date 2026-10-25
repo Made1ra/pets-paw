@@ -1,6 +1,6 @@
 import { Category, Action } from "@/lib/enums";
 import { useBreedStore, useLogStore } from "@/lib/stores";
-import { formatDate } from "@/lib/utils/format-date";
+import { formatDate } from "@/lib/utils";
 import { DislikeButton, FavouriteButton, LikeButton } from "@/components";
 
 function Controls({
