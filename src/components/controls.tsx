@@ -23,52 +23,52 @@ function Controls({
 
   const addLog = useLogStore((state) => state.addLog);
 
-  const handleClick = (category: Category, reference_image_id: string) => {
+  const handleClick = (category: Category, referenceImageId: string) => {
     const filteredBreeds = breeds.find(
-      (breed) => breed.reference_image_id === reference_image_id,
+      (breed) => breed.reference_image_id === referenceImageId,
     );
     if (!filteredBreeds) {
       addBreed({
-        reference_image_id,
+        reference_image_id: referenceImageId,
         dateOfEditing: formatDate(new Date()),
         category,
         url,
       });
 
       addLog({
-        reference_image_id,
+        reference_image_id: referenceImageId,
         dateOfEditing: formatDate(new Date()),
         category,
         action: Action.AddedTo,
       });
     } else if (filteredBreeds && filteredBreeds.category !== category) {
-      removeBreed(reference_image_id);
+      removeBreed(referenceImageId);
 
       addLog({
-        reference_image_id,
+        reference_image_id: referenceImageId,
         dateOfEditing: formatDate(new Date()),
         category,
         action: Action.RemovedFrom,
       });
 
       addBreed({
-        reference_image_id,
+        reference_image_id: referenceImageId,
         dateOfEditing: formatDate(new Date()),
         category,
         url,
       });
 
       addLog({
-        reference_image_id,
+        reference_image_id: referenceImageId,
         dateOfEditing: formatDate(new Date()),
         category: category,
         action: Action.AddedTo,
       });
     } else {
-      removeBreed(reference_image_id);
+      removeBreed(referenceImageId);
 
       addLog({
-        reference_image_id,
+        reference_image_id: referenceImageId,
         dateOfEditing: formatDate(new Date()),
         category: category,
         action: Action.RemovedFrom,

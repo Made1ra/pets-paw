@@ -21,10 +21,10 @@ export default function VotedGrid({
     gridPattern.push(images.slice(i, i + gridSize));
   }
 
-  const handleClick = (reference_image_id: string) => {
-    removeBreed(reference_image_id);
+  const handleClick = (referenceImageId: string) => {
+    removeBreed(referenceImageId);
     addLog({
-      reference_image_id,
+      reference_image_id: referenceImageId,
       dateOfEditing: formatDate(new Date()),
       category: Category.Favourites,
       action: Action.RemovedFrom,
