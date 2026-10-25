@@ -61,6 +61,7 @@ export default function Breeds() {
         const comparison = (a.breeds?.[0]?.name ?? "").localeCompare(
           b.breeds?.[0]?.name ?? "",
         );
+
         return sortDirection === "asc" ? comparison : -comparison;
       })
     : searchedBreeds;
