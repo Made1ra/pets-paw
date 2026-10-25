@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Menu from "@/components/menu/menu";
+import { Menu } from "@/components";
 
 export default function Burger({ isActive }: { isActive: number }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

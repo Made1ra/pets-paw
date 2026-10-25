@@ -1,8 +1,7 @@
 "use client";
 
 import { useTheme } from "@/hooks";
-import Eye from "@/components/eye";
-import ToggleButton from "@/components/theme-switcher/toggle-button";
+import { Eye, ToggleButton } from "@/components";
 
 export default function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();

@@ -4,9 +4,7 @@ import { useState, type ChangeEvent } from "react";
 import Image from "next/image";
 
 import { useUploadImageMutation } from "@/hooks";
-import CloseButton from "@/components/modal/close-button";
-import UploadBackground from "@/components/modal/upload-background";
-import UploadPhotoButton from "@/components/modal/upload-photo-button";
+import { CloseButton, UploadBackground, UploadPhotoButton } from "@/components";
 
 export default function Modal({
   isOpen,

@@ -2,8 +2,7 @@
 
 import { useState, type ChangeEvent } from "react";
 import Link from "next/link";
-import TextInput from "@/components/text-input";
-import SearchButton from "@/components/search-button";
+import { SearchButton, TextInput } from "@/components";
 
 export default function SearchBar({
   onSearch,

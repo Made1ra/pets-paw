@@ -6,18 +6,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 
 import { useBreedDetailImagesQuery, useBreedDetailQuery } from "@/hooks";
-import Container from "@/components/container";
-import LeftSection from "@/components/left-section";
-import RightSectionContainer from "@/components/right-section-container";
-import LinkContainer from "@/components/link-container";
-import Burger from "@/components/burger/burger";
-import SearchBar from "@/components/search-bar";
-import Smiles from "@/components/smiles";
-import SmallLink from "@/components/small-link";
-import ActionsContainer from "@/components/actions-container";
-import NavigationContainer from "@/components/navigation-container";
-import Loader from "@/components/loader";
-import PetInfo from "@/components/pet-info";
+import {
+  ActionsContainer,
+  Burger,
+  Container,
+  LeftSection,
+  LinkContainer,
+  Loader,
+  NavigationContainer,
+  PetInfo,
+  RightSectionContainer,
+  SearchBar,
+  Smiles,
+  SmallLink,
+} from "@/components";
 
 import "swiper/css";
 import "swiper/css/pagination";

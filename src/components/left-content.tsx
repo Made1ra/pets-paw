@@ -1,6 +1,4 @@
-import Logo from "@/components/logo";
-import ThemeSwitcher from "@/components/theme-switcher/theme-switcher";
-import Welcome from "@/components/welcome";
+import { Logo, ThemeSwitcher, Welcome } from "@/components";
 
 export default function LeftContent({ isActive }: { isActive: number }) {
   return (

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Smile from "@/components/smile";
+import { Smile } from "@/components";
 
 export default function Smiles() {
   const smiles = [

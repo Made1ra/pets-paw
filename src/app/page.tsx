@@ -1,7 +1,4 @@
-import Container from "@/components/container";
-import LeftContent from "@/components/left-content";
-import RightContent from "@/components/right-content";
-import GirlAndPet from "@/components/girl-and-pet";
+import { Container, GirlAndPet, LeftContent, RightContent } from "@/components";
 
 export default function Home() {
   return (

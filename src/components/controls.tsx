@@ -2,9 +2,7 @@ import { Category, Action } from "@/lib/enums";
 import { useBreedStore } from "@/lib/stores/breed";
 import { formatDate } from "@/lib/utils/format-date";
 import { useLogStore } from "@/lib/stores/log";
-import LikeButton from "@/components/like-button";
-import FavouriteButton from "@/components/favourite-button";
-import DislikeButton from "@/components/dislike-button";
+import { DislikeButton, FavouriteButton, LikeButton } from "@/components";
 
 function Controls({
   reference_image_id,

@@ -4,22 +4,24 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { useBreedSearchQuery, type BreedSearchResult } from "@/hooks";
-import Container from "@/components/container";
-import LeftContent from "@/components/left-section";
-import RightSectionContainer from "@/components/right-section-container";
-import LinkContainer from "@/components/link-container";
-import TextSpan from "@/components/text-span";
-import BoldText from "@/components/bold-text";
-import Burger from "@/components/burger/burger";
-import SearchBar from "@/components/search-bar";
-import Smiles from "@/components/smiles";
-import ActionsContainer from "@/components/actions-container";
-import NavigationContainer from "@/components/navigation-container";
-import SmallLink from "@/components/small-link";
-import LargeTextButton from "@/components/large-text-button";
-import PetImage from "@/components/pet-image";
-import Button from "@/components/button";
-import SearchGrid from "@/components/grid/search-grid";
+import {
+  ActionsContainer,
+  BoldText,
+  Burger,
+  Button,
+  Container,
+  LargeTextButton,
+  LeftSection as LeftContent,
+  LinkContainer,
+  NavigationContainer,
+  PetImage,
+  RightSectionContainer,
+  SearchBar,
+  SearchGrid,
+  Smiles,
+  SmallLink,
+  TextSpan,
+} from "@/components";
 
 export default function Search() {
   const [term, setTerm] = useState("");

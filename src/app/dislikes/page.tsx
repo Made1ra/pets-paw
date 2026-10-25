@@ -2,20 +2,22 @@
 
 import { Category } from "@/lib/enums";
 import { useBreedStore } from "@/lib/stores/breed";
-import Container from "@/components/container";
-import LeftSection from "@/components/left-section";
-import RightSectionContainer from "@/components/right-section-container";
-import LinkContainer from "@/components/link-container";
-import Burger from "@/components/burger/burger";
-import SearchBar from "@/components/search-bar";
-import Smiles from "@/components/smiles";
-import ActionsContainer from "@/components/actions-container";
-import NavigationContainer from "@/components/navigation-container";
-import SmallLink from "@/components/small-link";
-import LargeTextButton from "@/components/large-text-button";
-import TextSpan from "@/components/text-span";
-import PetImage from "@/components/pet-image";
-import VotedGrid from "@/components/grid/voted-grid";
+import {
+  ActionsContainer,
+  Burger,
+  Container,
+  LargeTextButton,
+  LeftSection,
+  LinkContainer,
+  NavigationContainer,
+  PetImage,
+  RightSectionContainer,
+  SearchBar,
+  Smiles,
+  SmallLink,
+  TextSpan,
+  VotedGrid,
+} from "@/components";
 
 export default function Dislikes() {
   const breeds = useBreedStore((state) => state.breeds);

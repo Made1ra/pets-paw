@@ -1,9 +1,7 @@
 import Link from "next/link";
 
 import { rectangles } from "@/lib/constants";
-import Rectangle from "@/components/rectangle";
-import TextButton from "@/components/text-button";
-import CloseButton from "@/components/modal/close-button";
+import { CloseButton, Rectangle, TextButton } from "@/components";
 
 export default function Menu({
   isActive,

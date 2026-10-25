@@ -12,26 +12,28 @@ import { Category, Action } from "@/lib/enums";
 import { formatDate } from "@/lib/utils/format-date";
 import { useBreedStore } from "@/lib/stores/breed";
 import { useLogStore } from "@/lib/stores/log";
-import Container from "@/components/container";
-import LeftSection from "@/components/left-section";
-import RightSectionContainer from "@/components/right-section-container";
-import LinkContainer from "@/components/link-container";
-import Burger from "@/components/burger/burger";
-import SearchBar from "@/components/search-bar";
-import Smiles from "@/components/smiles";
-import ActionsContainer from "@/components/actions-container";
-import NavigationContainer from "@/components/navigation-container";
-import SmallLink from "@/components/small-link";
-import UploadButton from "@/components/upload-button";
-import Label from "@/components/label";
-import Select from "@/components/select";
-import Option from "@/components/option";
-import LargeTextButton from "@/components/large-text-button";
-import UpdateButton from "@/components/update-button";
-import PetImage from "@/components/pet-image";
-import SmallFavouriteButton from "@/components/small-favourite-button";
-import Grid from "@/components/grid/grid";
-import Modal from "@/components/modal/modal";
+import {
+  ActionsContainer,
+  Burger,
+  Container,
+  Grid,
+  Label,
+  LargeTextButton,
+  LeftSection,
+  LinkContainer,
+  Modal,
+  NavigationContainer,
+  Option,
+  PetImage,
+  RightSectionContainer,
+  SearchBar,
+  Select,
+  Smiles,
+  SmallFavouriteButton,
+  SmallLink,
+  UpdateButton,
+  UploadButton,
+} from "@/components";
 
 type GalleryImage = {
   id: string;

@@ -3,7 +3,7 @@ import type { Breed } from "@/lib/types";
 import { formatDate } from "@/lib/utils/format-date";
 import { useBreedStore } from "@/lib/stores/breed";
 import { useLogStore } from "@/lib/stores/log";
-import PetImage from "@/components/pet-image";
+import { PetImage } from "@/components";
 
 export default function VotedGrid({
   type,

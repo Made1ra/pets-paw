@@ -1,6 +1,5 @@
 import Link from "next/link";
-import PetImage from "@/components/pet-image";
-import Button from "@/components/button";
+import { Button, PetImage } from "@/components";
 
 export default function SearchGrid({
   images,

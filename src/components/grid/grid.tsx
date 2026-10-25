@@ -4,9 +4,7 @@ import { Category, Action } from "@/lib/enums";
 import { useBreedStore } from "@/lib/stores/breed";
 import { useLogStore } from "@/lib/stores/log";
 import { formatDate } from "@/lib/utils/format-date";
-import PetImage from "@/components/pet-image";
-import SmallFavouriteButton from "@/components/small-favourite-button";
-import Button from "@/components/button";
+import { Button, PetImage, SmallFavouriteButton } from "@/components";
 
 export default function Grid({
   type,

@@ -5,21 +5,23 @@ import Image from "next/image";
 
 import { useVotingImageQuery } from "@/hooks";
 import { useLogStore } from "@/lib/stores/log";
-import Container from "@/components/container";
-import LeftSection from "@/components/left-section";
-import RightSectionContainer from "@/components/right-section-container";
-import LinkContainer from "@/components/link-container";
-import Burger from "@/components/burger/burger";
-import SearchBar from "@/components/search-bar";
-import Smiles from "@/components/smiles";
-import ActionsContainer from "@/components/actions-container";
-import NavigationContainer from "@/components/navigation-container";
-import SmallLink from "@/components/small-link";
-import LargeTextButton from "@/components/large-text-button";
-import ImageContainer from "@/components/image-container";
-import ControlsContainer from "@/components/controls-container";
-import Controls from "@/components/controls";
-import ActionMessage from "@/components/action-message";
+import {
+  ActionMessage,
+  ActionsContainer,
+  Burger,
+  Container,
+  Controls,
+  ControlsContainer,
+  ImageContainer,
+  LargeTextButton,
+  LeftSection,
+  LinkContainer,
+  NavigationContainer,
+  RightSectionContainer,
+  SearchBar,
+  Smiles,
+  SmallLink,
+} from "@/components";
 
 export default function Voting() {
   const logs = useLogStore((state) => state.logs);

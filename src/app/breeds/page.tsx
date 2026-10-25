@@ -5,24 +5,26 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { useBreedImagesQuery, useBreedsQuery } from "@/hooks";
-import Container from "@/components/container";
-import LeftSection from "@/components/left-section";
-import RightSectionContainer from "@/components/right-section-container";
-import LinkContainer from "@/components/link-container";
-import Burger from "@/components/burger/burger";
-import SearchBar from "@/components/search-bar";
-import Smiles from "@/components/smiles";
-import ActionsContainer from "@/components/actions-container";
-import NavigationContainer from "@/components/navigation-container";
-import SmallLink from "@/components/small-link";
-import LargeTextButton from "@/components/large-text-button";
-import Select from "@/components/select";
-import Option from "@/components/option";
-import SortRevertButton from "@/components/sort-revert-button";
-import SortButton from "@/components/sort-button";
-import PetImage from "@/components/pet-image";
-import Button from "@/components/button";
-import Grid from "@/components/grid/grid";
+import {
+  ActionsContainer,
+  Burger,
+  Button,
+  Container,
+  Grid,
+  LargeTextButton,
+  LeftSection,
+  LinkContainer,
+  NavigationContainer,
+  Option,
+  PetImage,
+  RightSectionContainer,
+  SearchBar,
+  Select,
+  Smiles,
+  SmallLink,
+  SortButton,
+  SortRevertButton,
+} from "@/components";
 
 type BreedImage = {
   id: string;
