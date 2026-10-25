@@ -86,6 +86,7 @@ export default function Gallery() {
       } else if (appliedFilters.type === "Animated") {
         mimeTypes = "gif";
       }
+
       const params = new URLSearchParams({
         has_breeds: "1",
         breed_ids: selectedBreedId,
