@@ -100,8 +100,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][0] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][0].url)
+                    breeds.find((b) => b.url === gridPattern[i][0].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][0].id, gridPattern[i][0].url)
@@ -123,8 +123,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][1] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][1].url)
+                    breeds.find((b) => b.url === gridPattern[i][1].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][1].id, gridPattern[i][1].url)
@@ -146,8 +146,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][2] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][2].url)
+                    breeds.find((b) => b.url === gridPattern[i][2].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][2].id, gridPattern[i][2].url)
@@ -169,8 +169,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][3] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][3].url)
+                    breeds.find((b) => b.url === gridPattern[i][3].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][3].id, gridPattern[i][3].url)
@@ -192,8 +192,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][4] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][4].url)
+                    breeds.find((b) => b.url === gridPattern[i][4].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][4].id, gridPattern[i][4].url)
@@ -221,8 +221,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][0] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][0].url)
+                    breeds.find((b) => b.url === gridPattern[i][0].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][0].id, gridPattern[i][0].url)
@@ -244,8 +244,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][1] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][1].url)
+                    breeds.find((b) => b.url === gridPattern[i][1].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][1].id, gridPattern[i][1].url)
@@ -267,8 +267,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][2] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][2].url)
+                    breeds.find((b) => b.url === gridPattern[i][2].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][2].id, gridPattern[i][2].url)
@@ -290,8 +290,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][3] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][3].url)
+                    breeds.find((b) => b.url === gridPattern[i][3].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][3].id, gridPattern[i][3].url)
@@ -313,8 +313,8 @@ export default function Grid({
               {type === "Gallery" && gridPattern[i][4] && (
                 <SmallFavouriteButton
                   isFavourite={
-                    undefined !==
-                    breeds.find((b) => b.url === gridPattern[i][4].url)
+                    breeds.find((b) => b.url === gridPattern[i][4].url) !==
+                    undefined
                   }
                   onClick={() =>
                     handleClick(gridPattern[i][4].id, gridPattern[i][4].url)

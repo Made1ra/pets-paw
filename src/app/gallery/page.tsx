@@ -232,7 +232,7 @@ export default function Gallery() {
                 <PetImage key={breed.id} url={breed.url}>
                   <SmallFavouriteButton
                     isFavourite={
-                      undefined !== breeds.find((b) => b.url === breed.url)
+                      breeds.find((b) => b.url === breed.url) !== undefined
                     }
                     onClick={() => handleClick(breed.id, breed.url)}
                   />
